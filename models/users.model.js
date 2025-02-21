@@ -10,7 +10,7 @@ const { hash, compare } = require("bcryptjs");
 
 const { getSuitableTranslations } = require("../global/functions");
 
-async function createNewUser(email, password, language) {
+async function createNewUser(name, email, password, language) {
     try {
         const user = await userModel.findOne({ email });
         if (user) {
@@ -21,6 +21,7 @@ async function createNewUser(email, password, language) {
             }
         }
         await (new userModel({
+            name,
             email,
             password: await hash(password, 10),
             language
@@ -69,7 +70,7 @@ async function login(email, password, language) {
 }
 
 async function loginByGoogle(userInfo, language) {
-    try{
+    try {
         const user = await userModel.findOne({ email: userInfo.email, provider: "google" });
         if (user) {
             return {
@@ -101,7 +102,7 @@ async function loginByGoogle(userInfo, language) {
             },
         }
     }
-    catch(err){
+    catch (err) {
         throw Error(err);
     }
 }
@@ -293,13 +294,13 @@ async function updateUserInfo(userId, newUserData, language) {
 }
 
 async function updateVerificationStatus(email, language) {
-    try{
+    try {
         const userInfo = await userModel.findOneAndUpdate({ email }, { isVerified: true });
-        if(userInfo) {
+        if (userInfo) {
             await accountVerificationCodesModel.deleteOne({ email, typeOfUse: "to activate account" });
             return {
                 msg: getSuitableTranslations("Updating Verification Status Process Has Been Successfully !!", language),
-                error: false ,
+                error: false,
                 data: {
                     _id: userInfo._id,
                     isVerified: userInfo.isVerified,
@@ -312,7 +313,7 @@ async function updateVerificationStatus(email, language) {
             data: {},
         };
     }
-    catch(err) {
+    catch (err) {
         throw Error(err);
     }
 }
@@ -356,8 +357,8 @@ async function resetUserPassword(email, userType, newPassword, language) {
     }
 }
 
-async function deleteUser(authorizationId, userId, language){
-    try{
+async function deleteUser(authorizationId, userId, language) {
+    try {
         const admin = await adminModel.findById(authorizationId);
         if (admin) {
             if (admin.isWebsiteOwner) {
@@ -389,7 +390,7 @@ async function deleteUser(authorizationId, userId, language){
             data: {},
         }
     }
-    catch(err){
+    catch (err) {
         throw Error(err);
     }
 }

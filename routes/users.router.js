@@ -4,9 +4,7 @@ const usersController = require("../controllers/users.controller");
 
 const { validateIsExistValueForFieldsAndDataTypes } = require("../global/functions");
 
-const { validateJWT, validateEmail, validatePassword, validateUserType, validateLanguage, validateTypeOfUseForCode } = require("../middlewares/global.middlewares");
-
-const usersMiddlewares = require("../middlewares/users.midddlewares");
+const { validateJWT, validateEmail, validatePassword, validateUserType, validateLanguage, validateTypeOfUseForCode, validateName } = require("../middlewares/global.middlewares");
 
 usersRouter.get("/login",
     (req, res, next) => {
@@ -23,12 +21,10 @@ usersRouter.get("/login",
 
 usersRouter.get("/login-with-google",
     (req, res, next) => {
-        const { email, firstName, lastName, previewName } = req.query;
+        const { email, name } = req.query;
         validateIsExistValueForFieldsAndDataTypes([
             { fieldName: "Email", fieldValue: email, dataType: "string", isRequiredValue: true },
-            { fieldName: "First Name", fieldValue: firstName, dataType: "string", isRequiredValue: true },
-            { fieldName: "Last Name", fieldValue: lastName, dataType: "string", isRequiredValue: true },
-            { fieldName: "Preview Name", fieldValue: previewName, dataType: "string", isRequiredValue: true },
+            { fieldName: "Name", fieldValue: name, dataType: "string", isRequiredValue: true },
         ], res, next);
     },
     usersController.loginWithGoogle
@@ -68,13 +64,15 @@ usersRouter.get("/forget-password",
 
 usersRouter.post("/create-new-user",
     (req, res, next) => {
-        const { email, password, language } = req.body;
+        const { name, email, password, language } = req.body;
         validateIsExistValueForFieldsAndDataTypes([
+            { fieldName: "Name", fieldValue: name, dataType: "string", isRequiredValue: true },
             { fieldName: "Email", fieldValue: email, dataType: "string", isRequiredValue: true },
             { fieldName: "Password", fieldValue: password, dataType: "string", isRequiredValue: true },
             { fieldName: "Language", fieldValue: language, dataType: "string", isRequiredValue: true },
         ], res, next);
     },
+    (req, res, next) => validateName(req.body.name, res, next),
     (req, res, next) => validateEmail(req.body.email, res, next),
     (req, res, next) => validatePassword(req.body.password, res, next),
     (req, res, next) => validateLanguage(req.body.language, res, next),
@@ -82,7 +80,6 @@ usersRouter.post("/create-new-user",
 );
 
 usersRouter.post("/send-account-verification-code",
-    // usersMiddlewares.sendingVerificationCodeLimiterMiddleware,
     (req, res, next) => {
         const { email, typeOfUse, userType } = req.query;
         validateIsExistValueForFieldsAndDataTypes([
