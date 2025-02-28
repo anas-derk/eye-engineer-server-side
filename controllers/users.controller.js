@@ -48,8 +48,8 @@ async function login(req, res) {
 
 async function loginWithGoogle(req, res) {
     try {
-        const { email, firstName, lastName, previewName, language } = req.query;
-        const result = await usersOPerationsManagmentFunctions.loginByGoogle({ email, firstName, lastName, previewName }, language);
+        const { email, name, language } = req.query;
+        const result = await usersOPerationsManagmentFunctions.loginByGoogle({ email, name }, language);
         res.json({
             msg: result.msg,
             error: result.error,
