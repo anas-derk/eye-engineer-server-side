@@ -85,9 +85,7 @@ async function loginByGoogle(userInfo, language) {
         }
         const { _id, isVerified } = (new userModel({
             email: userInfo.email,
-            firstName: userInfo.first_name,
-            lastName: userInfo.last_name,
-            previewName: userInfo.preview_name,
+            name: userInfo.name,
             password: await hash(process.env.secretKey, 10),
             isVerified: true,
             provider: "google",
