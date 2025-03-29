@@ -6,6 +6,8 @@ const { validateIsExistValueForFieldsAndDataTypes } = require("../global/functio
 
 const { validateJWT, validateEmail, validatePassword, validateUserType, validateLanguage, validateTypeOfUseForCode, validateName, validateIsExistErrorInFiles } = require("../middlewares/global.middlewares");
 
+const multer = require("multer");
+
 usersRouter.get("/login",
     (req, res, next) => {
         const { email, password } = req.query;
