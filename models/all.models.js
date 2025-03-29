@@ -118,6 +118,10 @@ const userSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
+    imagePath: {
+        type: String,
+        default: ""
+    }
 });
 
 // Create User Model From User Schema
