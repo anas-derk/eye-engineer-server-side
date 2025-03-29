@@ -1,4 +1,4 @@
-const { getResponseObject, sendVerificationCodeToUserEmail, sendCongratulationsOnCreatingNewAccountEmail, sendChangePasswordEmail, getSuitableTranslations } = require("../global/functions");
+const { getResponseObject, sendVerificationCodeToUserEmail, sendCongratulationsOnCreatingNewAccountEmail, sendChangePasswordEmail, getSuitableTranslations, handleResizeImagesAndConvertFormatToWebp } = require("../global/functions");
 
 const usersOPerationsManagmentFunctions = require("../models/users.model");
 
@@ -9,6 +9,8 @@ const {
     addNewAccountVerificationCode,
     isAccountVerificationCodeValid
 } = require("../models/account_codes.model");
+
+const { unlinkSync } = require("fs");
 
 function getFiltersObject(filters) {
     let filtersObject = {};
@@ -222,6 +224,35 @@ async function putResetPassword(req, res) {
     }
 }
 
+async function putUserImage(req, res) {
+    try {
+        const outputImageFilePath = `assets/images/users/${Math.random()}_${Date.now()}__${req.file.originalname.replaceAll(" ", "_").replace(/\.[^/.]+$/, ".webp")}`;
+        await handleResizeImagesAndConvertFormatToWebp([req.file.buffer], [outputImageFilePath]);
+        const result = await usersOPerationsManagmentFunctions.changeUserImage(req.data._id, outputImageFilePath, req.query.language);
+        if (!result.error) {
+            const oldUserImagePath = result.data.deletedUserImagePath;
+            if (oldUserImagePath) {
+                unlinkSync(oldUserImagePath);
+            }
+            res.json({
+                ...result,
+                data: {
+                    newImagePath: outputImageFilePath,
+                }
+            });
+        } else {
+            unlinkSync(outputImageFilePath);
+            if (result.msg === "Sorry, This User Is Not Exist !!") {
+                return res.status(401).json(result);
+            }
+            return res.json(result);
+        }
+    }
+    catch (err) {
+        res.status(500).json(getResponseObject(getSuitableTranslations("Internal Server Error !!", req.query.language), true, {}));
+    }
+}
+
 async function deleteUser(req, res) {
     try {
         const result = await usersOPerationsManagmentFunctions.deleteUser(req.data._id, req.params.userId, req.query.language);
@@ -250,5 +281,6 @@ module.exports = {
     putUserInfo,
     putVerificationStatus,
     putResetPassword,
+    putUserImage,
     deleteUser
 }
