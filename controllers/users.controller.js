@@ -231,7 +231,7 @@ async function putUserImage(req, res) {
         const result = await usersOPerationsManagmentFunctions.changeUserImage(req.data._id, outputImageFilePath, req.query.language);
         if (!result.error) {
             const oldUserImagePath = result.data.deletedUserImagePath;
-            if (oldUserImagePath) {
+            if (oldUserImagePath && oldUserImagePath !== "assets/images/defaultProfileImage.png") {
                 unlinkSync(oldUserImagePath);
             }
             res.json({
