@@ -1,4 +1,5 @@
 .env
 assets/images/brands
 assets/images/ads
+assets/images/users
 node_modules
