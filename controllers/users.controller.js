@@ -141,7 +141,12 @@ async function createNewUser(req, res) {
         if (result.error) {
             return res.json(result);
         }
-        await sendCongratulationsOnCreatingNewAccountEmail(email, language);
+        try {
+            await sendCongratulationsOnCreatingNewAccountEmail(email, language);
+        }
+        catch (err) {
+            consolel.log(err);
+        }
         res.json(result);
     }
     catch (err) {

@@ -83,7 +83,7 @@ async function loginByGoogle(userInfo, language) {
                 },
             };
         }
-        const { _id, isVerified } = (new userModel({
+        const { _id, isVerified } = await (new userModel({
             email: userInfo.email,
             name: userInfo.name,
             password: await hash(process.env.secretKey, 10),
