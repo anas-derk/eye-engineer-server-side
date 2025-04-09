@@ -120,7 +120,7 @@ const userSchema = new mongoose.Schema({
     },
     imagePath: {
         type: String,
-        default: ""
+        default: "assets/images/defaultProfileImage.png"
     }
 });
 
