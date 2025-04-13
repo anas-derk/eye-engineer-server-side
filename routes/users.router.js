@@ -4,7 +4,7 @@ const usersController = require("../controllers/users.controller");
 
 const { validateIsExistValueForFieldsAndDataTypes } = require("../global/functions");
 
-const { validateJWT, validateEmail, validatePassword, validateUserType, validateLanguage, validateTypeOfUseForCode, validateName, validateIsExistErrorInFiles } = require("../middlewares/global.middlewares");
+const { validateJWT, validateEmail, validatePassword, validateUserType, validateLanguage, validateTypeOfUseForCode, validateName, validateIsExistErrorInFiles, validateNumbersIsGreaterThanZero, validateNumbersIsNotFloat } = require("../middlewares/global.middlewares");
 
 const multer = require("multer");
 
@@ -48,6 +48,8 @@ usersRouter.get("/all-users-inside-the-page",
             { fieldName: "page Size", fieldValue: Number(pageSize), dataType: "number", isRequiredValue: true },
         ], res, next);
     },
+    (req, res, next) => validateNumbersIsGreaterThanZero([req.query.pageNumber, req.query.pageSize], res, next, ["Sorry, Please Send Valid Page Number ( Number Must Be Greater Than Zero ) !!", "Sorry, Please Send Valid Page Size ( Number Must Be Greater Than Zero ) !!"]),
+    (req, res, next) => validateNumbersIsNotFloat([req.query.pageNumber, req.query.pageSize], res, next, ["Sorry, Please Send Valid Page Number ( Number Must Be Not Float ) !!", "Sorry, Please Send Valid Page Size ( Number Must Be Not Float ) !!"]),
     usersController.getAllUsersInsideThePage
 );
 

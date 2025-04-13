@@ -181,9 +181,9 @@ async function getUsersCount(authorizationId, filters, language) {
 
 async function getAllUsersInsideThePage(authorizationId, pageNumber, pageSize, filters, language) {
     try {
-        const admin = await adminModel.findById(authorizationId);
-        if (admin) {
-            if (admin.isWebsiteOwner) {
+        const user = await userModel.findById(authorizationId);
+        if (user) {
+            if (user.isWebsiteOwner) {
                 return {
                     msg: getSuitableTranslations("Get All Users Inside The Page: {{pageNumber}} Process Has Been Successfully !!", language, { pageNumber }),
                     error: false,
