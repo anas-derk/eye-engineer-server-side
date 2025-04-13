@@ -182,12 +182,21 @@ usersRouter.put("/change-user-image",
     usersController.putUserImage
 );
 
-usersRouter.delete("/:userId",
+usersRouter.delete("/delete-user",
     validateJWT,
     (req, res, next) => {
+        const { userType, userId } = req.query;
         validateIsExistValueForFieldsAndDataTypes([
-            { fieldName: "User Id", fieldValue: req.params.userId, dataType: "ObjectId", isRequiredValue: false },
+            { fieldName: "User Type", fieldValue: userType, dataTypes: ["string"], isRequiredValue: false },
+            { fieldName: "User Id", fieldValue: userId, dataTypes: ["ObjectId"], isRequiredValue: userType === "admin" },
         ], res, next);
+    },
+    (req, res, next) => {
+        const { userType } = req.query;
+        if (userType) {
+            return validateUserType(userType, res, next);
+        }
+        next();
     },
     usersController.deleteUser
 );
