@@ -259,26 +259,6 @@ async function putUserImage(req, res) {
 
 async function deleteUser(req, res) {
     try {
-        const result = await usersOPerationsManagmentFunctions.deleteUser(req.data._id, req.params.userId, req.query.language);
-        if (result.error) {
-            if (result.msg !== "Sorry, This User Is Not Found !!") {
-                return res.status(401).json(result);
-            }
-            const deletedUserImagePath = result.data.deletedUserImagePath;
-            if (deletedUserImagePath && deletedUserImagePath !== "assets/images/defaultProfileImage.png") {
-                unlinkSync(deletedUserImagePath);
-            }
-            return res.json(result);
-        }
-        res.json(result);
-    }
-    catch (err) {
-        res.status(500).json(getResponseObject(getSuitableTranslations("Internal Server Error !!", req.query.language), true, {}));
-    }
-}
-
-async function deleteUser(req, res) {
-    try {
         const { userType, userId } = req.query;
         const result = await usersOPerationsManagmentFunctions.deleteUser(req.data._id, userType, userId, req.query.language);
         if (result.error) {
