@@ -381,7 +381,7 @@ async function changeUserImage(authorizationId, newUserImagePath, language) {
 
 async function deleteUser(authorizationId, userType = "user", userId, language) {
     try {
-        const user = userType === "user" ? await userModel.findByIdAndDelete(authorizationId) : await userModel.findOne(authorizationId);
+        const user = userType === "user" ? await userModel.findByIdAndDelete(authorizationId) : await userModel.findById(authorizationId);
         if (user) {
             if (userType === "user") {
                 return {
