@@ -381,10 +381,9 @@ async function changeUserImage(authorizationId, newUserImagePath, language) {
 
 async function deleteUser(authorizationId, userType = "user", userId, language) {
     try {
-        const user = await userModel.findOneAndDelete(authorizationId);
+        const user = userType === "user" ? await userModel.findByIdAndDelete(authorizationId) : await userModel.findOne(authorizationId);
         if (user) {
             if (userType === "user") {
-                await userModel.deleteOne({ _id: authorizationId });
                 return {
                     msg: getSuitableTranslations("Deleting User Process Has Been Successfully !!", language),
                     error: false,
