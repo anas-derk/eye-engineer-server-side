@@ -381,17 +381,17 @@ async function changeUserImage(authorizationId, newUserImagePath, language) {
 
 async function deleteUser(authorizationId, userId, language) {
     try {
-        const admin = await adminModel.findById(authorizationId);
+        const admin = await userModel.findById(authorizationId);
         if (admin) {
             if (admin.isWebsiteOwner) {
                 const user = await userModel.findOneAndDelete({ _id: userId });
                 if (user) {
-                    await productsWalletModel.deleteMany({ userId });
-                    await favoriteProductModel.deleteMany({ userId });
                     return {
                         msg: getSuitableTranslations("Deleting User Process Has Been Successfully !!", language),
                         error: false,
-                        data: {},
+                        data: {
+                            deletedUserImagePath: user.imagePath
+                        },
                     }
                 }
                 return {

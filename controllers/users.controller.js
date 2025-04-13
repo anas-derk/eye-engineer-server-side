@@ -264,6 +264,10 @@ async function deleteUser(req, res) {
             if (result.msg !== "Sorry, This User Is Not Found !!") {
                 return res.status(401).json(result);
             }
+            const deletedUserImagePath = result.data.deletedUserImagePath;
+            if (deletedUserImagePath && deletedUserImagePath !== "assets/images/defaultProfileImage.png") {
+                unlinkSync(deletedUserImagePath);
+            }
             return res.json(result);
         }
         res.json(result);
