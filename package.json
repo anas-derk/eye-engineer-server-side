@@ -1,9 +1,9 @@
 {
   "name": "eye-engineer-server-side",
   "version": "1.0.0",
-  "author": "Anas Derk",
+  "author": "Anas Adnan Derk",
   "license": "ISC",
-  "description": "Multi-vendor Store Backend API Using Node.js & Expressjs & Mongo Database",
+  "description": "A Backend API For A Platform Specialized In Providing Remote Engineering Consultation Services. Built With Node.js, Express.js, And MongoDB",
   "private": true,
   "main": "index.js",
   "repository": {
