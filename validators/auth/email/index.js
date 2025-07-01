@@ -1,7 +1,7 @@
-function isEmail(email) {
-    return email.match(/[^\s@]+@[^\s@]+\.[^\s@]+/);
+function isValidEmail(email) {
+    return /[^\s@]+@[^\s@]+\.[^\s@]+/.test(email);
 }
 
 module.exports = {
-    isEmail
+    isValidEmail
 }

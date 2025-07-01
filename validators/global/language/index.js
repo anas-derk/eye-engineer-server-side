@@ -1,5 +1,7 @@
+const { LANGUAGES } = require("../../../constants/languages");
+
 function isValidLanguage(language) {
-    return ["ar", "en", "de", "tr"].includes(language);
+    return LANGUAGES.includes(language);
 }
 
 module.exports = {

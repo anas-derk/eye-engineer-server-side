@@ -1,5 +1,5 @@
 function isValidPassword(password) {
-    return password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/);
+    return /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/.test(password);
 }
 
 module.exports = {

@@ -19,6 +19,8 @@ const { imagesHelpers } = processingHelpers;
 
 const { handleResizeImagesAndConvertFormatToWebp } = imagesHelpers;
 
+const { ACCESS_TOKEN_EXPIRE } = require("../../constants/tokens");
+
 const usersOPerationsManagmentFunctions = require("../../respositories/users");
 
 const { sign } = require("jsonwebtoken");
@@ -52,8 +54,8 @@ async function login(req, res) {
                 error: result.error,
                 data: {
                     ...result.data,
-                    token: sign(result.data, process.env.secretKey, {
-                        expiresIn: "7d",
+                    token: sign(result.data, process.env.SECRET_KEY, {
+                        expiresIn: ACCESS_TOKEN_EXPIRE,
                     }),
                 },
             });
@@ -75,8 +77,8 @@ async function loginWithGoogle(req, res) {
             error: result.error,
             data: {
                 ...result.data,
-                token: sign(result.data, process.env.secretKey, {
-                    expiresIn: "7d",
+                token: sign(result.data, process.env.SECRET_KEY, {
+                    expiresIn: ACCESS_TOKEN_EXPIRE,
                 }),
             },
         });
@@ -214,8 +216,8 @@ async function putVerificationStatus(req, res) {
                     error: result.error,
                     data: {
                         ...result.data,
-                        token: sign(result.data, process.env.secretKey, {
-                            expiresIn: "7d",
+                        token: sign(result.data, process.env.SECRET_KEY, {
+                            expiresIn: ACCESS_TOKEN_EXPIRE,
                         }),
                     },
                 });
@@ -242,7 +244,6 @@ async function putResetPassword(req, res) {
         res.json(result);
     }
     catch (err) {
-        console.log(err);
         res.status(500).json(getResponseObject(getSuitableTranslations("Internal Server Error !!", req.query.language), true, {}));
     }
 }

@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 require("dotenv").config({
-    path: "../.env",
+    path: "../../../.env",
 });
 
 // Create Global Password Schema
@@ -24,7 +24,7 @@ const bussinessInfo = {
     password: process.env.BUSSINESS_EMAIL_PASSWORD,
 };
 
-async function create_initial_global_password() {
+async function create_initial_global_passwords() {
     try {
         await mongoose.connect(process.env.DB_URL);
         let user = await globalPasswordModel.findOne({ email: bussinessInfo.email });
@@ -40,10 +40,10 @@ async function create_initial_global_password() {
             await mongoose.disconnect();
             return "Ok !!, Create Initial Global Password Has Been Successfuly !!";
         }
-    } catch(err) {
+    } catch (err) {
         await mongoose.disconnect();
         throw Error(err);
     }
 }
 
-create_initial_global_password().then((result) => console.log(result));
+create_initial_global_passwords().then((result) => console.log(result));

@@ -2,11 +2,13 @@ const { getResponseObject } = require("../../helpers/responses");
 
 const { verify } = require("jsonwebtoken");
 
-const { emailValidator, passwordValidator } = require("../../validators/auth");
+const { emailValidator, passwordValidator, codeValidator } = require("../../validators/auth");
+
+const { TYPES_OF_USE_VERIFICATION_CODE } = require("../../constants/verification_code");
 
 function validateJWT(req, res, next) {
     const token = req.headers.authorization;
-    verify(token, process.env.secretKey, async (err, decode) => {
+    verify(token, process.env.SECRET_KEY, async (err, decode) => {
         if (err) {
             res.status(401).json(getResponseObject("Unauthorized Error", true, {}));
             return;
@@ -17,7 +19,7 @@ function validateJWT(req, res, next) {
 }
 
 function validateEmail(email, res, nextFunc, errorMsg = "Sorry, Please Send Valid Email !!") {
-    if (!emailValidator.isEmail(email)) {
+    if (!emailValidator.isValidEmail(email)) {
         res.status(400).json(getResponseObject(errorMsg, true, {}));
         return;
     }
@@ -33,7 +35,7 @@ function validatePassword(password, res, nextFunc, errorMsg = "Sorry, Please Sen
 }
 
 function validateCode(code, res, nextFunc, errorMsg = "Please Send Valid Code !!") {
-    if (code.length !== 4) {
+    if (!codeValidator.isValidCode(code)) {
         res.status(400).json(getResponseObject(errorMsg, true, {}));
         return;
     }
@@ -41,7 +43,7 @@ function validateCode(code, res, nextFunc, errorMsg = "Please Send Valid Code !!
 }
 
 function validateTypeOfUseForCode(typeOfUse, res, nextFunc) {
-    if (!["to activate account", "to reset password"].includes(typeOfUse)) {
+    if (!TYPES_OF_USE_VERIFICATION_CODE.includes(typeOfUse)) {
         res.status(400).json(getResponseObject(errorMsg, true, {}));
         return;
     }
