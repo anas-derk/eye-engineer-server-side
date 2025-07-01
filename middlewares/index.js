@@ -1,23 +1,19 @@
-const { Router, static } = require("express");
+const authMiddlewares = require("./auth");
+const commonMiddlewares = require("./common");
+const countriesMiddlewares = require("./countries");
+const filesMiddlewares = require("./files");
+const globalMiddlewares = require("./global");
+const numbersMiddlewares = require("./numbers");
+const sortMiddlewares = require("./sort");
+const usersMiddlewares = require("./users");
 
-const { json } = require("body-parser");
-
-const cors = require("cors");
-
-const { validateLanguage } = require("./global");
-
-const path = require("path");
-
-// ==================================================================
-
-const app = Router();
-
-app.use(cors());
-
-app.use(json({ limit: "999999999kb" }));
-
-app.use((req, res, next) => validateLanguage(req.query.language, res, next));
-
-app.use("/assets", static(path.join(__dirname, "..", "assets")));
-
-module.exports = app;
+module.exports = {
+    authMiddlewares,
+    commonMiddlewares,
+    countriesMiddlewares,
+    filesMiddlewares,
+    globalMiddlewares,
+    numbersMiddlewares,
+    sortMiddlewares,
+    usersMiddlewares
+}

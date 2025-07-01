@@ -8,7 +8,7 @@ const { hash, compare } = require("bcryptjs");
 
 // Define Create New User Function
 
-const { getSuitableTranslations } = require("../../global/functions");
+const { getSuitableTranslations } = require("../../helpers/translation");
 
 async function createNewUser(name, email, password, language) {
     try {

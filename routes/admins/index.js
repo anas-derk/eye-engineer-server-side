@@ -1,10 +1,29 @@
 const adminsRouter = require("express").Router();
 
-const { adminsController } = require("../../controllers");
+const adminsController = require("../../controllers/admins");
 
-const { validateIsExistValueForFieldsAndDataTypes } = require("../../global/functions");
+const { validateIsExistValueForFieldsAndDataTypes } = require("../../helpers/validate");
 
-const { validateJWT, validateEmail, validatePassword, validateNumbersIsGreaterThanZero, validateNumbersIsNotFloat, validateName } = require("../../middlewares/global");
+const {
+    authMiddlewares,
+    numbersMiddlewares,
+    commonMiddlewares,
+} = require("../../middlewares");
+
+const {
+    validateJWT,
+    validateEmail,
+    validatePassword,
+} = authMiddlewares;
+
+const {
+    validateNumbersIsGreaterThanZero,
+    validateNumbersIsNotFloat,
+} = numbersMiddlewares;
+
+const {
+    validateName
+} = commonMiddlewares;
 
 adminsRouter.get("/login",
     (req, res, next) => {

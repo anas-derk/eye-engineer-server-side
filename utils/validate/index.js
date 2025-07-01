@@ -1,4 +1,4 @@
-const { responsesHelpers } = require("../../helpers");
+const { getResponseObject } = require("../../helpers/responses");
 
 const { Types } = require("mongoose");
 
@@ -12,21 +12,21 @@ function checkIsExistValueForFieldsAndDataTypes(fieldNamesAndValuesAndDataTypes)
             if (fieldnameAndValueAndDataType.dataTypes.includes("array")) {
                 if (Array.isArray(fieldnameAndValueAndDataType.fieldValue)) {
                     if (fieldnameAndValueAndDataType.fieldValue.length === 0) {
-                        return responsesHelpers.getResponseObject(
+                        return getResponseObject(
                             `Invalid Request, Please Send ${fieldnameAndValueAndDataType.fieldName} Value !!`,
                             true,
                             {}
                         );
                     }
                 }
-                else return responsesHelpers.getResponseObject(
+                else return getResponseObject(
                     `Invalid Request, Please Fix Type Of ${fieldnameAndValueAndDataType.fieldName} ( Required: ${getDataTypesAsText(fieldnameAndValueAndDataType.dataTypes)} ) !!`,
                     true,
                     {}
                 );
             }
             if (!fieldnameAndValueAndDataType.fieldValue) {
-                return responsesHelpers.getResponseObject(
+                return getResponseObject(
                     `Invalid Request, Please Send ${fieldnameAndValueAndDataType.fieldName} Value !!`,
                     true,
                     {}
@@ -53,7 +53,7 @@ function checkIsExistValueForFieldsAndDataTypes(fieldNamesAndValuesAndDataTypes)
                 }
             }
             if (!isExistTruthDataType) {
-                return responsesHelpers.getResponseObject(
+                return getResponseObject(
                     `Invalid Request, Please Fix Type Of ${fieldnameAndValueAndDataType.fieldName} ( Required: ${getDataTypesAsText(fieldnameAndValueAndDataType.dataTypes)} ) !!`,
                     true,
                     {}
@@ -61,7 +61,7 @@ function checkIsExistValueForFieldsAndDataTypes(fieldNamesAndValuesAndDataTypes)
             }
         }
     }
-    return responsesHelpers.getResponseObject("Success In Check Is Exist Value For Fields And Data Types !!", false, {});
+    return getResponseObject("Success In Check Is Exist Value For Fields And Data Types !!", false, {});
 }
 
 module.exports = {

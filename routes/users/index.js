@@ -1,10 +1,46 @@
 const usersRouter = require("express").Router();
 
-const { usersController } = require("../../controllers");
+const usersController = require("../../controllers/users");
 
-const { validateIsExistValueForFieldsAndDataTypes } = require("../../global/functions");
+const { validateIsExistValueForFieldsAndDataTypes } = require("../../helpers/validate");
 
-const { validateJWT, validateEmail, validatePassword, validateUserType, validateLanguage, validateTypeOfUseForCode, validateName, validateIsExistErrorInFiles, validateNumbersIsGreaterThanZero, validateNumbersIsNotFloat } = require("../../middlewares/global");
+const {
+    authMiddlewares,
+    numbersMiddlewares,
+    commonMiddlewares,
+    filesMiddlewares,
+    usersMiddlewares,
+    globalMiddlewares,
+} = require("../../middlewares");
+
+const {
+    validateJWT,
+    validateEmail,
+    validatePassword,
+    validateCode,
+    validateTypeOfUseForCode,
+} = authMiddlewares;
+
+const {
+    validateNumbersIsGreaterThanZero,
+    validateNumbersIsNotFloat,
+} = numbersMiddlewares;
+
+const {
+    validateName
+} = commonMiddlewares;
+
+const {
+    validateIsExistErrorInFiles
+} = filesMiddlewares;
+
+const {
+    validateUserType
+} = usersMiddlewares;
+
+const {
+    validateLanguage,
+} = globalMiddlewares;
 
 const multer = require("multer");
 
@@ -154,6 +190,7 @@ usersRouter.put("/reset-password",
     },
     (req, res, next) => validateEmail(req.query.email, res, next),
     (req, res, next) => validateUserType(req.query.userType, res, next),
+    (req, res, next) => validateCode(req.query.code, res, next),
     (req, res, next) => validatePassword(req.query.newPassword, res, next),
     usersController.putResetPassword
 );

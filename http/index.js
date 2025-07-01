@@ -1,5 +1,5 @@
 const routes = require("../routes");
-const middlewares = require("../middlewares");
+const middlewares = require("../middlewares/core");
 const express = require("express");
 const app = express();
 

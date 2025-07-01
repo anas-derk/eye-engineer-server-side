@@ -1,10 +1,10 @@
 const globalPasswordRouter = require("express").Router();
 
-const { globalPasswordsController } = require("../../controllers");
+const globalPasswordsController = require("../../controllers/global_passwords");
 
-const { validateIsExistValueForFieldsAndDataTypes } = require("../../global/functions");
+const { validateIsExistValueForFieldsAndDataTypes } = require("../../helpers/validate");
 
-const { validateJWT, validateEmail, validatePassword } = require("../../middlewares/global");
+const { validateJWT, validateEmail, validatePassword } = require("../../middlewares/auth");
 
 globalPasswordRouter.put("/change-bussiness-email-password",
     validateJWT,

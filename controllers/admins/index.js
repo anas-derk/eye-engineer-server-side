@@ -1,6 +1,10 @@
-const { getResponseObject, getSuitableTranslations } = require("../../global/functions");
+const { responsesHelpers, translationHelpers } = require("../../helpers");
 
-const { adminsRepositories: adminsOPerationsManagmentFunctions } = require("../../respositories");
+const { getResponseObject } = responsesHelpers;
+
+const { getSuitableTranslations } = translationHelpers;
+
+const adminsOPerationsManagmentFunctions = require("../../respositories/admins");
 
 const { sign } = require("jsonwebtoken");
 
