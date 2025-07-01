@@ -1,13 +1,19 @@
 {
-  "name": "server-side",
+  "name": "eye-engineer-server-side",
   "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "anas derk",
+  "author": "Anas Derk",
   "license": "ISC",
+  "description": "Multi-vendor Store Backend API Using Node.js & Expressjs & Mongo Database",
+  "private": true,
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/anas-derk/eye-engineer-server-side.git"
+  },
+  "scripts": {
+    "start": "node index",
+    "dev": "nodemon"
+  },
   "dependencies": {
     "axios": "^1.7.9",
     "bcryptjs": "^2.4.3",
@@ -25,5 +31,29 @@
     "node-code-generator": "^1.0.3",
     "nodemailer": "^6.10.0",
     "sharp": "^0.33.5"
+  },
+  "engines": {
+    "node": ">=20.11.0",
+    "npm": ">=10.2.4"
+  },
+  "nodemonConfig": {
+    "watch": [
+      "*.*",
+      ".env",
+      "*"
+    ],
+    "ignore": [
+      "node_modules"
+    ],
+    "ext": "*",
+    "verbose": true,
+    "env": {
+      "NODE_ENV": "development",
+      "PORT": "3030"
+    },
+    "restartable": "rs"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
   }
 }
