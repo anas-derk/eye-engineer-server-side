@@ -44,7 +44,7 @@ authRouter.post("/create-new-user",
     (req, res, next) => validateEmail(req.body.email, res, next),
     (req, res, next) => validatePassword(req.body.password, res, next),
     (req, res, next) => validateLanguage(req.body.language, res, next),
-    authController.createNewUser
+    authController.postCreateNewUser
 );
 
 authRouter.post("/send-verification-code",
@@ -72,7 +72,7 @@ authRouter.post("/login",
     },
     (req, res, next) => validateEmail(req.body.email, res, next),
     (req, res, next) => validatePassword(req.body.password, res, next),
-    authController.login
+    authController.postLogin
 );
 
 authRouter.post("/login-with-google",
@@ -85,7 +85,7 @@ authRouter.post("/login-with-google",
     },
     (req, res, next) => validateEmail(req.body.email, res, next),
     (req, res, next) => validateName(req.body.name, res, next),
-    authController.loginWithGoogle
+    authController.postLoginWithGoogle
 );
 
 authRouter.post("/forget-password",

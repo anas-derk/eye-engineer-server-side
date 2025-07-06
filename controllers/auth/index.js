@@ -26,7 +26,7 @@ const {
     isAccountVerificationCodeValid
 } = require("../../respositories/verification_codes");
 
-async function login(req, res) {
+async function postLogin(req, res) {
     try {
         const { email, password } = req.body;
         const result = await authOPerationsManagmentFunctions.login(email.toLowerCase(), password, req.query.language);
@@ -50,10 +50,10 @@ async function login(req, res) {
     }
 }
 
-async function loginWithGoogle(req, res) {
+async function postLoginWithGoogle(req, res) {
     try {
-        const { email, name, language } = req.body;
-        const result = await authOPerationsManagmentFunctions.loginByGoogle({ email, name }, language);
+        const { email, name } = req.body;
+        const result = await authOPerationsManagmentFunctions.loginByGoogle({ email, name }, req.query.language);
         res.json({
             msg: result.msg,
             error: result.error,
@@ -100,10 +100,10 @@ async function postForgetPassword(req, res) {
     }
 }
 
-async function createNewUser(req, res) {
+async function postCreateNewUser(req, res) {
     try {
         const { name, email, password, language } = req.body;
-        const result = await authOPerationsManagmentFunctions.createNewUser(name, email.toLowerCase(), password, language);
+        const result = await authOPerationsManagmentFunctions.postCreateNewUser(name, email.toLowerCase(), password, language);
         if (result.error) {
             return res.json(result);
         }
@@ -187,10 +187,10 @@ async function putResetPassword(req, res) {
 }
 
 module.exports = {
-    createNewUser,
+    postCreateNewUser,
     postAccountVerificationCode,
-    login,
-    loginWithGoogle,
+    postLogin,
+    postLoginWithGoogle,
     postForgetPassword,
     putVerificationStatus,
     putResetPassword,
