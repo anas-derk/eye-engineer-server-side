@@ -1,0 +1,7 @@
+{
+    "Sending Code To Your Email Process Has Been Succssfuly !!": "E-postanıza kod gönderme işlemi başarıyla tamamlandı !!",
+    "This Code For This Email Is Valid !!": "Bu kod bu e-posta için geçerlidir !!",
+    "This Code For This Email Is Not Valid !!": "Bu kod bu e-posta için geçerli değildir !!",
+    "Sorry, This Email Has Been Blocked From Receiving Code Messages For 24 Hours Due To Exceeding The Maximum Number Of Resend Attempts !!": "Üzgünüz, bu e-posta yeniden gönderme denemeleri sınırını aştığı için 24 saat boyunca kod mesajı almaya engellendi !!",
+    "Sorry, There Is No Code For This Email !!": "Üzgünüz, bu e-posta için kod yok !!"
+}

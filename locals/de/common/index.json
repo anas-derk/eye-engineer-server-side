@@ -1,0 +1,9 @@
+{
+    "Sorry, This User Is Not Found !!": "Entschuldigung, dieser Benutzer wurde nicht gefunden !!",
+    "Sorry, This Admin Is Not Exist !!": "Entschuldigung, dieser Administrator existiert nicht !!",
+    "Sorry, This Admin Has Been Blocked !!": "Entschuldigung, dieser Administrator wurde gesperrt !!",
+    "Sorry, Permission Denied Because This Admin Is Not Website Owner !!": "Entschuldigung, Zugriff verweigert, da dieser Administrator nicht der Website-Inhaber ist !!",
+    "Sorry, Permission Denied Because This Admin Is Not Office Owner !!": "Entschuldigung, Zugriff verweigert, da dieser Administrator nicht der Büroinhaber ist !!",
+    "Unauthorized Error !!": "Fehler: Nicht autorisiert !!",
+    "Sorry, Email Or Password Incorrect !!": "Entschuldigung, E-Mail oder Passwort ist falsch !!"
+}

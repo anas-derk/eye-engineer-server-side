@@ -81,7 +81,7 @@ async function getAdminsCount(merchantId, filters, language) {
                     }
                 }
                 return {
-                    msg: getSuitableTranslations("Sorry, This Merchant Has Been Blocked !!", language),
+                    msg: getSuitableTranslations("Sorry, This Admins Has Been Blocked !!", language),
                     error: true,
                     data: {
                         blockingDate: admin.blockingDate,
@@ -90,13 +90,13 @@ async function getAdminsCount(merchantId, filters, language) {
                 }
             }
             return {
-                msg: getSuitableTranslations("Sorry, Permission Denied Because This Admin Is Not Merchant !!", language),
+                msg: getSuitableTranslations("Sorry, Permission Denied Because This Admin Is Not Office Owner !!", language),
                 error: true,
                 data: {},
             }
         }
         return {
-            msg: getSuitableTranslations("Sorry, This Merchant Is Not Exist !!", language),
+            msg: getSuitableTranslations("Sorry, This Admin Is Not Exist !!", language),
             error: true,
             data: {},
         }
@@ -241,7 +241,7 @@ async function addNewAdmin(merchantId, adminInfo, language) {
                     }
                 }
                 return {
-                    msg: getSuitableTranslations("Sorry, This Merchant Has Been Blocked !!", language),
+                    msg: getSuitableTranslations("Sorry, This Admin Has Been Blocked !!", language),
                     error: true,
                     data: {
                         blockingDate: admin.blockingDate,
@@ -250,13 +250,13 @@ async function addNewAdmin(merchantId, adminInfo, language) {
                 }
             }
             return {
-                msg: getSuitableTranslations("Sorry, Permission Denied Because This Admin Is Not Merchant !!", language),
+                msg: getSuitableTranslations("Sorry, Permission Denied Because This Admin Is Not Office Owner !!", language),
                 error: true,
                 data: {},
             }
         }
         return {
-            msg: getSuitableTranslations("Sorry, This Merchant Is Not Exist !!", language),
+            msg: getSuitableTranslations("Sorry, This Admin Is Not Exist !!", language),
             error: true,
             data: {},
         }
@@ -287,7 +287,7 @@ async function updateAdminInfo(merchantId, adminId, newAdminDetails, language) {
                     }
                 }
                 return {
-                    msg: getSuitableTranslations("Sorry, This Merchant Has Been Blocked !!", language),
+                    msg: getSuitableTranslations("Sorry, This Admin Has Been Blocked !!", language),
                     error: true,
                     data: {
                         blockingDate: admin.blockingDate,
@@ -302,7 +302,7 @@ async function updateAdminInfo(merchantId, adminId, newAdminDetails, language) {
             }
         }
         return {
-            msg: getSuitableTranslations("Sorry, This Merchant Is Not Exist !!", language),
+            msg: getSuitableTranslations("Sorry, This Admin Is Not Exist !!", language),
             error: true,
             data: {},
         }
@@ -319,7 +319,7 @@ async function deleteAdmin(merchantId, adminId, language) {
                 if (!admin.isBlocked) {
                     if ((new mongoose.Types.ObjectId(adminId)).equals(merchantId)) {
                         return {
-                            msg: getSuitableTranslations("Sorry, Permission Denied Because This Admin Is Merchant !!", language),
+                            msg: getSuitableTranslations("Sorry, Permission Denied Because This Admin Is Office Owner !!", language),
                             error: true,
                             data: {},
                         }
@@ -339,7 +339,7 @@ async function deleteAdmin(merchantId, adminId, language) {
                     }
                 }
                 return {
-                    msg: getSuitableTranslations("Sorry, This Merchant Has Been Blocked !!", language),
+                    msg: getSuitableTranslations("Sorry, This Admin Has Been Blocked !!", language),
                     error: true,
                     data: {
                         blockingDate: admin.blockingDate,
@@ -348,7 +348,7 @@ async function deleteAdmin(merchantId, adminId, language) {
                 }
             }
             return {
-                msg: getSuitableTranslations("Sorry, Permission Denied Because This Admin Is Not Merchant !!", language),
+                msg: getSuitableTranslations("Sorry, Permission Denied Because This Admin Is Not Office Owner !!", language),
                 error: true,
                 data: {},
             }

@@ -1,0 +1,12 @@
+{
+    "Admin Logining Process Has Been Successfully !!": "عملية تسجيل دخول المسؤول تمت بنجاح !!",
+    "Sorry, The Email Or Password Incorrect !!": "عذراً ، البريد الالكتروني أو كلمة السر غير صحيح / صحيحة !!",
+    "Get Admin Info Process Has Been Successfully !!": "عملية جلب معلومات المسؤول تمت بنجاح !!",
+    "Get Admins Count Process Has Been Successfully !!": "عملية جلب عدد المسؤولين تمت بنجاح !!",
+    "Get All Admins Inside The Page: {{pageNumber}} Process Has Been Successfully !!": "عملية جلب كل المسؤولين بداخل الصفحة : {{pageNumber}} تمت بنجاح !!",
+    "Creating New Admin Process Has Been Successfully !!": "عملية إنشاء مسؤول جديد تمت بنجاح !!",
+    "Sorry, This Admin Is Already Exist !!": "عذراً ، هذا المسؤول موجود مسبقاً !!",
+    "Updating Admin Details Process Has Been Successfully !!": "عملية تحديث تفاصيل المسؤول تمت بنجاح !!",
+    "Deleting Admin Process Has Been Successfully !!": "عملية حذف مسؤول تمت بنجاح",
+    "Sorry, Permission Denied Because This Admin Is Office Owner !!": "عذراً ، رفض الإذن بسبب أن هذا المسؤول مالك مكتب !!"
+}

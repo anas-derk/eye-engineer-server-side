@@ -1,0 +1,19 @@
+{
+    "Sorry, Can't Create New User Because It Is Already Exist !!": "Entschuldigung, neuer Benutzer kann nicht erstellt werden, da er bereits existiert !!",
+    "Creating New User Process Has Been Successfuly !!": "Der Vorgang zum Erstellen eines neuen Benutzers war erfolgreich !!",
+    "Logining Process Has Been Successfully !!": "Der Anmeldevorgang war erfolgreich !!",
+    "Logining Process By Google Has Been Successfully !!": "Der Anmeldevorgang über Google war erfolgreich !!",
+    "Get User Info Process Has Been Successfully !!": "Der Vorgang zum Abrufen der Benutzerinformationen war erfolgreich !!",
+    "This User Is Exist !!": "Dieser Benutzer existiert !!",
+    "Sorry, This Email Is Already Exist !!": "Entschuldigung, diese E-Mail existiert bereits !!",
+    "Sorry, This Email Has Been Verified !!": "Entschuldigung, diese E-Mail wurde bereits verifiziert !!",
+    "Get Users Count Process Has Been Successfully !!": "Der Vorgang zum Abrufen der Anzahl der Benutzer war erfolgreich !!",
+    "Get All Users Inside The Page: {{pageNumber}} Process Has Been Successfully !!": "Der Vorgang zum Abrufen aller Benutzer auf Seite: {{pageNumber}} war erfolgreich !!",
+    "Sorry, This Password Is Uncorrect !!": "Entschuldigung, dieses Passwort ist falsch !!",
+    "Sorry, This Email Are Already Exist !!": "Entschuldigung, diese E-Mail existiert bereits !!",
+    "Updating User Info Process Has Been Successfuly !!": "Der Vorgang zum Aktualisieren der Benutzerinformationen war erfolgreich !!",
+    "Updating Verification Status Process Has Been Successfully !!": "Der Vorgang zum Aktualisieren des Verifizierungsstatus war erfolgreich !!",
+    "Reseting Password Process Has Been Successfully !!": "Der Vorgang zum Zurücksetzen des Passworts war erfolgreich !!",
+    "Deleting User Process Has Been Successfully !!": "Der Vorgang zum Löschen des Benutzers war erfolgreich !!",
+    "Updating User Image Process Has Been Successfully !!": "Der Vorgang zum Aktualisieren des Benutzerbildes war erfolgreich !!"
+}

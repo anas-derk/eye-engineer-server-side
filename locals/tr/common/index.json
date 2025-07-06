@@ -1,0 +1,9 @@
+{
+    "Sorry, This User Is Not Found !!": "Üzgünüz, bu kullanıcı bulunamadı !!",
+    "Sorry, This Admin Is Not Exist !!": "Üzgünüz, bu yönetici mevcut değil !!",
+    "Sorry, This Admin Has Been Blocked !!": "Üzgünüz, bu yönetici engellendi !!",
+    "Sorry, Permission Denied Because This Admin Is Not Website Owner !!": "Üzgünüz, bu yönetici site sahibi olmadığı için izin reddedildi !!",
+    "Sorry, Permission Denied Because This Admin Is Not Office Owner !!": "Üzgünüz, bu yönetici ofis sahibi olmadığı için izin reddedildi !!",
+    "Unauthorized Error !!": "Yetkisiz hata !!",
+    "Sorry, Email Or Password Incorrect !!": "Üzgünüz, e-posta veya şifre hatalı !!"
+}

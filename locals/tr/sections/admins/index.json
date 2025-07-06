@@ -1,0 +1,12 @@
+{
+    "Admin Logining Process Has Been Successfully !!": "Yönetici giriş işlemi başarıyla tamamlandı !!",
+    "Sorry, The Email Or Password Incorrect !!": "Üzgünüz, e-posta veya şifre hatalı !!",
+    "Get Admin Info Process Has Been Successfully !!": "Yönetici bilgilerini alma işlemi başarıyla tamamlandı !!",
+    "Get Admins Count Process Has Been Successfully !!": "Yöneticilerin sayısını alma işlemi başarıyla tamamlandı !!",
+    "Get All Admins Inside The Page: {{pageNumber}} Process Has Been Successfully !!": "{{pageNumber}} numaralı sayfadaki tüm yöneticileri alma işlemi başarıyla tamamlandı !!",
+    "Creating New Admin Process Has Been Successfully !!": "Yeni yönetici oluşturma işlemi başarıyla tamamlandı !!",
+    "Sorry, This Admin Is Already Exist !!": "Üzgünüz, bu yönetici zaten mevcut !!",
+    "Updating Admin Details Process Has Been Successfully !!": "Yönetici bilgilerini güncelleme işlemi başarıyla tamamlandı !!",
+    "Deleting Admin Process Has Been Successfully !!": "Yönetici silme işlemi başarıyla tamamlandı !!",
+    "Sorry, Permission Denied Because This Admin Is Office Owner !!": "Üzgünüz, bu yönetici ofis sahibi olduğu için izin reddedildi !!"
+}

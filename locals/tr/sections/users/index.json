@@ -1,0 +1,19 @@
+{
+    "Sorry, Can't Create New User Because It Is Already Exist !!": "Üzgünüz, yeni kullanıcı oluşturulamıyor çünkü zaten mevcut !!",
+    "Creating New User Process Has Been Successfuly !!": "Yeni kullanıcı oluşturma işlemi başarıyla tamamlandı !!",
+    "Logining Process Has Been Successfully !!": "Giriş işlemi başarıyla tamamlandı !!",
+    "Logining Process By Google Has Been Successfully !!": "Google ile giriş işlemi başarıyla tamamlandı !!",
+    "Get User Info Process Has Been Successfully !!": "Kullanıcı bilgileri alma işlemi başarıyla tamamlandı !!",
+    "This User Is Exist !!": "Bu kullanıcı mevcut !!",
+    "Sorry, This Email Is Already Exist !!": "Üzgünüz, bu e-posta zaten mevcut !!",
+    "Sorry, This Email Has Been Verified !!": "Üzgünüz, bu e-posta zaten doğrulandı !!",
+    "Get Users Count Process Has Been Successfully !!": "Kullanıcı sayısını alma işlemi başarıyla tamamlandı !!",
+    "Get All Users Inside The Page: {{pageNumber}} Process Has Been Successfully !!": "{{pageNumber}} numaralı sayfadaki tüm kullanıcıları alma işlemi başarıyla tamamlandı !!",
+    "Sorry, This Password Is Uncorrect !!": "Üzgünüz, bu şifre yanlış !!",
+    "Sorry, This Email Are Already Exist !!": "Üzgünüz, bu e-posta zaten mevcut !!",
+    "Updating User Info Process Has Been Successfuly !!": "Kullanıcı bilgilerini güncelleme işlemi başarıyla tamamlandı !!",
+    "Updating Verification Status Process Has Been Successfully !!": "Doğrulama durumunu güncelleme işlemi başarıyla tamamlandı !!",
+    "Reseting Password Process Has Been Successfully !!": "Şifre sıfırlama işlemi başarıyla tamamlandı !!",
+    "Deleting User Process Has Been Successfully !!": "Kullanıcı silme işlemi başarıyla tamamlandı !!",
+    "Updating User Image Process Has Been Successfully !!": "Kullanıcı resmini güncelleme işlemi başarıyla tamamlandı !!"
+}

@@ -1,0 +1,9 @@
+{
+    "Sorry, This User Is Not Found !!": "عذراً هذا المستخدم غير موجود !!",
+    "Sorry, This Admin Is Not Exist !!": "عذراً ، هذا المسؤول غير موجود !!",
+    "Sorry, This Admin Has Been Blocked !!": "عذراً ، هذا المسؤول قد تم حظره !!",
+    "Sorry, Permission Denied Because This Admin Is Not Website Owner !!": "عذراً ، رفض الإذن بسبب أن هذا المسؤول ليس مالك الموقع !!",
+    "Sorry, Permission Denied Because This Admin Is Not Office Owner !!": "عذراً ، رفض الإذن بسبب أن هذا المسؤول ليس مالك مكتب !!",
+    "Unauthorized Error !!": "خطأ عدم التصريح !!",
+    "Sorry, Email Or Password Incorrect !!": "عذراً ، البريد الالكتروني أو كلمة السر غير صحيح / صحيحة !!"
+}

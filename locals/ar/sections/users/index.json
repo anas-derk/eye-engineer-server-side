@@ -1,0 +1,19 @@
+{
+    "Sorry, Can't Create New User Because It Is Already Exist !!": "عذراً ، لا يمكن إنشاء مستخدم جديد لأنه موجود مسبقاً !! ",
+    "Creating New User Process Has Been Successfuly !!": "عملية إنشاء مستخدم جديد تمت بنجاح !!",
+    "Logining Process Has Been Successfully !!": "عملية تسجيل الدخول تمت بنجاح !!",
+    "Logining Process By Google Has Been Successfully !!": "عملية تسجيل الدخول مع غوغل تمت بنجاح !!",
+    "Get User Info Process Has Been Successfully !!": "عملية جلب معلومات المستخدم تمت بنجاح !!",
+    "This User Is Exist !!": "هذا المستخدم موجود !!",
+    "Sorry, This Email Is Already Exist !!": "عذراً ، هذا البريد الالكتروني موجود مسبقاً !!",
+    "Sorry, This Email Has Been Verified !!": "عذرًا، لقد تم التحقق من هذا البريد الإلكتروني !!",
+    "Get Users Count Process Has Been Successfully !!": "عملية جلب عدد المستخدمين تمت بنجاح !!",
+    "Get All Users Inside The Page: {{pageNumber}} Process Has Been Successfully !!": "عملية جلب كل المستخدمين بداخل الصفحة: {{pageNumber}} تمت بنجاح !!",
+    "Sorry, This Password Is Uncorrect !!": "عذراً ، كلمة السر هذه غير صحيحة !!",
+    "Sorry, This Email Are Already Exist !!": "عذراً ، هذا البريد الالكتروني موجود مسبقاً !!",
+    "Updating User Info Process Has Been Successfuly !!": "عملية تحديث معلومات المستخدم تمت بنجاح !!",
+    "Updating Verification Status Process Has Been Successfully !!": "عملية تحديث حالة التحقق تمت بنجاح !!",
+    "Reseting Password Process Has Been Successfully !!": "عملية إعادة تعيين كلمة السر تمت بنجاح !!",
+    "Deleting User Process Has Been Successfully !!": "عملية حذف المستخدم تمت بنجاح !!",
+    "Updating User Image Process Has Been Successfully !!": "عملية تحديث صورة  المستخدم تمت بنجاح !!"
+}
