@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 require("dotenv").config({
-    path: "../../../.env",
+    path: resolve(__dirname, "../../../.env"),
 });
 
 // create Appeared Sections Schema For Appeared Sections Model
@@ -53,4 +53,6 @@ async function create_initial_appeared_sections() {
     }
 }
 
-create_initial_appeared_sections().then((result) => console.log(result));
+create_initial_appeared_sections()
+    .then((result) => { console.log(result); process.exit(1); })
+    .catch((err) => console.log(err.message));

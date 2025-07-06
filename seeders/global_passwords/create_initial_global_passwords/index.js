@@ -1,7 +1,9 @@
 const mongoose = require("mongoose");
 
+const { resolve } = require("path");
+
 require("dotenv").config({
-    path: "../../../.env",
+    path: resolve(__dirname, "../../../.env"),
 });
 
 // Create Global Password Schema
@@ -33,7 +35,7 @@ async function create_initial_global_passwords() {
             return "Sorry, Can't Insert Global Password To Database Because it is Exist !!!";
         } else {
             const password = bussinessInfo.password;
-            const encrypted_password = cryptoJS.AES.encrypt(password, process.env.secretKey).toString();
+            const encrypted_password = cryptoJS.AES.encrypt(password, process.env.SECRET_KEY).toString();
             bussinessInfo.password = encrypted_password;
             const new_global_password = new globalPasswordModel(bussinessInfo);
             await new_global_password.save();
@@ -46,4 +48,6 @@ async function create_initial_global_passwords() {
     }
 }
 
-create_initial_global_passwords().then((result) => console.log(result));
+create_initial_global_passwords()
+    .then((result) => { console.log(result); process.exit(1); })
+    .catch((err) => console.log(err.message));
