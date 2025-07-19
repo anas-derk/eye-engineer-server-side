@@ -17,7 +17,7 @@ async function sendVerificationCodeToUserEmail(email) {
     if (!result.error) {
         const generator = new CodeGenerator();
         const generatedCode = generator.generateCodes("####")[0];
-        const templateContent = readFileSync(join(__dirname, "..", "assets", "email_templates", "email_template.ejs"), "utf-8");
+        const templateContent = readFileSync(join(__dirname, "..", "..", "assets", "email_templates", "email_template.ejs"), "utf-8");
         const compiledTemplate = compile(templateContent);
         const htmlContentAfterCompilingEjsTemplateFile = compiledTemplate({ generatedCode });
         const mailConfigurations = {
@@ -41,9 +41,9 @@ async function sendVerificationCodeToUserEmail(email) {
 }
 
 async function sendCongratulationsOnCreatingNewAccountEmail(email, language) {
-    const result = await getPasswordForBussinessEmail(process.env.BUSSINESS_EMAIL);
+    const result = await getPasswordForBussinessEmail(process.env.BUSSINESS_EMAIL, language);
     if (!result.error) {
-        const templateContent = readFileSync(join(__dirname, "..", "assets", "email_templates", "congratulations_creating_new_account.ejs"), "utf-8");
+        const templateContent = readFileSync(join(__dirname, "..", "..", "assets", "email_templates", "congratulations_creating_new_account.ejs"), "utf-8");
         const compiledTemplate = compile(templateContent);
         const htmlContentAfterCompilingEjsTemplateFile = compiledTemplate({ email, language });
         return new Promise((resolve, reject) => {
@@ -68,14 +68,14 @@ async function sendCongratulationsOnCreatingNewAccountEmail(email, language) {
 async function sendChangePasswordEmail(email, language) {
     const result = await getPasswordForBussinessEmail(process.env.BUSSINESS_EMAIL);
     if (!result.error) {
-        const templateContent = readFileSync(join(__dirname, "..", "assets", "email_templates", "change_password.ejs"), "utf-8");
+        const templateContent = readFileSync(join(__dirname, "..", "..", "assets", "email_templates", "change_password.ejs"), "utf-8");
         const compiledTemplate = compile(templateContent);
         const htmlContentAfterCompilingEjsTemplateFile = compiledTemplate({ language });
         return new Promise((resolve, reject) => {
             emailsUtils.getTransporter(result.data).sendMail({
-                from: `Ubuyblues <${process.env.BUSSINESS_EMAIL}>`,
+                from: `${process.env.WEBSITE_NAME} <${process.env.BUSSINESS_EMAIL}>`,
                 to: email,
-                subject: "Changing The User Password In Ubuyblues",
+                subject: `Changing The User Password In ${process.env.WEBSITE_NAME}`,
                 html: htmlContentAfterCompilingEjsTemplateFile,
             }, function (error, info) {
                 if (error) reject(error);

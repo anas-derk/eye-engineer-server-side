@@ -103,17 +103,17 @@ async function postForgetPassword(req, res) {
 async function postCreateNewUser(req, res) {
     try {
         const { name, email, password, language } = req.body;
-        const result = await authOPerationsManagmentFunctions.postCreateNewUser(name, email.toLowerCase(), password, language);
+        const result = await authOPerationsManagmentFunctions.createNewUser(name, email.toLowerCase(), password, language);
         if (result.error) {
             return res.json(result);
         }
+        res.json(result);
         try {
             await sendCongratulationsOnCreatingNewAccountEmail(email, language);
         }
         catch (err) {
-            consolel.log(err);
+            console.log(err);
         }
-        res.json(result);
     }
     catch (err) {
         res.status(500).json(getResponseObject(getSuitableTranslations("Internal Server Error !!", req.query.language), true, {}));
