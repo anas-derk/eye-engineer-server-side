@@ -144,7 +144,8 @@ async function postAccountVerificationCode(req, res) {
 
 async function putVerificationStatus(req, res) {
     try {
-        const { email, code, language } = req.query;
+        const { email, code } = req.body;
+        const { language } = req.query;
         let result = await isAccountVerificationCodeValid(email, code, "to activate account", language);
         if (!result.error) {
             result = await authOPerationsManagmentFunctions.updateVerificationStatus(email, language);
