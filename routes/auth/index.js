@@ -47,7 +47,7 @@ authRouter.post("/create-new-user",
     authController.postCreateNewUser
 );
 
-authRouter.post("/send-verification-code",
+authRouter.post("/send-code",
     (req, res, next) => {
         const { email, typeOfUse, userType } = req.body;
         validateIsExistValueForFieldsAndDataTypes([

@@ -123,7 +123,7 @@ async function postCreateNewUser(req, res) {
 async function postAccountVerificationCode(req, res) {
     try {
         const { email, typeOfUse, userType } = req.body;
-        const { language } = req.body;
+        const { language } = req.query;
         let result = typeOfUse === "to activate account" && userType === "user" ? await authOPerationsManagmentFunctions.isExistUserAndVerificationEmail(email, language) : authOPerationsManagmentFunctions.isExistUserAccount(email, userType, language);
         if (!result.error) {
             result = await isBlockingFromReceiveTheCodeAndReceiveBlockingExpirationDate(email, typeOfUse, language);
