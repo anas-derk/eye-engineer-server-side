@@ -66,7 +66,6 @@ async function postLoginWithGoogle(req, res) {
         });
     }
     catch (err) {
-        console.log(err);
         res.status(500).json(getResponseObject(getSuitableTranslations("Internal Server Error !!", req.query.language), true, {}));
     }
 }
