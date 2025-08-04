@@ -12,7 +12,7 @@ const {
     validateJWT,
 } = authMiddlewares;
 
-newsRouter.post("/add-new-news",
+newsRouter.post("/add-news",
     validateJWT,
     (req, res, next) => {
         const { content } = req.body;
@@ -20,28 +20,35 @@ newsRouter.post("/add-new-news",
             { fieldName: "Content", fieldValue: content, dataTypes: ["string"], isRequiredValue: true },
         ], res, next);
     },
-    newsController.postAddNewNews
+    newsController.postAddNews
 );
 
 newsRouter.get("/all-news", validateJWT, newsController.getAllNews);
 
-newsRouter.put("/update-news-info",
+newsRouter.put("/update-content/:id",
     validateJWT,
     (req, res, next) => {
         const { content } = req.body;
         validateIsExistValueForFieldsAndDataTypes([
-            { fieldName: "Content", fieldValue: content, dataTypes: ["string"], isRequiredValue: false },
+            { fieldName: "News Id", fieldValue: req.params.id, dataTypes: ["string"], isRequiredValue: true },
+            { fieldName: "Content", fieldValue: content, dataTypes: ["object"], isRequiredValue: false },
         ], res, next);
     },
-    newsController.putNewsInfo
+    (req, res, next) => {
+        const { content } = req.body;
+        validateIsExistValueForFieldsAndDataTypes(["ar", "en", "de", "tr"].map((language) => (
+            { fieldName: `New News Content In ${language.toUpperCase()}`, fieldValue: content[language], dataTypes: ["string"], isRequiredValue: true }
+        )), res, next);
+    },
+    newsController.putNewsContent
 );
 
-newsRouter.delete("/delete-news",
+newsRouter.delete("/delete-news/:id",
     validateJWT,
     (req, res, next) => {
-        const { userId } = req.query;
+        console.log(req.params.id)
         validateIsExistValueForFieldsAndDataTypes([
-            { fieldName: "News Id", fieldValue: userId, dataTypes: ["ObjectId"], isRequiredValue: true },
+            { fieldName: "News Id", fieldValue: req.params.id, dataTypes: ["ObjectId"], isRequiredValue: true },
         ], res, next);
     },
     newsController.deleteNews

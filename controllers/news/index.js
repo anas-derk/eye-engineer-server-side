@@ -5,13 +5,20 @@ const {
 
 const { getResponseObject } = responsesHelpers;
 
-const { getSuitableTranslations } = translationHelpers;
+const { getSuitableTranslations, translateSentensesByAPI } = translationHelpers;
 
 const newsOPerationsManagmentFunctions = require("../../respositories/news");
 
-async function postAddNewNews(req, res) {
+async function postAddNews(req, res) {
     try {
-        const result = await newsOPerationsManagmentFunctions.addNewNews(req.data._id, req.body.content, req.query.language);
+        const { content } = req.body;
+        const contentAfterTranslation = {
+            ar: (await translateSentensesByAPI([content], "AR"))[0].text,
+            en: (await translateSentensesByAPI([content], "EN"))[0].text,
+            de: (await translateSentensesByAPI([content], "DE"))[0].text,
+            tr: (await translateSentensesByAPI([content], "TR"))[0].text
+        };
+        const result = await newsOPerationsManagmentFunctions.addNews(req.data._id, contentAfterTranslation, req.query.language);
         if (result.error) {
             if (result.msg !== "Sorry, Can't Add New News Because Arrive To Max Limits For News Count ( Limits: 10 ) !!") {
                 return res.status(401).json(result);
@@ -20,6 +27,7 @@ async function postAddNewNews(req, res) {
         res.json(result);
     }
     catch (err) {
+        console.log(err);
         res.status(500).json(getResponseObject(getSuitableTranslations("Internal Server Error !!", req.query.language), true, {}));
     }
 }
@@ -37,9 +45,9 @@ async function getAllNews(req, res) {
     }
 }
 
-async function putNewsInfo(req, res) {
+async function putNewsContent(req, res) {
     try {
-        res.json(await newsOPerationsManagmentFunctions.updateUserInfo(req.data._id, req.body, req.query.language));
+        res.json(await newsOPerationsManagmentFunctions.updateNewsContent(req.data._id, req.params.id, req.body.content, req.query.language));
     }
     catch (err) {
         res.status(500).json(getResponseObject(getSuitableTranslations("Internal Server Error !!", req.query.language), true, {}));
@@ -48,8 +56,7 @@ async function putNewsInfo(req, res) {
 
 async function deleteNews(req, res) {
     try {
-        const { newsId } = req.query;
-        const result = await newsOPerationsManagmentFunctions.deleteNews(req.data._id, newsId, req.query.language);
+        const result = await newsOPerationsManagmentFunctions.deleteNews(req.data._id, req.params.id, req.query.language);
         if (result.error) {
             if (result.msg !== "Sorry, This News Is Not Exist !!") {
                 return res.status(401).json(result);
@@ -63,8 +70,8 @@ async function deleteNews(req, res) {
 }
 
 module.exports = {
-    postAddNewNews,
+    postAddNews,
     getAllNews,
-    putNewsInfo,
+    putNewsContent,
     deleteNews
 }

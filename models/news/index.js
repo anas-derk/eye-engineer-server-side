@@ -4,8 +4,22 @@ const mongoose = require("../../database");
 
 const newsSchema = new mongoose.Schema({
     content: {
-        type: String,
-        required: true,
+        ar: {
+            type: String,
+            required: true,
+        },
+        en: {
+            type: String,
+            required: true,
+        },
+        tr: {
+            type: String,
+            required: true,
+        },
+        de: {
+            type: String,
+            required: true,
+        },
     },
     dateOfCreation: {
         type: Date,

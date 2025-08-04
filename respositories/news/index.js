@@ -1,14 +1,14 @@
 // Import User, Admin Model Object
 
-const { newsModel, adminModel } = require("../../models");
+const { newsModel, adminModel, userModel } = require("../../models");
 
 // Define Create New User Function
 
 const { getSuitableTranslations } = require("../../helpers/translation");
 
-async function addNewNews(authorizationId, content, language) {
+async function addNews(authorizationId, content, language) {
     try {
-        const admin = await adminModel.findById(authorizationId);
+        const admin = await userModel.findById(authorizationId);
         if (admin) {
             if (admin.isWebsiteOwner) {
                 if (await newsModel.countDocuments({}) >= 10) {
@@ -45,9 +45,9 @@ async function addNewNews(authorizationId, content, language) {
 
 async function getAllNews(authorizationId, language) {
     try {
-        const user = await newsModel.findById(authorizationId);
-        if (user) {
-            if (user.isWebsiteOwner) {
+        const admin = await userModel.findById(authorizationId);
+        if (admin) {
+            if (admin.isWebsiteOwner) {
                 return {
                     msg: getSuitableTranslations("Get All News Process Has Been Successfully !!", language),
                     error: false,
@@ -70,16 +70,16 @@ async function getAllNews(authorizationId, language) {
     }
 }
 
-async function updateNewsInfo(authorizationId, newsId, newUserData, language) {
+async function updateNewsContent(authorizationId, newsId, newContent, language) {
     try {
-        const admin = await adminModel.findById(authorizationId);
+        const admin = await userModel.findById(authorizationId);
         if (admin) {
             if (admin.isWebsiteOwner) {
                 const newsInfo = await newsModel.findById(newsId);
                 if (newsInfo) {
-                    await newsModel.updateOne({ _id: newsId }, newUserData);
+                    await newsModel.updateOne({ _id: newsId }, { content: newContent });
                     return {
-                        msg: getSuitableTranslations("Updating User Info Process Has Been Successfuly !!", language),
+                        msg: getSuitableTranslations("Updating News Content Process Has Been Successfuly !!", language),
                         error: false,
                         data: {},
                     }
@@ -108,7 +108,7 @@ async function updateNewsInfo(authorizationId, newsId, newUserData, language) {
 
 async function deleteNews(authorizationId, newsId, language) {
     try {
-        const admin = await adminModel.findById(authorizationId);
+        const admin = await userModel.findById(authorizationId);
         if (admin) {
             if (admin.isWebsiteOwner) {
                 const news = await newsModel.findOneAndDelete({ _id: newsId });
@@ -143,8 +143,8 @@ async function deleteNews(authorizationId, newsId, language) {
 }
 
 module.exports = {
-    addNewNews,
+    addNews,
     getAllNews,
-    updateNewsInfo,
+    updateNewsContent,
     deleteNews
 }
