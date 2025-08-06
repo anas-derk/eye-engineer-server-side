@@ -1,6 +1,6 @@
 // Import Global Password Model And Admin Model Object
 
-const { globalPasswordModel, adminModel } = require("../../models");
+const { globalPasswordModel, adminModel, userModel } = require("../../models");
 
 // require cryptoJs module for password encrypting
 
@@ -31,7 +31,7 @@ async function getPasswordForBussinessEmail(email, language) {
 
 async function changeBussinessEmailPassword(authorizationId, email, password, newPassword, language) {
     try {
-        const admin = await adminModel.findById(authorizationId);
+        const admin = await userModel.findById(authorizationId);
         if (admin) {
             if (admin.isWebsiteOwner) {
                 const user = await globalPasswordModel.findOne({ email });
@@ -39,31 +39,31 @@ async function changeBussinessEmailPassword(authorizationId, email, password, ne
                     if (AES.decrypt(user.password, process.env.SECRET_KEY).toString(enc.Utf8) === password) {
                         await globalPasswordModel.updateOne({ password: AES.encrypt(newPassword, process.env.SECRET_KEY).toString() });
                         return {
-                            msg: getSuitableTranslations("Changing Bussiness Email Password Process Has Been Successfully !!", language),
+                            msg: "Changing Bussiness Email Password Process Has Been Successfully !!",
                             error: false,
                             data: {},
                         }
                     }
                     return {
-                        msg: getSuitableTranslations("Sorry, Email Or Password Incorrect !!", language),
+                        msg: "Sorry, Email Or Password Incorrect !!",
                         error: true,
                         data: {},
                     }
                 }
                 return {
-                    msg: getSuitableTranslations("Sorry, Email Or Password Incorrect !!", language),
+                    msg: "Sorry, Email Or Password Incorrect !!",
                     error: true,
                     data: {},
                 }
             }
             return {
-                msg: getSuitableTranslations("Sorry, Permission Denied Because This Admin Is Not Website Owner !!", language),
+                msg: "Sorry, Permission Denied Because This Admin Is Not Website Owner !!",
                 error: true,
                 data: {},
             }
         }
         return {
-            msg: getSuitableTranslations("Sorry, This Admin Is Not Exist !!", language),
+            msg: "Sorry, This Admin Is Not Exist !!",
             error: true,
             data: {},
         }
