@@ -3,7 +3,24 @@ const mongoose = require("../../database");
 // Create Appeared Section Schema
 
 const appearedSectionSchema = new mongoose.Schema({
-    sectionName: String,
+    sectionName: {
+        ar: {
+            type: String,
+            required: true,
+        },
+        en: {
+            type: String,
+            required: true,
+        },
+        tr: {
+            type: String,
+            required: true,
+        },
+        de: {
+            type: String,
+            required: true,
+        },
+    },
     isAppeared: {
         type: Boolean,
         default: false,

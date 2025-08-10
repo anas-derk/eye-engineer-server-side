@@ -8,8 +8,25 @@ require("dotenv").config({
 
 // create Appeared Sections Schema For Appeared Sections Model
 
-const appeared_sections_schema = mongoose.Schema({
-    sectionName: String,
+const appearedSectionSchema = new mongoose.Schema({
+    sectionName: {
+        ar: {
+            type: String,
+            required: true,
+        },
+        en: {
+            type: String,
+            required: true,
+        },
+        tr: {
+            type: String,
+            required: true,
+        },
+        de: {
+            type: String,
+            required: true,
+        },
+    },
     isAppeared: {
         type: Boolean,
         default: false,
@@ -18,39 +35,79 @@ const appeared_sections_schema = mongoose.Schema({
 
 // create Appeared Sections Model In Database
 
-const appeared_sections_model = mongoose.model("appeared_sections", appeared_sections_schema);
+const appeared_sections_model = mongoose.model("appeared_sections", appearedSectionSchema);
 
 const appeared_sections = [
     {
-        sectionName: "whatsapp button",
+        sectionName: {
+            ar: "زر الواتس آب",
+            en: "whatsapp button",
+            tr: "whatsapp düğmesi",
+            de: "whatsapp taste"
+        },
         isAppeared: false,
     },
     {
-        sectionName: "geometries",
+        sectionName: {
+            ar: "الهندسات",
+            en: "geometries",
+            tr: "geometriler",
+            de: "geometrien"
+        },
         isAppeared: false,
     },
     {
-        sectionName: "educational videos",
+        sectionName: {
+            ar: "الفيديوهات التعليمية",
+            en: "educational videos",
+            tr: "eğitici videolar",
+            de: "lehrvideos"
+        },
         isAppeared: false,
     },
     {
-        sectionName: "recents",
+        sectionName: {
+            ar: "الأحدث",
+            en: "recents",
+            tr: "son olanlar",
+            de: "aktuelles"
+        },
         isAppeared: false,
     },
     {
-        sectionName: "terminologies",
+        sectionName: {
+            ar: "المصطلحات",
+            en: "terminologies",
+            tr: "terminolojiler",
+            de: "terminologien"
+        },
         isAppeared: false,
     },
     {
-        sectionName: "offices",
+        sectionName: {
+            ar: "المكاتب",
+            en: "offices",
+            tr: "ofisler",
+            de: "büros"
+        },
         isAppeared: false,
     },
     {
-        sectionName: "property valuation",
+        sectionName: {
+            ar: "التقييم العقاري",
+            en: "property valuation",
+            tr: "mülk değerleme",
+            de: "immobilienbewertung"
+        },
         isAppeared: false,
     },
     {
-        sectionName: "engineering articles",
+        sectionName: {
+            ar: "مقالات هندسية",
+            en: "engineering articles",
+            tr: "mühendislik makaleleri",
+            de: "technische artikel"
+        },
         isAppeared: false,
     },
 ];
