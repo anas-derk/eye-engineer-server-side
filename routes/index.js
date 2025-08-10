@@ -1,4 +1,5 @@
 const authRouter = require("./auth");
+const appearedSectionsRouter = require("./appeared_sections");
 const adminsRouter = require("./admins");
 const globalPasswordsRouter = require("./global_passwords");
 const newsRouter = require("./news");
@@ -9,6 +10,8 @@ const { Router } = require("express");
 const routes = Router();
 
 routes.use("/admins", adminsRouter);
+
+routes.use("/appeared-sections", appearedSectionsRouter);
 
 routes.use("/auth", authRouter);
 

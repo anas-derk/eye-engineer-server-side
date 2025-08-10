@@ -22,23 +22,35 @@ const appeared_sections_model = mongoose.model("appeared_sections", appeared_sec
 
 const appeared_sections = [
     {
-        sectionName: "brands",
-        isAppeared: true,
-    },
-    {
         sectionName: "whatsapp button",
         isAppeared: false,
     },
     {
-        sectionName: "add your store",
+        sectionName: "geometries",
         isAppeared: false,
     },
     {
-        sectionName: "stores",
+        sectionName: "educational videos",
         isAppeared: false,
     },
     {
-        sectionName: "binance payment method",
+        sectionName: "recents",
+        isAppeared: false,
+    },
+    {
+        sectionName: "terminologies",
+        isAppeared: false,
+    },
+    {
+        sectionName: "offices",
+        isAppeared: false,
+    },
+    {
+        sectionName: "property valuation",
+        isAppeared: false,
+    },
+    {
+        sectionName: "engineering articles",
         isAppeared: false,
     },
 ];

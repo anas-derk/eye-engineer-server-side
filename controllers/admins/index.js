@@ -8,6 +8,8 @@ const adminsOPerationsManagmentFunctions = require("../../respositories/admins")
 
 const { sign } = require("jsonwebtoken");
 
+const { ACCESS_TOKEN_EXPIRE } = require("../../constants/tokens");
+
 async function getAdminLogin(req, res) {
     try {
         const { email, password, language } = req.query;
@@ -16,8 +18,8 @@ async function getAdminLogin(req, res) {
             return res.json({
                 ...result,
                 data: {
-                    token: sign(result.data, process.env.secretKey, {
-                        expiresIn: "7d",
+                    token: sign(result.data, process.env.SECRET_KEY, {
+                        expiresIn: ACCESS_TOKEN_EXPIRE,
                     }),
                 }
             });
