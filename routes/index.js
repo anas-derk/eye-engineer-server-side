@@ -3,6 +3,7 @@ const appearedSectionsRouter = require("./appeared_sections");
 const adminsRouter = require("./admins");
 const globalPasswordsRouter = require("./global_passwords");
 const newsRouter = require("./news");
+const translationsRouter = require("./translations");
 const usersRouter = require("./users");
 
 const { Router } = require("express");
@@ -18,6 +19,8 @@ routes.use("/auth", authRouter);
 routes.use("/global-passwords", globalPasswordsRouter);
 
 routes.use("/news", newsRouter);
+
+routes.use("/translations", translationsRouter);
 
 routes.use("/users", usersRouter);
 
