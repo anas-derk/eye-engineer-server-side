@@ -12,14 +12,14 @@ const { getPasswordForBussinessEmail } = require("../../respositories/global_pas
 
 const { emailsUtils } = require("../../utils");
 
-async function sendVerificationCodeToUserEmail(email) {
+async function sendVerificationCodeToUserEmail(email, language) {
     const result = await getPasswordForBussinessEmail(process.env.BUSSINESS_EMAIL);
     if (!result.error) {
         const generator = new CodeGenerator();
         const generatedCode = generator.generateCodes("####")[0];
         const templateContent = readFileSync(join(__dirname, "..", "..", "assets", "email_templates", "email_template.ejs"), "utf-8");
         const compiledTemplate = compile(templateContent);
-        const htmlContentAfterCompilingEjsTemplateFile = compiledTemplate({ generatedCode });
+        const htmlContentAfterCompilingEjsTemplateFile = compiledTemplate({ generatedCode, language });
         const mailConfigurations = {
             from: `${process.env.WEBSITE_NAME} <${process.env.BUSSINESS_EMAIL}>`,
             to: email,
