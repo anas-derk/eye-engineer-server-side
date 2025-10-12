@@ -47,7 +47,7 @@ async function login(userType, email, password, language) {
                     error: false,
                     data: {
                         _id: user._id,
-                        isVerified: user.isVerified,
+                        isVerified: userType === "user" ? user.isVerified : true,
                         provider: "same-site"
                     },
                 }
