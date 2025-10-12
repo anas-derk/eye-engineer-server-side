@@ -71,7 +71,7 @@ async function login(email, password, language) {
 
 async function loginByGoogle(userInfo, language) {
     try {
-        const user = await userModel.findOne({ email: userInfo.email, provider: "google" });
+        const user = userInfo.userType === "user" ? await userModel.findOne({ email: userInfo.email, provider: "google" }) : await userModel.findOne({ email: userInfo.email });
         if (user) {
             return {
                 msg: getSuitableTranslations("Logining Process By Google Has Been Successfully !!", language),
@@ -83,21 +83,29 @@ async function loginByGoogle(userInfo, language) {
                 },
             };
         }
-        const { _id, isVerified } = await (new userModel({
-            email: userInfo.email,
-            name: userInfo.name,
-            password: await hash(process.env.SECRET_KEY, 10),
-            isVerified: true,
-            provider: "google",
-        })).save();
+        if (userInfo.userType === "user") {
+            const { _id, isVerified } = await (new userModel({
+                email: userInfo.email,
+                name: userInfo.name,
+                password: await hash(process.env.SECRET_KEY, 10),
+                isVerified: true,
+                provider: "google",
+                language,
+            })).save();
+            return {
+                msg: getSuitableTranslations("Logining Process By Google Has Been Successfully !!", language),
+                error: false,
+                data: {
+                    _id,
+                    isVerified,
+                    provider: "google"
+                },
+            }
+        }
         return {
-            msg: getSuitableTranslations("Logining Process By Google Has Been Successfully !!", language),
-            error: false,
-            data: {
-                _id,
-                isVerified,
-                provider: "google"
-            },
+            msg: getSuitableTranslations("Sorry, Email Or Password Incorrect !!", language),
+            error: true,
+            data: {},
         }
     }
     catch (err) {

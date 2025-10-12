@@ -64,12 +64,14 @@ authRouter.post("/send-code",
 
 authRouter.post("/login",
     (req, res, next) => {
-        const { email, password } = req.body;
+        const { userType, email, password } = req.body;
         validateIsExistValueForFieldsAndDataTypes([
+            { fieldName: "User Type", fieldValue: userType, dataTypes: ["string"], isRequiredValue: true },
             { fieldName: "Email", fieldValue: email, dataTypes: ["string"], isRequiredValue: true },
             { fieldName: "Password", fieldValue: password, dataTypes: ["string"], isRequiredValue: true },
         ], res, next);
     },
+    (req, res, next) => validateUserType(req.body.userType, res, next),
     (req, res, next) => validateEmail(req.body.email, res, next),
     (req, res, next) => validatePassword(req.body.password, res, next),
     authController.postLogin
@@ -77,12 +79,14 @@ authRouter.post("/login",
 
 authRouter.post("/login-with-google",
     (req, res, next) => {
-        const { email, name } = req.body;
+        const { userType, email, name } = req.body;
         validateIsExistValueForFieldsAndDataTypes([
+            { fieldName: "User Type", fieldValue: userType, dataTypes: ["string"], isRequiredValue: false },
             { fieldName: "Email", fieldValue: email, dataTypes: ["string"], isRequiredValue: true },
             { fieldName: "Name", fieldValue: name, dataTypes: ["string"], isRequiredValue: true },
         ], res, next);
     },
+    (req, res, next) => validateUserType(req.body.userType ?? "user", res, next),
     (req, res, next) => validateEmail(req.body.email, res, next),
     (req, res, next) => validateName(req.body.name, res, next),
     authController.postLoginWithGoogle
@@ -92,12 +96,12 @@ authRouter.post("/forget-password",
     (req, res, next) => {
         const { email, userType } = req.body;
         validateIsExistValueForFieldsAndDataTypes([
-            { fieldName: "Email", fieldValue: email, dataTypes: ["string"], isRequiredValue: true },
             { fieldName: "User Type", fieldValue: userType, dataTypes: ["string"], isRequiredValue: true },
+            { fieldName: "Email", fieldValue: email, dataTypes: ["string"], isRequiredValue: true },
         ], res, next);
     },
-    (req, res, next) => validateEmail(req.body.email, res, next),
     (req, res, next) => validateUserType(req.body.userType, res, next),
+    (req, res, next) => validateEmail(req.body.email, res, next),
     authController.postForgetPassword
 );
 

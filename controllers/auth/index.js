@@ -52,8 +52,8 @@ async function postLogin(req, res) {
 
 async function postLoginWithGoogle(req, res) {
     try {
-        const { email, name } = req.body;
-        const result = await authOPerationsManagmentFunctions.loginByGoogle({ email, name }, req.query.language);
+        const { userType, email, name } = req.body;
+        const result = await authOPerationsManagmentFunctions.loginByGoogle({ userType: userType ?? "user", email, name }, req.query.language);
         res.json({
             msg: result.msg,
             error: result.error,

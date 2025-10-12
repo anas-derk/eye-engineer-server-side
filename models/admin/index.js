@@ -3,11 +3,7 @@ const mongoose = require("../../database");
 // Create Admin Schema
 
 const adminSchema = new mongoose.Schema({
-    firstName: {
-        type: String,
-        required: true,
-    },
-    lastName: {
+    name: {
         type: String,
         required: true,
     },
@@ -23,7 +19,7 @@ const adminSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
-    isEngineer: {
+    isExistOffice: {
         type: Boolean,
         default: false,
     },

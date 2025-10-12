@@ -35,10 +35,6 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: "assets/images/defaultProfileImage.png"
     },
-    isWebsiteOwner: {
-        type: Boolean,
-        default: false,
-    },
 });
 
 // Create User Model From User Schema
