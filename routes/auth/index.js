@@ -119,16 +119,16 @@ authRouter.put("/update-verification-status",
 
 authRouter.put("/reset-password",
     (req, res, next) => {
-        const { email, userType, code, newPassword } = req.body;
+        const { userType, email, code, newPassword } = req.body;
         validateIsExistValueForFieldsAndDataTypes([
-            { fieldName: "Email", fieldValue: email, dataTypes: ["string"], isRequiredValue: true },
             { fieldName: "User Type", fieldValue: userType, dataTypes: ["string"], isRequiredValue: true },
+            { fieldName: "Email", fieldValue: email, dataTypes: ["string"], isRequiredValue: true },
             { fieldName: "Code", fieldValue: code, dataTypes: ["string"], isRequiredValue: true },
             { fieldName: "New Password", fieldValue: newPassword, dataTypes: ["string"], isRequiredValue: true },
         ], res, next);
     },
-    (req, res, next) => validateEmail(req.body.email, res, next),
     (req, res, next) => validateUserType(req.body.userType, res, next),
+    (req, res, next) => validateEmail(req.body.email, res, next),
     (req, res, next) => validateCode(req.body.code, res, next),
     (req, res, next) => validatePassword(req.body.newPassword, res, next),
     authController.putResetPassword

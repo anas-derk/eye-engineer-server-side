@@ -37,9 +37,9 @@ async function createNewUser(name, email, password, language) {
     }
 }
 
-async function login(email, password, language) {
+async function login(userType, email, password, language) {
     try {
-        const user = await userModel.findOne({ email, provider: "same-site" });
+        const user = userType === "user" ? await userModel.findOne({ email, provider: "same-site" }) : await adminModel.findOne({ email });
         if (user) {
             if (await compare(password, user.password)) {
                 return {
@@ -50,19 +50,19 @@ async function login(email, password, language) {
                         isVerified: user.isVerified,
                         provider: "same-site"
                     },
-                };
+                }
             }
             return {
                 msg: getSuitableTranslations("Sorry, Email Or Password Incorrect !!", language),
                 error: true,
                 data: {},
-            };
+            }
         }
         return {
             msg: getSuitableTranslations("Sorry, Email Or Password Incorrect !!", language),
             error: true,
             data: {},
-        };
+        }
     }
     catch (err) {
         throw Error(err);
@@ -155,7 +155,7 @@ async function isExistUserAccount(email, userType, language) {
                 }
             }
             return {
-                msg: getSuitableTranslations("Sorry, This Admin Is Not Exist !!", language),
+                msg: getSuitableTranslations("Sorry, This User Is Not Exist !!", language),
                 error: true,
                 data: {},
             }

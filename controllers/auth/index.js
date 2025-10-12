@@ -28,8 +28,8 @@ const {
 
 async function postLogin(req, res) {
     try {
-        const { email, password } = req.body;
-        const result = await authOPerationsManagmentFunctions.login(email.toLowerCase(), password, req.query.language);
+        const { userType, email, password } = req.body;
+        const result = await authOPerationsManagmentFunctions.login(userType, email.toLowerCase(), password, req.query.language);
         if (!result.error) {
             res.json({
                 msg: result.msg,
@@ -72,7 +72,8 @@ async function postLoginWithGoogle(req, res) {
 
 async function postForgetPassword(req, res) {
     try {
-        const { email, userType, language } = req.query;
+        const { userType, email } = req.body;
+        const { language } = req.query;
         let result = await authOPerationsManagmentFunctions.isExistUserAccount(email, userType, language);
         if (!result.error) {
             if (userType === "user") {
@@ -96,6 +97,7 @@ async function postForgetPassword(req, res) {
         res.json(result);
     }
     catch (err) {
+        console.log(err);
         res.status(500).json(getResponseObject(getSuitableTranslations("Internal Server Error !!", req.query.language), true, {}));
     }
 }
@@ -171,12 +173,18 @@ async function putVerificationStatus(req, res) {
 
 async function putResetPassword(req, res) {
     try {
-        const { email, userType, code, newPassword, language } = req.body;
+        const { userType, email, code, newPassword } = req.body;
+        const { language } = req.query;
         let result = await isAccountVerificationCodeValid(email, code, "to reset password", language);
         if (!result.error) {
             result = await authOPerationsManagmentFunctions.resetUserPassword(email, userType, newPassword, language);
             if (!result.error) {
-                await sendChangePasswordEmail(email, result.data.language)
+                try {
+                    await sendChangePasswordEmail(email, result.data.language);
+                }
+                catch (err) {
+                    console.log(err);
+                }
             }
             return res.json(result);
         }
