@@ -25,7 +25,7 @@ async function getUserInfo(userId, language) {
             return {
                 msg: getSuitableTranslations("Get Admin Info Process Has Been Successfully !!", language),
                 error: false,
-                data: user,
+                data: admin,
             }
         }
         return {
