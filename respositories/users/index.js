@@ -20,8 +20,16 @@ async function getUserInfo(userId, language) {
                 data: user,
             }
         }
+        const admin = await adminModel.findById(userId);
+        if (admin) {
+            return {
+                msg: getSuitableTranslations("Get Admin Info Process Has Been Successfully !!", language),
+                error: false,
+                data: user,
+            }
+        }
         return {
-            msg: getSuitableTranslations("Sorry, This User Is Not Exist !!", language),
+            msg: getSuitableTranslations("Sorry, This Admin Is Not Exist !!", language),
             error: true,
             data: {},
         }
