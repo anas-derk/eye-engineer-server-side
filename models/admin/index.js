@@ -24,7 +24,8 @@ const adminSchema = new mongoose.Schema({
         default: false,
     },
     officeId: {
-        type: String,
+        type: mongoose.Types.ObjectId,
+        ref: "office",
         required: true,
     },
     permissions: {

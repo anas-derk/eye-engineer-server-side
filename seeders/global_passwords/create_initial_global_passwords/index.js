@@ -6,16 +6,7 @@ require("dotenv").config({
     path: resolve(__dirname, "../../../.env"),
 });
 
-// Create Global Password Schema
-
-const globalPasswordSchema = mongoose.Schema({
-    email: String,
-    password: String,
-});
-
-// Create Global Password Model From Global Password Schema
-
-const globalPasswordModel = mongoose.model("global_password", globalPasswordSchema);
+const globalPasswordModel = require("../../../models/global_password");
 
 // require cryptoJs module for password encrypting
 

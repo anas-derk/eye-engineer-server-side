@@ -6,36 +6,7 @@ require("dotenv").config({
     path: resolve(__dirname, "../../../.env"),
 });
 
-// create Appeared Sections Schema For Appeared Sections Model
-
-const appearedSectionSchema = new mongoose.Schema({
-    sectionName: {
-        ar: {
-            type: String,
-            required: true,
-        },
-        en: {
-            type: String,
-            required: true,
-        },
-        tr: {
-            type: String,
-            required: true,
-        },
-        de: {
-            type: String,
-            required: true,
-        },
-    },
-    isAppeared: {
-        type: Boolean,
-        default: false,
-    },
-});
-
-// create Appeared Sections Model In Database
-
-const appeared_sections_model = mongoose.model("appeared_sections", appearedSectionSchema);
+const appearedSectionModel = require("../../../models/appeared_section");
 
 const appeared_sections = [
     {
@@ -115,7 +86,7 @@ const appeared_sections = [
 async function create_initial_appeared_sections() {
     try {
         await mongoose.connect(process.env.DB_URL);
-        await appeared_sections_model.insertMany(appeared_sections);
+        await appearedSectionModel.insertMany(appeared_sections);
         await mongoose.disconnect();
         return "Ok !!, Create Initial Appeared Sections Account Has Been Successfuly !!";
     } catch (err) {
