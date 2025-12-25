@@ -6,8 +6,6 @@ require("dotenv").config({
     path: resolve(__dirname, "../../../.env"),
 });
 
-const officeConstants = require("../../../constants/offices");
-
 const officeModel = require("../../../models/office");
 
 const officeInfo = {
@@ -16,9 +14,12 @@ const officeInfo = {
     email: process.env.MAIN_ADMIN_EMAIL,
     phoneNumber: "00963941519404",
     description: "Eye Engineer Description",
+    services: "All",
+    experiences: "All",
     status: "approving",
     isMainOffice: true,
     approveDate: Date.now(),
+    imagePath: "assets/images/defaultOfficeImage.jpg"
 };
 
 async function create_initial_office() {

@@ -39,6 +39,10 @@ const officeSchema = new mongoose.Schema({
     blockingDate: Date,
     dateOfCancelBlocking: Date,
     blockingReason: String,
+    imagePath: {
+        type: String,
+        required: true,
+    },
 });
 
 // Create Office Model From Office Schema
