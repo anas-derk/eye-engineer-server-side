@@ -47,6 +47,7 @@ async function login(userType, email, password, language) {
                     error: false,
                     data: {
                         _id: user._id,
+                        userType,
                         isVerified: userType === "user" ? user.isVerified : true,
                         provider: "same-site"
                     },
@@ -78,6 +79,7 @@ async function loginByGoogle(userInfo, language) {
                 error: false,
                 data: {
                     _id: user._id,
+                    userType,
                     isVerified: user.isVerified,
                     provider: "google",
                 },
@@ -97,6 +99,7 @@ async function loginByGoogle(userInfo, language) {
                 error: false,
                 data: {
                     _id,
+                    userType,
                     isVerified,
                     provider: "google"
                 },
