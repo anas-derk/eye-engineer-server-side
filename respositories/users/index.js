@@ -67,7 +67,7 @@ async function getUsersCount(authorizationId, filters, language) {
 
 async function getAllUsersInsideThePage(authorizationId, pageNumber, pageSize, filters, language) {
     try {
-        const user = await userModel.findById(authorizationId);
+        const user = await adminModel.findById(authorizationId);
         if (user) {
             if (user.isWebsiteOwner) {
                 return {
@@ -163,7 +163,7 @@ async function changeUserImage(authorizationId, newUserImagePath, language) {
 
 async function deleteUser(authorizationId, userType, userId, language) {
     try {
-        const user = userType === "user" ? await userModel.findByIdAndDelete(authorizationId) : await userModel.findById(authorizationId);
+        const user = userType === "user" ? await userModel.findByIdAndDelete(authorizationId) : await adminModel.findById(authorizationId);
         if (user) {
             if (userType === "user") {
                 return {
