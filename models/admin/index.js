@@ -55,10 +55,6 @@ const adminSchema = new mongoose.Schema({
     },
     blockingDate: Date,
     dateOfCancelBlocking: Date,
-    imagePath: {
-        type: String,
-        default: "assets/images/defaultProfileImage.png"
-    },
 });
 
 // Create Admin Model From Admin Schema

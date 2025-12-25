@@ -29,7 +29,11 @@ function getFiltersObject(filters) {
 
 async function getUserInfo(req, res) {
     try {
-        res.json(await usersOPerationsManagmentFunctions.getUserInfo(req.data._id, undefined, req.query.language));
+        const result = await usersOPerationsManagmentFunctions.getUserInfo(req.data._id, req.query.language);
+        if (result.error) {
+            return res.status(401).json(result);
+        }
+        res.json(result);
     }
     catch (err) {
         res.status(500).json(getResponseObject(getSuitableTranslations("Internal Server Error !!", req.query.language), true, {}));
@@ -65,7 +69,7 @@ async function getAllUsersInsideThePage(req, res) {
 
 async function putUserInfo(req, res) {
     try {
-        res.json(await usersOPerationsManagmentFunctions.updateUserInfo(req.data._id, req.body, undefined, req.query.language));
+        res.json(await usersOPerationsManagmentFunctions.updateUserInfo(req.data._id, req.body, req.query.language));
     }
     catch (err) {
         res.status(500).json(getResponseObject(getSuitableTranslations("Internal Server Error !!", req.query.language), true, {}));
@@ -76,7 +80,7 @@ async function putUserImage(req, res) {
     try {
         const outputImageFilePath = `assets/images/users/${Math.random()}_${Date.now()}__${req.file.originalname.replaceAll(" ", "_").replace(/\.[^/.]+$/, ".webp")}`;
         await handleResizeImagesAndConvertFormatToWebp([req.file.buffer], [outputImageFilePath]);
-        const result = await usersOPerationsManagmentFunctions.changeUserImage(req.data._id, outputImageFilePath, undefined, req.query.language);
+        const result = await usersOPerationsManagmentFunctions.changeUserImage(req.data._id, outputImageFilePath, req.query.language);
         if (!result.error) {
             const oldUserImagePath = result.data.deletedUserImagePath;
             if (oldUserImagePath && oldUserImagePath !== "assets/images/defaultProfileImage.png") {

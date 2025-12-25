@@ -10,9 +10,9 @@ const { hash, compare } = require("bcryptjs");
 
 const { getSuitableTranslations } = require("../../helpers/translation");
 
-async function getUserInfo(userId, userType = "user", language) {
+async function getUserInfo(userId, language) {
     try {
-        const user = userType === "user" ? await userModel.findById(userId) : await adminModel.findById(userId);
+        const user = await userModel.findById(userId);
         if (user) {
             return {
                 msg: getSuitableTranslations("Get User Info Process Has Been Successfully !!", language),
@@ -20,8 +20,16 @@ async function getUserInfo(userId, userType = "user", language) {
                 data: user,
             }
         }
+        const admin = await adminModel.findById(userId);
+        if (admin) {
+            return {
+                msg: getSuitableTranslations("Get Admin Info Process Has Been Successfully !!", language),
+                error: false,
+                data: admin,
+            }
+        }
         return {
-            msg: getSuitableTranslations(`Sorry, This ${userType.replace(userType[0], userType[0].toUpperCase())} Is Not Exist !!`, language),
+            msg: getSuitableTranslations("Sorry, This User Is Not Exist !!", language),
             error: true,
             data: {},
         }
@@ -87,9 +95,9 @@ async function getAllUsersInsideThePage(authorizationId, pageNumber, pageSize, f
     }
 }
 
-async function updateUserInfo(userId, userType = "user", newUserData, language) {
+async function updateUserInfo(userId, newUserData, language) {
     try {
-        const userInfo = userType === "user" ? await userModel.findById(userId) : await adminModel.findById(userId);
+        const userInfo = await userModel.findById(userId);
         if (userInfo) {
             let newUserInfo = newUserData;
             if (newUserData.password && newUserData.newPassword) {
@@ -132,9 +140,9 @@ async function updateUserInfo(userId, userType = "user", newUserData, language) 
     }
 }
 
-async function changeUserImage(authorizationId, userType = "user", newUserImagePath, language) {
+async function changeUserImage(authorizationId, newUserImagePath, language) {
     try {
-        const user = userType === "user" ? await userModel.findOneAndUpdate({ _id: authorizationId }, { imagePath: newUserImagePath }) : await adminModel.findOneAndUpdate({ _id: authorizationId }, { imagePath: newUserImagePath });
+        const user = await userModel.findOneAndUpdate({ _id: authorizationId }, { imagePath: newUserImagePath });
         if (user) {
             return {
                 msg: getSuitableTranslations("Updating User Image Process Has Been Successfully !!", language),
@@ -143,7 +151,7 @@ async function changeUserImage(authorizationId, userType = "user", newUserImageP
             }
         }
         return {
-            msg: getSuitableTranslations(`Sorry, This ${userType.replace(userType[0], userType[0].toUpperCase())} Is Not Exist !!`, language),
+            msg: getSuitableTranslations("Sorry, This User Is Not Exist !!", language),
             error: true,
             data: {},
         }
@@ -153,7 +161,7 @@ async function changeUserImage(authorizationId, userType = "user", newUserImageP
     }
 }
 
-async function deleteUser(authorizationId, userType = "user", userId, language) {
+async function deleteUser(authorizationId, userType, userId, language) {
     try {
         const user = userType === "user" ? await userModel.findByIdAndDelete(authorizationId) : await userModel.findById(authorizationId);
         if (user) {
