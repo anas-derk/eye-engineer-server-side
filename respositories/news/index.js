@@ -1,6 +1,6 @@
 // Import User, Admin Model Object
 
-const { newsModel, adminModel, userModel } = require("../../models");
+const { newsModel, adminModel } = require("../../models");
 
 // Define Create New User Function
 
@@ -8,7 +8,7 @@ const { getSuitableTranslations } = require("../../helpers/translation");
 
 async function addNews(authorizationId, content, language) {
     try {
-        const admin = await userModel.findById(authorizationId);
+        const admin = await adminModel.findById(authorizationId);
         if (admin) {
             if (admin.isWebsiteOwner) {
                 if (await newsModel.countDocuments({}) >= 10) {
@@ -45,7 +45,7 @@ async function addNews(authorizationId, content, language) {
 
 async function getAllNews(authorizationId, language) {
     try {
-        const admin = await userModel.findById(authorizationId);
+        const admin = await adminModel.findById(authorizationId);
         if (admin) {
             if (admin.isWebsiteOwner) {
                 return {
@@ -72,7 +72,7 @@ async function getAllNews(authorizationId, language) {
 
 async function updateNewsContent(authorizationId, newsId, newContent, language) {
     try {
-        const admin = await userModel.findById(authorizationId);
+        const admin = await adminModel.findById(authorizationId);
         if (admin) {
             if (admin.isWebsiteOwner) {
                 const newsInfo = await newsModel.findById(newsId);
@@ -108,7 +108,7 @@ async function updateNewsContent(authorizationId, newsId, newContent, language) 
 
 async function deleteNews(authorizationId, newsId, language) {
     try {
-        const admin = await userModel.findById(authorizationId);
+        const admin = await adminModel.findById(authorizationId);
         if (admin) {
             if (admin.isWebsiteOwner) {
                 const news = await newsModel.findOneAndDelete({ _id: newsId });
