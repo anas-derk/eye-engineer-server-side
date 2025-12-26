@@ -1,13 +1,69 @@
 const mongoose = require("../../database");
 
-const officeConstants = require("../../constants/offices");
+const { languages, offices } = require("../../constants");
+
+// Create Service Schema
+
+const serviceSchema = new mongoose.Schema({
+    ar: {
+        type: String,
+        required: true,
+    },
+    en: {
+        type: String,
+        required: true,
+    },
+    de: {
+        type: String,
+        required: true,
+    },
+    tr: {
+        type: String,
+        required: true,
+    },
+}, { _id: false });
+
+// Create Experience Schema
+
+const experienceSchema = new mongoose.Schema({
+    ar: {
+        type: String,
+        required: true,
+    },
+    en: {
+        type: String,
+        required: true,
+    },
+    de: {
+        type: String,
+        required: true,
+    },
+    tr: {
+        type: String,
+        required: true,
+    },
+}, { _id: false });
 
 // Create Office Schema
 
 const officeSchema = new mongoose.Schema({
     name: {
-        type: String,
-        required: true,
+        ar: {
+            type: String,
+            required: true,
+        },
+        en: {
+            type: String,
+            required: true,
+        },
+        de: {
+            type: String,
+            required: true,
+        },
+        tr: {
+            type: String,
+            required: true,
+        },
     },
     ownerFullName: {
         type: String,
@@ -22,15 +78,46 @@ const officeSchema = new mongoose.Schema({
         required: true,
     },
     description: {
+        ar: {
+            type: String,
+            required: true,
+        },
+        en: {
+            type: String,
+            required: true,
+        },
+        de: {
+            type: String,
+            required: true,
+        },
+        tr: {
+            type: String,
+            required: true,
+        },
+    },
+    services: {
+        type: [serviceSchema],
+        required: true,
+    },
+    experiences: {
+        type: [experienceSchema],
+        required: true,
+    },
+    phoneNumber: {
         type: String,
         required: true,
     },
     status: {
         type: String,
-        default: officeConstants.DEFAULT_OFFICE_STATUS,
-        enum: officeConstants.OFFICE_STATUS,
+        default: offices.DEFAULT_OFFICE_STATUS,
+        enum: offices.OFFICE_STATUS,
     },
     isMainOffice: Boolean,
+    language: {
+        type: String,
+        enum: languages.LANGUAGES,
+        default: languages.DEFAULT_LANGUAGE
+    },
     creatingOrderDate: {
         type: Date,
         default: Date.now,

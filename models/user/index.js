@@ -1,5 +1,7 @@
 const mongoose = require("../../database");
 
+const { languages, users } = require("../../constants");
+
 // Create User Schema
 
 const userSchema = new mongoose.Schema({
@@ -7,7 +9,8 @@ const userSchema = new mongoose.Schema({
     password: String,
     provider: {
         type: String,
-        default: "same-site",
+        enum: users.USER_PROVIDERS,
+        default: users.DEFAULT_USER_PROVIDER,
     },
     isVerified: {
         type: Boolean,
@@ -19,13 +22,8 @@ const userSchema = new mongoose.Schema({
     },
     language: {
         type: String,
-        enum: [
-            "ar",
-            "en",
-            "de",
-            "tr"
-        ],
-        default: "en"
+        enum: languages.LANGUAGES,
+        default: languages.DEFAULT_LANGUAGE
     },
     dateOfCreation: {
         type: Date,

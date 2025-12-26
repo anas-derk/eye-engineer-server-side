@@ -90,8 +90,164 @@ async function sendChangePasswordEmail(email, language) {
     return result;
 }
 
+async function sendApproveOfficeEmail(email, password, adminId, officeId, language) {
+    const result = await getPasswordForBussinessEmail(process.env.BUSSINESS_EMAIL);
+    if (!result.error) {
+        const templateContent = readFileSync(join(__dirname, "..", "..", "assets", "email_templates", "accept_add_store_request.ejs"), "utf-8");
+        const compiledTemplate = compile(templateContent);
+        const htmlContentAfterCompilingEjsTemplateFile = compiledTemplate({ password, adminId, officeId, language });
+        return new Promise((resolve, reject) => {
+            emailsUtils.getTransporter(result.data).sendMail({
+                from: `${process.env.WEBSITE_NAME} <${process.env.BUSSINESS_EMAIL}>`,
+                to: email,
+                subject: `الموافقة على طلب إضافة متجر جديد لدى ${process.env.WEBSITE_NAME}`,
+                html: htmlContentAfterCompilingEjsTemplateFile,
+            }, function (error, info) {
+                if (error) reject(error);
+                resolve({
+                    msg: "Sending Approve Email On Store Process Has Been Successfully !!",
+                    error: false,
+                    data: {},
+                });
+            });
+        });
+    }
+    return result;
+}
+
+async function sendRejectOfficeEmail(email, language) {
+    const result = await getPasswordForBussinessEmail(process.env.BUSSINESS_EMAIL);
+    if (!result.error) {
+        const templateContent = readFileSync(join(__dirname, "..", "..", "assets", "email_templates", "reject_add_store_request.ejs"), "utf-8");
+        const compiledTemplate = compile(templateContent);
+        const htmlContentAfterCompilingEjsTemplateFile = compiledTemplate({ language });
+        return new Promise((resolve, reject) => {
+            emailsUtils.getTransporter(result.data).sendMail({
+                from: `${process.env.WEBSITE_NAME} <${process.env.BUSSINESS_EMAIL}>`,
+                to: email,
+                subject: `رفض طلب إضافة متجر جديد لدى ${process.env.WEBSITE_NAME}`,
+                html: htmlContentAfterCompilingEjsTemplateFile,
+            }, function (error, info) {
+                if (error) reject(error);
+                resolve({
+                    msg: "Sending Reject Email On Store Process Has Been Successfully !!",
+                    error: false,
+                    data: {},
+                });
+            });
+        });
+    }
+    return result;
+}
+
+async function sendConfirmRequestAddOfficeArrivedEmail(email, language) {
+    const result = await getPasswordForBussinessEmail(process.env.BUSSINESS_EMAIL);
+    if (!result.error) {
+        const templateContent = readFileSync(join(__dirname, "..", "..", "assets", "email_templates", "confirm_request_add_store_arrived.ejs"), "utf-8");
+        const compiledTemplate = compile(templateContent);
+        const htmlContentAfterCompilingEjsTemplateFile = compiledTemplate({ language });
+        return new Promise((resolve, reject) => {
+            emailsUtils.getTransporter(result.data).sendMail({
+                from: `${process.env.WEBSITE_NAME} <${process.env.BUSSINESS_EMAIL}>`,
+                to: email,
+                subject: `تأكيد طلب إضافة متجر جديد لدى ${process.env.WEBSITE_NAME}`,
+                html: htmlContentAfterCompilingEjsTemplateFile,
+            }, function (error, info) {
+                if (error) reject(error);
+                resolve({
+                    msg: "Sending Confirmation Of Store Addition Request At Ubuyblues Email Process Has Been Successfully !!",
+                    error: false,
+                    data: {},
+                });
+            });
+        });
+    }
+    return result;
+}
+
+async function sendBlockOfficeEmail(email, adminId, officeId, language) {
+    const result = await getPasswordForBussinessEmail(process.env.BUSSINESS_EMAIL);
+    if (!result.error) {
+        const templateContent = readFileSync(join(__dirname, "..", "..", "assets", "email_templates", "block_store.ejs"), "utf-8");
+        const compiledTemplate = compile(templateContent);
+        const htmlContentAfterCompilingEjsTemplateFile = compiledTemplate({ adminId, officeId, language });
+        return new Promise((resolve, reject) => {
+            emailsUtils.getTransporter(result.data).sendMail({
+                from: `${process.env.WEBSITE_NAME} <${process.env.BUSSINESS_EMAIL}>`,
+                to: email,
+                subject: `حظر متجر في ${process.env.WEBSITE_NAME}`,
+                html: htmlContentAfterCompilingEjsTemplateFile,
+            }, function (error, info) {
+                if (error) reject(error);
+                resolve({
+                    msg: "Sending Block Email The Store Process Has Been Successfully !!",
+                    error: false,
+                    data: {},
+                });
+            });
+        });
+    }
+    return result;
+}
+
+async function sendDeleteOfficeEmail(email, adminId, officeId, language) {
+    const result = await getPasswordForBussinessEmail(process.env.BUSSINESS_EMAIL);
+    if (!result.error) {
+        const templateContent = readFileSync(join(__dirname, "..", "..", "assets", "email_templates", "delete_store.ejs"), "utf-8");
+        const compiledTemplate = compile(templateContent);
+        const htmlContentAfterCompilingEjsTemplateFile = compiledTemplate({ adminId, officeId, language });
+        return new Promise((resolve, reject) => {
+            emailsUtils.getTransporter(result.data).sendMail({
+                from: `${process.env.WEBSITE_NAME} <${process.env.BUSSINESS_EMAIL}>`,
+                to: email,
+                subject: `حذف متجر في ${process.env.WEBSITE_NAME}`,
+                html: htmlContentAfterCompilingEjsTemplateFile,
+            }, function (error, info) {
+                if (error) reject(error);
+                resolve({
+                    msg: "Sending Delete Email The Store Process Has Been Successfully !!",
+                    error: false,
+                    data: {},
+                });
+            });
+        });
+    }
+    return result;
+}
+
+async function sendReceiveAddOfficeRequestEmail(email, storeDetails) {
+    const result = await getPasswordForBussinessEmail(process.env.BUSSINESS_EMAIL);
+    if (!result.error) {
+        const templateContent = readFileSync(join(__dirname, "..", "..", "assets", "email_templates", "receive_add_store_request.ejs"), "utf-8");
+        const compiledTemplate = compile(templateContent);
+        const htmlContentAfterCompilingEjsTemplateFile = compiledTemplate(storeDetails);
+        return new Promise((resolve, reject) => {
+            emailsUtils.getTransporter(result.data).sendMail({
+                from: `${process.env.WEBSITE_NAME} <${process.env.BUSSINESS_EMAIL}>`,
+                to: email,
+                subject: `استقبال طلب إضافة متجر في ${process.env.WEBSITE_NAME}`,
+                html: htmlContentAfterCompilingEjsTemplateFile,
+            }, function (error, info) {
+                if (error) reject(error);
+                resolve({
+                    msg: "Sending Receive Add Store Request Email To Website Owner Process Has Been Successfully !!",
+                    error: false,
+                    data: {},
+                });
+            });
+        });
+    }
+    return result;
+}
+
 module.exports = {
     sendVerificationCodeToUserEmail,
     sendCongratulationsOnCreatingNewAccountEmail,
-    sendChangePasswordEmail
+    sendChangePasswordEmail,
+    sendApproveOfficeEmail,
+    sendRejectOfficeEmail,
+    sendConfirmRequestAddOfficeArrivedEmail,
+    sendBlockOfficeEmail,
+    sendDeleteOfficeEmail,
+    sendReceiveAddOfficeRequestEmail
 }

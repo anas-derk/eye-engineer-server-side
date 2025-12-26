@@ -9,13 +9,37 @@ require("dotenv").config({
 const officeModel = require("../../../models/office");
 
 const officeInfo = {
-    name: "Eye Engineer",
+    name: {
+        ar: "عين المهندس",
+        en: "Eye Engineer",
+        de: "Augen-Ingenieur",
+        tr: "Göz Mühendisi"
+    },
     ownerFullName: "Soliman Asfour",
     email: process.env.MAIN_ADMIN_EMAIL,
     phoneNumber: "00963941519404",
-    description: "Eye Engineer Description",
-    services: ["All"],
-    experiences: ["All"],
+    description: {
+        ar: "المكتب الرئيسي",
+        en: "Main Office",
+        de: "Hauptbüro",
+        tr: "Ana Ofis"
+    },
+    services: [
+        {
+            ar: "الكل",
+            en: "All",
+            de: "Alle",
+            tr: "Tüm"
+        }
+    ],
+    experiences: [
+        {
+            ar: "الكل",
+            en: "All",
+            de: "Alle",
+            tr: "Tüm"
+        }
+    ],
     status: "approving",
     isMainOffice: true,
     approveDate: Date.now(),
