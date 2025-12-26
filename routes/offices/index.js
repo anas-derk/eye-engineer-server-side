@@ -59,7 +59,6 @@ officesRouter.get("/office-details/:officeId",
 officesRouter.get("/main-office-details", validateJWT, officesController.getMainOfficeDetails);
 
 officesRouter.post("/add-office",
-    validateJWT,
     multer({
         storage: multer.memoryStorage(),
         fileFilter: (req, file, cb) => {

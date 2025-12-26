@@ -2,7 +2,7 @@ const { responsesHelpers, translationHelpers, processingHelpers, emailsHelpers }
 
 const { getResponseObject } = responsesHelpers;
 
-const { getSuitableTranslations } = translationHelpers;
+const { getSuitableTranslations, translateSentensesByAPI } = translationHelpers;
 
 const { imagesHelpers } = processingHelpers;
 
@@ -85,9 +85,9 @@ async function postNewOffice(req, res) {
         const officeInfo = Object.assign({}, req.body);
         const translations = {
             ar: await translateSentensesByAPI([officeInfo.name, officeInfo.description], "AR"),
-            en: await translateSentensesByAPI([officeInfo.name, officeInfo.productsType, officeInfo.productsDescription], "EN"),
-            de: await translateSentensesByAPI([officeInfo.name, officeInfo.productsType, officeInfo.productsDescription], "DE"),
-            tr: await translateSentensesByAPI([officeInfo.name, officeInfo.productsType, officeInfo.productsDescription], "TR"),
+            en: await translateSentensesByAPI([officeInfo.name, officeInfo.description], "EN"),
+            de: await translateSentensesByAPI([officeInfo.name, officeInfo.description], "DE"),
+            tr: await translateSentensesByAPI([officeInfo.name, officeInfo.description], "TR"),
         };
         officeInfo.name = {
             ar: translations.ar[0].text,
@@ -101,25 +101,39 @@ async function postNewOffice(req, res) {
             de: translations.de[1].text,
             tr: translations.tr[1].text,
         };
-        officeInfo.productsDescription = {
-            ar: translations.ar[2].text,
-            en: translations.en[2].text,
-            de: translations.de[2].text,
-            tr: translations.tr[2].text,
+        const servicesTranslations = {
+            ar: await translateSentensesByAPI(officeInfo.services, "AR"),
+            en: await translateSentensesByAPI(officeInfo.services, "EN"),
+            de: await translateSentensesByAPI(officeInfo.services, "DE"),
+            tr: await translateSentensesByAPI(officeInfo.services, "TR"),
         };
-        const result = await storesOPerationsManagmentFunctions.addNewOffice({
+        officeInfo.services = officeInfo.services.map((_, index) => ({
+            ar: servicesTranslations.ar[index].text,
+            en: servicesTranslations.en[index].text,
+            de: servicesTranslations.de[index].text,
+            tr: servicesTranslations.tr[index].text,
+        }));
+        const experiencesTranslations = {
+            ar: await translateSentensesByAPI(officeInfo.experiences, "AR"),
+            en: await translateSentensesByAPI(officeInfo.experiences, "EN"),
+            de: await translateSentensesByAPI(officeInfo.experiences, "DE"),
+            tr: await translateSentensesByAPI(officeInfo.experiences, "TR"),
+        };
+        officeInfo.experiences = officeInfo.experiences.map((_, index) => ({
+            ar: experiencesTranslations.ar[index].text,
+            en: experiencesTranslations.en[index].text,
+            de: experiencesTranslations.de[index].text,
+            tr: experiencesTranslations.tr[index].text,
+        }));
+        const result = await officesOPerationsManagmentFunctions.addNewOffice({
             ...{
                 name,
-                ownerFirstName,
-                ownerLastName,
-                ownerEmail,
-                productsType,
-                productsDescription: {
-                    ar: translations.ar[2].text,
-                    en: translations.en[2].text,
-                    de: translations.de[2].text,
-                    tr: translations.tr[2].text,
-                },
+                ownerFullName,
+                email,
+                phoneNumber,
+                description,
+                services,
+                experiences,
                 language,
             } = officeInfo,
             imagePath: outputImageFilePath
@@ -129,7 +143,7 @@ async function postNewOffice(req, res) {
         }
         else {
             try {
-                await sendConfirmRequestAddOfficeArrivedEmail(result.data.ownerEmail, result.data.language);
+                await sendConfirmRequestAddOfficeArrivedEmail(result.data.email, result.data.language);
                 await sendReceiveAddOfficeRequestEmail(process.env.BUSSINESS_EMAIL, result.data);
             } catch (err) {
                 console.log(err);

@@ -3,7 +3,7 @@ const globalTranslations = require("./global");
 const sectionsTranslations = require("./sections");
 
 module.exports = {
-    commonTranslations,
-    globalTranslations,
-    sectionsTranslations,
+    ...commonTranslations,
+    ...globalTranslations,
+    ...sectionsTranslations,
 }

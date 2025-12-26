@@ -69,16 +69,16 @@ async function getOfficeDetails(authorizationId, officeId, language) {
     try {
         const user = userType === "user" ? await userModel.findById(authorizationId) : await adminModel.findById(authorizationId);
         if (user) {
-            const store = await officeModel.findById(officeId);
-            if (store) {
+            const office = await officeModel.findById(officeId);
+            if (office) {
                 return {
-                    msg: getSuitableTranslations("Get Details For This Store Process Has Been Successfully !!", language),
+                    msg: getSuitableTranslations("Get Details For This Office Process Has Been Successfully !!", language),
                     error: false,
-                    data: store,
+                    data: office,
                 }
             }
             return {
-                msg: getSuitableTranslations("Sorry, This Store Is Not Found !!", language),
+                msg: getSuitableTranslations("Sorry, This Office Is Not Found !!", language),
                 error: true,
                 data: {},
             }
@@ -97,16 +97,16 @@ async function getMainOfficeDetails(authorizationId, language) {
     try {
         const user = await userModel.findById(authorizationId);
         if (user) {
-            const store = await officeModel.findOne({ isMainStore: true });
-            if (store) {
+            const office = await officeModel.findOne({ isMainStore: true });
+            if (office) {
                 return {
-                    msg: getSuitableTranslations("Get Main Store Details Process Has Been Successfully !!", language),
+                    msg: getSuitableTranslations("Get Main Office Details Process Has Been Successfully !!", language),
                     error: false,
-                    data: store,
+                    data: office,
                 }
             }
             return {
-                msg: getSuitableTranslations("Sorry, This Store Is Not Found !!", language),
+                msg: getSuitableTranslations("Sorry, This Office Is Not Found !!", language),
                 error: true,
                 data: {},
             }
@@ -121,29 +121,20 @@ async function getMainOfficeDetails(authorizationId, language) {
     }
 }
 
-async function addNewOffice(storeDetails, language) {
+async function addNewOffice(officeDetails, language) {
     try {
-        const user = await userModel.findById(storeDetails.userId);
-        if (user) {
-            const store = await officeModel.findOne({ email: storeDetails.email });
-            storeDetails.workingHours = JSON.parse(storeDetails.workingHours);
-            if (store) {
-                return {
-                    msg: getSuitableTranslations("Sorry, This Email Is Already Exist !!", language),
-                    error: true,
-                    data: {},
-                }
-            }
+        const office = await officeModel.findOne({ email: officeDetails.email });
+        if (office) {
             return {
-                msg: getSuitableTranslations("Creating Licence Request New Store Process Has Been Successfully !!", language),
-                error: false,
-                data: await (new officeModel(storeDetails)).save(),
+                msg: getSuitableTranslations("Sorry, This Email Is Already Exist !!", language),
+                error: true,
+                data: {},
             }
         }
         return {
-            msg: getSuitableTranslations("Sorry, This User Is Not Found !!", language),
-            error: true,
-            data: {},
+            msg: getSuitableTranslations("Creating Licence Request New Office Process Has Been Successfully !!", language),
+            error: false,
+            data: await (new officeModel(officeDetails)).save(),
         }
     }
     catch (err) {
@@ -156,45 +147,45 @@ async function approveOffice(authorizationId, officeId, password, language) {
         const admin = await adminModel.findById(authorizationId);
         if (admin) {
             if (admin.isWebsiteOwner) {
-                const store = await officeModel.findById(officeId);
-                if (store) {
-                    if (store.status === "approving") {
+                const office = await officeModel.findById(officeId);
+                if (office) {
+                    if (office.status === "approving") {
                         return {
-                            msg: getSuitableTranslations("Sorry, This Store Is Already Approved !!", language),
+                            msg: getSuitableTranslations("Sorry, This Office Is Already Approved !!", language),
                             error: true,
                             data: {},
                         }
                     }
-                    if (store.status === "blocking") {
+                    if (office.status === "blocking") {
                         return {
-                            msg: getSuitableTranslations("Sorry, This Store Is Blocked !!", language),
+                            msg: getSuitableTranslations("Sorry, This Office Is Blocked !!", language),
                             error: true,
                             data: {
-                                blockingDate: store.blockingDate,
-                                blockingReason: store.blockingReason,
+                                blockingDate: office.blockingDate,
+                                blockingReason: office.blockingReason,
                             },
                         };
                     }
                     await officeModel.updateOne({ _id: officeId }, { status: "approving", approveDate: Date.now() });
                     const newMerchant = new adminModel({
-                        fullName: store.ownerFullName,
-                        email: store.email,
+                        fullName: office.ownerFullName,
+                        email: office.email,
                         password: await hash(password, 10),
                         isMerchant: true,
                         officeId,
                     });
                     await newMerchant.save();
                     return {
-                        msg: getSuitableTranslations("Approving On This Store And Create Merchant Account Process Has Been Successfully !!", language),
+                        msg: getSuitableTranslations("Approving On This Office And Create Merchant Account Process Has Been Successfully !!", language),
                         error: false,
                         data: {
                             adminId: newMerchant._id,
-                            email: store.email,
+                            email: office.email,
                         },
                     }
                 }
                 return {
-                    msg: getSuitableTranslations("Sorry, This Store Is Not Found !!", language),
+                    msg: getSuitableTranslations("Sorry, This Office Is Not Found !!", language),
                     error: true,
                     data: {},
                 }
@@ -221,16 +212,16 @@ async function updateOfficeInfo(authorizationId, officeId, newStoreDetails, lang
         const admin = await adminModel.findById(authorizationId);
         if (admin) {
             if (admin.isWebsiteOwner) {
-                const store = await officeModel.findOneAndUpdate({ _id: officeId }, newStoreDetails);
-                if (store) {
+                const office = await officeModel.findOneAndUpdate({ _id: officeId }, newStoreDetails);
+                if (office) {
                     return {
-                        msg: getSuitableTranslations("Updating Details Process For This Store Has Been Successfully !!", language),
+                        msg: getSuitableTranslations("Updating Details Process For This Office Has Been Successfully !!", language),
                         error: false,
                         data: {},
                     };
                 }
                 return {
-                    msg: getSuitableTranslations("Sorry, This Store Is Not Found !!", language),
+                    msg: getSuitableTranslations("Sorry, This Office Is Not Found !!", language),
                     error: true,
                     data: {},
                 };
@@ -256,9 +247,9 @@ async function blockingOffice(authorizationId, officeId, blockingReason, languag
         const admin = await adminModel.findById(authorizationId);
         if (admin) {
             if (admin.isWebsiteOwner) {
-                const store = await officeModel.findById(officeId);
-                if (store) {
-                    if (store.status === "pending" || store.status === "approving") {
+                const office = await officeModel.findById(officeId);
+                if (office) {
+                    if (office.status === "pending" || office.status === "approving") {
                         await officeModel.updateOne({ _id: officeId }, {
                             blockingReason,
                             blockingDate: Date.now(),
@@ -271,7 +262,7 @@ async function blockingOffice(authorizationId, officeId, blockingReason, languag
                         });
                         const merchant = await adminModel.findOne({ officeId, isMerchant: true });
                         return {
-                            msg: getSuitableTranslations("Blocking Process For This Store Has Been Successfully !!", language),
+                            msg: getSuitableTranslations("Blocking Process For This Office Has Been Successfully !!", language),
                             error: false,
                             data: {
                                 adminId: merchant._id,
@@ -279,16 +270,16 @@ async function blockingOffice(authorizationId, officeId, blockingReason, languag
                             }
                         }
                     }
-                    if (store.status === "blocking") {
+                    if (office.status === "blocking") {
                         return {
-                            msg: getSuitableTranslations("Sorry, This Store Is Already Blocked !!", language),
+                            msg: getSuitableTranslations("Sorry, This Office Is Already Blocked !!", language),
                             error: true,
                             data: {},
                         }
                     }
                 }
                 return {
-                    msg: getSuitableTranslations("Sorry, This Store Is Not Found !!", language),
+                    msg: getSuitableTranslations("Sorry, This Office Is Not Found !!", language),
                     error: true,
                     data: {},
                 };
@@ -314,9 +305,9 @@ async function cancelBlockingOffice(authorizationId, officeId, language) {
         const admin = await adminModel.findById(authorizationId);
         if (admin) {
             if (admin.isWebsiteOwner) {
-                const store = await officeModel.findById(officeId);
-                if (store) {
-                    if (store.status === "blocking") {
+                const office = await officeModel.findById(officeId);
+                if (office) {
+                    if (office.status === "blocking") {
                         await officeModel.updateOne({ _id: officeId }, {
                             dateOfCancelBlocking: Date.now(),
                             status: "approving"
@@ -326,19 +317,19 @@ async function cancelBlockingOffice(authorizationId, officeId, language) {
                             isBlocked: false
                         });
                         return {
-                            msg: getSuitableTranslations("Cancel Blocking Process For This Store That Has Been Successfully !!", language),
+                            msg: getSuitableTranslations("Cancel Blocking Process For This Office That Has Been Successfully !!", language),
                             error: false,
                             data: {},
                         };
                     }
                     return {
-                        msg: getSuitableTranslations("Sorry, This Store Is Not Blocked !!", language),
+                        msg: getSuitableTranslations("Sorry, This Office Is Not Blocked !!", language),
                         error: true,
                         data: {},
                     }
                 }
                 return {
-                    msg: getSuitableTranslations("Sorry, This Store Is Not Found !!", language),
+                    msg: getSuitableTranslations("Sorry, This Office Is Not Found !!", language),
                     error: true,
                     data: {},
                 }
@@ -364,18 +355,18 @@ async function changeOfficeImage(authorizationId, officeId, newStoreImagePath, l
         const admin = await adminModel.findById(authorizationId);
         if (admin) {
             if (admin.isWebsiteOwner) {
-                const store = await officeModel.findOneAndUpdate({ _id: officeId }, {
+                const office = await officeModel.findOneAndUpdate({ _id: officeId }, {
                     imagePath: newStoreImagePath,
                 });
-                if (store) {
+                if (office) {
                     return {
-                        msg: getSuitableTranslations("Updating Store Image Process Has Been Successfully !!", language),
+                        msg: getSuitableTranslations("Updating Office Image Process Has Been Successfully !!", language),
                         error: false,
-                        data: { deletedStoreImagePath: store.imagePath }
+                        data: { deletedStoreImagePath: office.imagePath }
                     };
                 }
                 return {
-                    msg: getSuitableTranslations("Sorry, This Store Is Not Exist !!", language),
+                    msg: getSuitableTranslations("Sorry, This Office Is Not Exist !!", language),
                     error: true,
                     data: {}
                 }
@@ -402,25 +393,25 @@ async function deleteOffice(authorizationId, officeId, language) {
         const admin = await adminModel.findById(authorizationId);
         if (admin) {
             if (admin.isWebsiteOwner) {
-                const store = await officeModel.findOne({ _id: officeId });
-                if (store) {
-                    if (store.status !== "pending") {
-                        if (!store.isMainStore) {
+                const office = await officeModel.findOne({ _id: officeId });
+                if (office) {
+                    if (office.status !== "pending") {
+                        if (!office.isMainStore) {
                             await officeModel.deleteOne({ _id: officeId });
                             await categoryModel.deleteMany({ officeId });
                             await productModel.deleteMany({ officeId });
                             const merchant = await adminModel.findOne({ officeId, isMerchant: true });
                             await adminModel.deleteMany({ officeId });
                             return {
-                                msg: getSuitableTranslations("Deleting Store Process Has Been Successfully !!", language),
+                                msg: getSuitableTranslations("Deleting Office Process Has Been Successfully !!", language),
                                 error: false,
                                 data: {
                                     filePaths: [
-                                        store.coverImagePath,
-                                        store.profileImagePath,
-                                        store.commercialRegisterFilePath,
-                                        store.taxCardFilePath,
-                                        store.addressProofFilePath,
+                                        office.coverImagePath,
+                                        office.profileImagePath,
+                                        office.commercialRegisterFilePath,
+                                        office.taxCardFilePath,
+                                        office.addressProofFilePath,
                                     ],
                                     adminId: merchant._id,
                                     email: merchant.email,
@@ -428,19 +419,19 @@ async function deleteOffice(authorizationId, officeId, language) {
                             }
                         }
                         return {
-                            msg: getSuitableTranslations("Sorry, Permission Denied Because This Store Is Main Store !!", language),
+                            msg: getSuitableTranslations("Sorry, Permission Denied Because This Office Is Main Office !!", language),
                             error: true,
                             data: {},
                         }
                     }
                     return {
-                        msg: getSuitableTranslations("Sorry, Permission Denied Because This Store In Status: ( pending ) !!", language),
+                        msg: getSuitableTranslations("Sorry, Permission Denied Because This Office In Status: ( pending ) !!", language),
                         error: true,
                         data: {},
                     }
                 }
                 return {
-                    msg: getSuitableTranslations("Sorry, This Store Is Not Found !!", language),
+                    msg: getSuitableTranslations("Sorry, This Office Is Not Found !!", language),
                     error: true,
                     data: {},
                 }
@@ -468,25 +459,25 @@ async function rejectOffice(authorizationId, officeId, language) {
         const admin = await adminModel.findById(authorizationId);
         if (admin) {
             if (admin.isWebsiteOwner) {
-                const store = await officeModel.findOneAndDelete({ _id: officeId });
-                if (store) {
+                const office = await officeModel.findOneAndDelete({ _id: officeId });
+                if (office) {
                     return {
-                        msg: getSuitableTranslations("Rejecting Store Process Has Been Successfully !!", language),
+                        msg: getSuitableTranslations("Rejecting Office Process Has Been Successfully !!", language),
                         error: false,
                         data: {
                             filePaths: [
-                                store.coverImagePath,
-                                store.profileImagePath,
-                                store.commercialRegisterFilePath,
-                                store.taxCardFilePath,
-                                store.addressProofFilePath,
+                                office.coverImagePath,
+                                office.profileImagePath,
+                                office.commercialRegisterFilePath,
+                                office.taxCardFilePath,
+                                office.addressProofFilePath,
                             ],
-                            email: store.email,
+                            email: office.email,
                         },
                     }
                 }
                 return {
-                    msg: getSuitableTranslations("Sorry, This Store Is Not Found !!", language),
+                    msg: getSuitableTranslations("Sorry, This Office Is Not Found !!", language),
                     error: true,
                     data: {},
                 }
