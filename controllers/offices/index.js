@@ -138,8 +138,17 @@ async function postNewOffice(req, res) {
             } = officeInfo,
             imagePath: outputImageFilePath
         }, req.query.language);
+        res.json(result);
         if (result.error) {
-            unlinkSync(outputImageFilePath);
+            try {
+                unlinkSync(outputImageFilePath);
+            }
+            catch (err) {
+                console.log(`error on delete new office image, image path: ${outputImageFilePath}`, err?.message ?? err);
+            }
+            finally {
+                return;
+            }
         }
         else {
             try {
@@ -149,7 +158,6 @@ async function postNewOffice(req, res) {
                 console.log(err);
             }
         }
-        res.json(result);
     }
     catch (err) {
         console.log(err);
@@ -168,7 +176,7 @@ async function postApproveOffice(req, res) {
         }
         res.json(result);
         try {
-            await sendApproveOfficeEmail(result.data.email, req.query.password, result.data.adminId, req.params.officeId, "ar");
+            await sendApproveOfficeEmail(result.data.email, req.query.password, result.data.adminId, req.params.officeId, result.data.language);
         }
         catch (err) {
             console.log(`error on send approve office email to: ${result.data.email}, admin id: ${result.data.adminId} office id: ${req.params.officeId}`, err?.message ?? err);
@@ -203,7 +211,13 @@ async function putBlockingOffice(req, res) {
             }
             return res.json(result);
         }
-        res.json(await sendBlockOfficeEmail(result.data.email, result.data.adminId, req.params.officeId, "ar"));
+        res.json(result);
+        try {
+            await sendBlockOfficeEmail(result.data.email, result.data.adminId, req.params.officeId, result.data.language);
+        }
+        catch (err) {
+            console.log(`error on send blocking office email to: ${result.data.email}, admin id: ${result.data.adminId} office id: ${req.params.officeId}`, err?.message ?? err);
+        }
     }
     catch (err) {
         res.status(500).json(getResponseObject(getSuitableTranslations("Internal Server Error !!", req.query.language), true, {}));
@@ -221,7 +235,6 @@ async function putCancelBlockingOffice(req, res) {
         res.json(result);
     }
     catch (err) {
-        console.log(err);
         res.status(500).json(getResponseObject(getSuitableTranslations("Internal Server Error !!", req.query.language), true, {}));
     }
 }
@@ -256,15 +269,24 @@ async function deleteOffice(req, res) {
     try {
         const result = await officesOPerationsManagmentFunctions.deleteOffice(req.data._id, req.params.officeId, req.query.language);
         if (result.error) {
-            if (result.msg !== "Sorry, This Store Is Not Found !!") {
+            if (result.msg !== "Sorry, This Office Is Not Found !!") {
                 return res.status(401).json(result);
             }
             return res.json(result);
         }
-        for (let filePath of result.data.filePaths) {
-            unlinkSync(filePath);
+        res.json(result);
+        try {
+            unlinkSync(result.data.imagePath);
         }
-        res.json(await sendDeleteOfficeEmail(result.data.email, result.data.adminId, req.params.officeId, "ar"));
+        catch (err) {
+            console.log(`error on delete office image, office id: ${req.params.officeId}, image path: ${result.data.imagePath}`, err?.message ?? err);
+        }
+        try {
+            await sendDeleteOfficeEmail(result.data.email, result.data.adminId, req.params.officeId, result.data.language);
+        }
+        catch (err) {
+            console.log(`error on send delete office email to: ${result.data.email}, office id: ${req.params.officeId}`, err?.message ?? err);
+        }
     }
     catch (err) {
         res.status(500).json(getResponseObject(getSuitableTranslations("Internal Server Error !!", req.query.language), true, {}));
@@ -275,18 +297,26 @@ async function deleteRejectOffice(req, res) {
     try {
         const result = await officesOPerationsManagmentFunctions.rejectOffice(req.data._id, req.params.officeId, req.query.language);
         if (result.error) {
-            if (result.msg !== "Sorry, This Store Is Not Found !!") {
+            if (result.msg !== "Sorry, This Office Is Not Exit !!") {
                 return res.status(401).json(result);
             }
             return res.json(result);
         }
-        for (let filePath of result.data.filePaths) {
-            unlinkSync(filePath);
+        res.json(result);
+        try {
+            unlinkSync(result.data.imagePath);
         }
-        res.json(await sendRejectOfficeEmail(result.data.email, "ar"));
+        catch (err) {
+            console.log(`error on delete office image, office id: ${req.params.officeId}, image path: ${result.data.imagePath}`, err?.message ?? err);
+        }
+        try {
+            await sendRejectOfficeEmail(result.data.email, result.data.language);
+        }
+        catch (err) {
+            console.log(`error on send reject office email to: ${result.data.email}, office id: ${req.params.officeId}`, err?.message ?? err);
+        }
     }
     catch (err) {
-        console.log(err);
         res.status(500).json(getResponseObject(getSuitableTranslations("Internal Server Error !!", req.query.language), true, {}));
     }
 }

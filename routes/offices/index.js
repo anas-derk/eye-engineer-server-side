@@ -150,7 +150,7 @@ officesRouter.put("/blocking-office/:officeId",
     (req, res, next) => {
         validateIsExistValueForFieldsAndDataTypes([
             { fieldName: "Office Id", fieldValue: req.params.officeId, dataTypes: ["ObjectId"], isRequiredValue: true },
-            { fieldName: "Blocking Reason", fieldValue: req.query.blockingReason, dataTypes: ["string"], isRequiredValue: true },
+            { fieldName: "Blocking Reason", fieldValue: req.body.blockingReason, dataTypes: ["string"], isRequiredValue: true },
         ], res, next);
     },
     officesController.putBlockingOffice

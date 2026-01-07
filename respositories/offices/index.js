@@ -1,6 +1,6 @@
-// Import Order Model Object
+// Import Models Object
 
-const { officeModel, adminModel, categoryModel, productModel, userModel } = require("../../models");
+const { officeModel, adminModel, userModel } = require("../../models");
 
 // require bcryptjs module for password encrypting
 
@@ -97,7 +97,7 @@ async function getMainOfficeDetails(authorizationId, language) {
     try {
         const user = await userModel.findById(authorizationId);
         if (user) {
-            const office = await officeModel.findOne({ isMainStore: true });
+            const office = await officeModel.findOne({ isMainOffice: true });
             if (office) {
                 return {
                     msg: getSuitableTranslations("Get Main Office Details Process Has Been Successfully !!", language),
@@ -181,6 +181,7 @@ async function approveOffice(authorizationId, officeId, password, language) {
                         data: {
                             adminId: newEngineer._id,
                             email: office.email,
+                            language: office.language
                         },
                     }
                 }
@@ -260,13 +261,14 @@ async function blockingOffice(authorizationId, officeId, blockingReason, languag
                             blockingDate: Date.now(),
                             isBlocked: true
                         });
-                        const merchant = await adminModel.findOne({ officeId, isMerchant: true });
+                        const engineer = await adminModel.findOne({ officeId, isEngineer: true });
                         return {
                             msg: getSuitableTranslations("Blocking Process For This Office Has Been Successfully !!", language),
                             error: false,
                             data: {
-                                adminId: merchant._id,
-                                email: merchant.email,
+                                adminId: engineer._id,
+                                email: engineer.email,
+                                language: office.language
                             }
                         }
                     }
@@ -396,25 +398,18 @@ async function deleteOffice(authorizationId, officeId, language) {
                 const office = await officeModel.findOne({ _id: officeId });
                 if (office) {
                     if (office.status !== "pending") {
-                        if (!office.isMainStore) {
+                        if (!office.isMainOffice) {
                             await officeModel.deleteOne({ _id: officeId });
-                            await categoryModel.deleteMany({ officeId });
-                            await productModel.deleteMany({ officeId });
-                            const merchant = await adminModel.findOne({ officeId, isMerchant: true });
+                            const engineer = await adminModel.findOne({ officeId, isEngineer: true });
                             await adminModel.deleteMany({ officeId });
                             return {
                                 msg: getSuitableTranslations("Deleting Office Process Has Been Successfully !!", language),
                                 error: false,
                                 data: {
-                                    filePaths: [
-                                        office.coverImagePath,
-                                        office.profileImagePath,
-                                        office.commercialRegisterFilePath,
-                                        office.taxCardFilePath,
-                                        office.addressProofFilePath,
-                                    ],
-                                    adminId: merchant._id,
-                                    email: merchant.email,
+                                    imagePath: office.imagePath,
+                                    adminId: engineer._id,
+                                    email: office.email,
+                                    language: office.language
                                 },
                             }
                         }
@@ -449,7 +444,6 @@ async function deleteOffice(authorizationId, officeId, language) {
         }
     }
     catch (err) {
-        console.log(err);
         throw Error(err);
     }
 }
@@ -465,14 +459,9 @@ async function rejectOffice(authorizationId, officeId, language) {
                         msg: getSuitableTranslations("Rejecting Office Process Has Been Successfully !!", language),
                         error: false,
                         data: {
-                            filePaths: [
-                                office.coverImagePath,
-                                office.profileImagePath,
-                                office.commercialRegisterFilePath,
-                                office.taxCardFilePath,
-                                office.addressProofFilePath,
-                            ],
+                            imagePath: office.imagePath,
                             email: office.email,
+                            language: office.language
                         },
                     }
                 }
