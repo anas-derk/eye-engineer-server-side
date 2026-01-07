@@ -207,12 +207,12 @@ async function approveOffice(authorizationId, officeId, password, language) {
     }
 }
 
-async function updateOfficeInfo(authorizationId, officeId, newStoreDetails, language) {
+async function updateOfficeInfo(authorizationId, officeId, newOfficeDetails, language) {
     try {
         const admin = await adminModel.findById(authorizationId);
         if (admin) {
             if (admin.isWebsiteOwner) {
-                const office = await officeModel.findOneAndUpdate({ _id: officeId }, newStoreDetails);
+                const office = await officeModel.findOneAndUpdate({ _id: officeId }, newOfficeDetails);
                 if (office) {
                     return {
                         msg: getSuitableTranslations("Updating Details Process For This Office Has Been Successfully !!", language),
@@ -221,7 +221,7 @@ async function updateOfficeInfo(authorizationId, officeId, newStoreDetails, lang
                     };
                 }
                 return {
-                    msg: getSuitableTranslations("Sorry, This Office Is Not Found !!", language),
+                    msg: getSuitableTranslations("Sorry, This Office Is Not Exist !!", language),
                     error: true,
                     data: {},
                 };

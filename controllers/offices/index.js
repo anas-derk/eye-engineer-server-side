@@ -177,7 +177,7 @@ async function putOfficeInfo(req, res) {
     try {
         const result = await officesOPerationsManagmentFunctions.updateOfficeInfo(req.data._id, req.params.officeId, req.body, req.query.language);
         if (result.error) {
-            if (result.msg !== "Sorry, This Store Is Not Found !!") {
+            if (result.msg !== "Sorry, This Office Is Not Found !!") {
                 return res.status(401).json(result);
             }
         }

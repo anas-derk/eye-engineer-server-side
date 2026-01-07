@@ -124,7 +124,26 @@ officesRouter.post("/approve-office/:officeId",
     officesController.postApproveOffice
 );
 
-officesRouter.put("/update-office-info/:officeId", validateJWT, officesController.putOfficeInfo);
+officesRouter.put("/update-office-info/:officeId",
+    validateJWT,
+    (req, res, next) => {
+        const { name, email } = req.body;
+        validateIsExistValueForFieldsAndDataTypes([
+            { fieldName: "New Office Name", fieldValue: name, dataTypes: ["object"], isRequiredValue: false },
+            { fieldName: "New Office Email", fieldValue: email, dataTypes: ["string"], isRequiredValue: false },
+        ], res, next);
+    },
+    (req, res, next) => {
+        const { name } = req.body;
+        if (name) {
+            return validateIsExistValueForFieldsAndDataTypes(["ar", "en", "de", "tr"].map((language) => (
+                { fieldName: `New Office Name In ${language.toUpperCase()}`, fieldValue: name[language], dataTypes: ["string"], isRequiredValue: true }
+            )), res, next);
+        }
+        next();
+    },
+    officesController.putOfficeInfo
+);
 
 officesRouter.put("/blocking-office/:officeId",
     validateJWT,
