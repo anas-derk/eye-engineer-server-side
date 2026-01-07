@@ -17,7 +17,7 @@ const adminInfo = {
     email: process.env.MAIN_ADMIN_EMAIL,
     password: process.env.MAIN_ADMIN_PASSWORD,
     isWebsiteOwner: true,
-    isExistOffice: true,
+    isEngineer: true,
     permissions: [],
 }
 

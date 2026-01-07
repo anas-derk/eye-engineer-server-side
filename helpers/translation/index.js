@@ -1,8 +1,8 @@
 const { translationUtils } = require("../../utils");
 
-const arTranslations = require("../../locals/ar/index.json");
-const trTranslations = require("../../locals/tr/index.json");
-const deTranslations = require("../../locals/de/index.json");
+const arTranslations = require("../../locals/ar");
+const trTranslations = require("../../locals/tr");
+const deTranslations = require("../../locals/de");
 
 const { post } = require("axios");
 

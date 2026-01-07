@@ -5,9 +5,9 @@ const usersTranslations = require("./users");
 const verificationCodesTranslations = require("./verification_codes");
 
 module.exports = {
-    adminsTranslations,
-    globalPasswordsTranslations,
-    officesTranslations,
-    usersTranslations,
-    verificationCodesTranslations
+    ...adminsTranslations,
+    ...globalPasswordsTranslations,
+    ...officesTranslations,
+    ...usersTranslations,
+    ...verificationCodesTranslations
 }

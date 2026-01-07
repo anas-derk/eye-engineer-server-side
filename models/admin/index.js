@@ -19,7 +19,7 @@ const adminSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
-    isExistOffice: {
+    isEngineer: {
         type: Boolean,
         default: false,
     },

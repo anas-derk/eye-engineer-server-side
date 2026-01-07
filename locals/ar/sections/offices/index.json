@@ -1,3 +1,16 @@
 {
-    "Creating Licence Request New Office Process Has Been Successfully !!": "عملية إنشاء طلب ترخيص مكتب جديد تمت بنجاح !!"
+    "Creating Licence Request New Office Process Has Been Successfully !!": "عملية إنشاء طلب ترخيص مكتب جديد تمت بنجاح !!",
+    "Sorry, This Office Is Already Approved !!": "عذراً ، هذا المكتب تمت الموافقة عليه مسبقاً !!",
+    "Sorry, This Office Is Blocked !!": "عذراً ، هذا المكتب محظور !!",
+    "Approving On This Office And Create Engineer Account Process Has Been Successfully !!": "عملية الموافقة على هذا المكتب وإنشاء حساب مهندس جديد تمت بنجاح !!",
+    "Updating Details Process For This Office Has Been Successfully !!": "عملية تحديث التفاصيل لهذا المكتب تمت بنجاح !!",
+    "Blocking Process For This Office Has Been Successfully !!": "عملية الحظر لهذا المكتب تمت بنجاح !!",
+    "Sorry, This Office Is Already Blocked !!": "عذراً ، هذا المكتب تم حظره مسبقاً !!",
+    "Cancel Blocking Process For This Office That Has Been Successfully !!": "عملية إلغاء الحظر لهذا المكتب تمت بنجاح !!",
+    "Sorry, This Office Is Not Blocked !!": "عذراً ، هذا المكتب غير محظور !!",
+    "Updating Office Image Process Has Been Successfully !!": "عملية تحديث صورة المكتب تمت بنجاح !!",
+    "Deleting Office Process Has Been Successfully !!": "عملية حذف متجر تمت بنجاح !!",
+    "Sorry, Permission Denied Because This Office Is Main Office !!": "عذراً ، رفض الإذن بسبب أنّ هذا المكتب هو المكتب الرئيسي !!",
+    "Sorry, Permission Denied Because This Office In Status: ( pending ) !!": "عذراً ، رفض الإذن لأن المكتب في حالة : ( انتظار )",
+    "Rejecting Office Process Has Been Successfully !!": "عملية رفض المكتب تمت بنجاح !!"
 }

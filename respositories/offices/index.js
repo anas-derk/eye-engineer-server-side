@@ -44,7 +44,7 @@ async function getAllOfficesInsideThePage(authorizationId, pageNumber, pageSize,
                     msg: getSuitableTranslations("Get All Offices Inside The Page: {{pageNumber}} Process Has Been Successfully !!", language, { pageNumber }),
                     error: false,
                     data: {
-                        offices: await officeModel.find(filters).skip((pageNumber - 1) * pageSize).limit(pageSize).sort({ creatingDate: -1 }),
+                        offices: await officeModel.find(filters).skip((pageNumber - 1) * pageSize).limit(pageSize).sort({ creatingOrderDate: -1 }),
                         officesCount: await officeModel.countDocuments(filters)
                     },
                 }
@@ -78,7 +78,7 @@ async function getOfficeDetails(authorizationId, officeId, language) {
                 }
             }
             return {
-                msg: getSuitableTranslations("Sorry, This Office Is Not Found !!", language),
+                msg: getSuitableTranslations("Sorry, This Office Is Not Exist !!", language),
                 error: true,
                 data: {},
             }
@@ -106,7 +106,7 @@ async function getMainOfficeDetails(authorizationId, language) {
                 }
             }
             return {
-                msg: getSuitableTranslations("Sorry, This Office Is Not Found !!", language),
+                msg: getSuitableTranslations("Sorry, This Office Is Not Exist !!", language),
                 error: true,
                 data: {},
             }
@@ -167,25 +167,25 @@ async function approveOffice(authorizationId, officeId, password, language) {
                         };
                     }
                     await officeModel.updateOne({ _id: officeId }, { status: "approving", approveDate: Date.now() });
-                    const newMerchant = new adminModel({
-                        fullName: office.ownerFullName,
+                    const newEngineer = new adminModel({
+                        name: office.ownerFullName,
                         email: office.email,
                         password: await hash(password, 10),
-                        isMerchant: true,
+                        isEngineer: true,
                         officeId,
                     });
-                    await newMerchant.save();
+                    await newEngineer.save();
                     return {
-                        msg: getSuitableTranslations("Approving On This Office And Create Merchant Account Process Has Been Successfully !!", language),
+                        msg: getSuitableTranslations("Approving On This Office And Create Engineer Account Process Has Been Successfully !!", language),
                         error: false,
                         data: {
-                            adminId: newMerchant._id,
+                            adminId: newEngineer._id,
                             email: office.email,
                         },
                     }
                 }
                 return {
-                    msg: getSuitableTranslations("Sorry, This Office Is Not Found !!", language),
+                    msg: getSuitableTranslations("Sorry, This Office Is Not Exist !!", language),
                     error: true,
                     data: {},
                 }
@@ -279,7 +279,7 @@ async function blockingOffice(authorizationId, officeId, blockingReason, languag
                     }
                 }
                 return {
-                    msg: getSuitableTranslations("Sorry, This Office Is Not Found !!", language),
+                    msg: getSuitableTranslations("Sorry, This Office Is Not Exist !!", language),
                     error: true,
                     data: {},
                 };
@@ -329,7 +329,7 @@ async function cancelBlockingOffice(authorizationId, officeId, language) {
                     }
                 }
                 return {
-                    msg: getSuitableTranslations("Sorry, This Office Is Not Found !!", language),
+                    msg: getSuitableTranslations("Sorry, This Office Is Not Exist !!", language),
                     error: true,
                     data: {},
                 }
@@ -431,7 +431,7 @@ async function deleteOffice(authorizationId, officeId, language) {
                     }
                 }
                 return {
-                    msg: getSuitableTranslations("Sorry, This Office Is Not Found !!", language),
+                    msg: getSuitableTranslations("Sorry, This Office Is Not Exist !!", language),
                     error: true,
                     data: {},
                 }
@@ -477,7 +477,7 @@ async function rejectOffice(authorizationId, officeId, language) {
                     }
                 }
                 return {
-                    msg: getSuitableTranslations("Sorry, This Office Is Not Found !!", language),
+                    msg: getSuitableTranslations("Sorry, This Office Is Not Exist !!", language),
                     error: true,
                     data: {},
                 }

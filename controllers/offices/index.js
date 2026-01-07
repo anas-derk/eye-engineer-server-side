@@ -166,7 +166,13 @@ async function postApproveOffice(req, res) {
             }
             return res.json(result);
         }
-        res.json(await sendApproveOfficeEmail(result.data.email, req.query.password, result.data.adminId, req.params.officeId, "ar"));
+        res.json(result);
+        try {
+            await sendApproveOfficeEmail(result.data.email, req.query.password, result.data.adminId, req.params.officeId, "ar");
+        }
+        catch (err) {
+            console.log(`error on send approve office email to: ${result.data.email}, admin id: ${result.data.adminId} office id: ${req.params.officeId}`, err?.message ?? err);
+        }
     }
     catch (err) {
         res.status(500).json(getResponseObject(getSuitableTranslations("Internal Server Error !!", req.query.language), true, {}));

@@ -8,17 +8,17 @@
         <section class="content"
             style="width: 80%; border: 1px solid <%= process.env.WEBSITE_COLOR %>; margin: auto; padding: 20px; line-height: 2;">
             <h2 style="text-align: center;">
-                Accept The Store Addition Request At <%= process.env.WEBSITE_NAME %>
+                Accept The Office Addition Request At <%= process.env.WEBSITE_NAME %>
             </h2>
-            <h3>Dear <span style="font-weight: bold; color: <%= process.env.WEBSITE_COLOR %>">Merchant</span>,</h3>
-            <p>We are pleased to inform you that your request to open a merchant account on our
+            <h3>Dear <span style="font-weight: bold; color: <%= process.env.WEBSITE_COLOR %>">Engineer</span>,</h3>
+            <p>We are pleased to inform you that your request to open a engineer account on our
                 website has been approved .
             </p>
             <h4>Admin Dashboard Login Link: <a href="<%= process.env.WEBSITE_DASHBOARD_URL %>/login">Admin Dashboard
                     Login</a></h4>
             <h4>Your Account ID: <%= adminId %>
             </h4>
-            <h4>Your Store ID: <%= storeId %>
+            <h4>Your Office ID: <%= officeId %>
             </h4>
             <h4>Your Account Password: <%= password %>
             </h4>
@@ -42,16 +42,16 @@
             <section class="content"
                 style="width: 80%; border: 1px solid <%= process.env.WEBSITE_COLOR %>; margin: auto; padding: 20px; line-height: 2;">
                 <h2 style="text-align: center;">
-                    الموافقة على طلب إنشاء متجر لدى <%= process.env.WEBSITE_NAME %>
+                    الموافقة على طلب إنشاء مكتب هندسي لدى <%= process.env.WEBSITE_NAME %>
                 </h2>
-                <h3>عزيزي <span style="font-weight: bold; color: <%= process.env.WEBSITE_COLOR %>">التاجر</span>,</h3>
-                <p>يسرنا أن نعلمكم أن طلب فتح حساب تاجر على موقعنا قد تم قبوله .
+                <h3>عزيزي <span style="font-weight: bold; color: <%= process.env.WEBSITE_COLOR %>">المهندس</span>,</h3>
+                <p>يسرنا أن نعلمكم أن طلب فتح حساب مهندس على موقعنا قد تم قبوله .
                 </p>
                 <h4>رابطة صفحة تسجيل الدخول للمسؤول : <a href="<%= process.env.WEBSITE_DASHBOARD_URL %>/login">تسجيل
                         دخول المسؤول</a></h4>
                 <h4>معرّف الحساب الخاص بك : <%= adminId %>
                 </h4>
-                <h4>معرّف المتجر الخاص بك : <%= storeId %>
+                <h4>معرّف المكتب هندسي الخاص بك : <%= officeId %>
                 </h4>
                 <h4>كلمة سر الحساب الخاص بك : <%= password %>
                 </h4>
@@ -83,7 +83,7 @@
                             href="<%= process.env.WEBSITE_DASHBOARD_URL %>/login">Admin-Dashboard-Login</a></h4>
                     <h4>Ihre Kontonummer: <%= adminId %>
                     </h4>
-                    <h4>Ihre Geschäft-ID: <%= storeId %>
+                    <h4>Ihre Geschäft-ID: <%= officeId %>
                     </h4>
                     <h4>Ihr Kontopasswort: <%= password %>
                     </h4>
@@ -116,7 +116,7 @@
                                 href="<%= process.env.WEBSITE_DASHBOARD_URL %>/login">Yönetici Panosu Girişi</a></h4>
                         <h4>Hesap Kimliğiniz: <%= adminId %>
                         </h4>
-                        <h4>Mağaza Kimliğiniz: <%= storeId %>
+                        <h4>Mağaza Kimliğiniz: <%= officeId %>
                         </h4>
                         <h4>Hesap Şifreniz: <%= password %>
                         </h4>
