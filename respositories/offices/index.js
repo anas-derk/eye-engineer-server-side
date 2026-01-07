@@ -26,7 +26,7 @@ async function getOfficesCount(authorizationId, filters, language) {
             }
         }
         return {
-            msg: getSuitableTranslations("Sorry, This User Is Not Found !!", language),
+            msg: getSuitableTranslations("Sorry, This Admin Is Not Exist !!", language),
             error: true,
             data: {},
         }
@@ -41,11 +41,11 @@ async function getAllOfficesInsideThePage(authorizationId, pageNumber, pageSize,
         if (admin) {
             if (admin.isWebsiteOwner) {
                 return {
-                    msg: getSuitableTranslations("Get All Stores Inside The Page: {{pageNumber}} Process Has Been Successfully !!", language, { pageNumber }),
+                    msg: getSuitableTranslations("Get All Offices Inside The Page: {{pageNumber}} Process Has Been Successfully !!", language, { pageNumber }),
                     error: false,
                     data: {
-                        stores: await officeModel.find(filters).skip((pageNumber - 1) * pageSize).limit(pageSize).sort({ creatingOrderDate: -1 }),
-                        storesCount: await officeModel.countDocuments(filters)
+                        offices: await officeModel.find(filters).skip((pageNumber - 1) * pageSize).limit(pageSize).sort({ creatingDate: -1 }),
+                        officesCount: await officeModel.countDocuments(filters)
                     },
                 }
             }
@@ -56,7 +56,7 @@ async function getAllOfficesInsideThePage(authorizationId, pageNumber, pageSize,
             }
         }
         return {
-            msg: getSuitableTranslations("Sorry, This Admin Is Not Found !!", language),
+            msg: getSuitableTranslations("Sorry, This Admin Is Not Exist !!", language),
             error: true,
             data: {},
         }
@@ -84,7 +84,7 @@ async function getOfficeDetails(authorizationId, officeId, language) {
             }
         }
         return {
-            msg: getSuitableTranslations("Sorry, This User Is Not Found !!", language),
+            msg: getSuitableTranslations("Sorry, This Admin Is Not Exist !!", language),
             error: true,
             data: {},
         }
@@ -112,7 +112,7 @@ async function getMainOfficeDetails(authorizationId, language) {
             }
         }
         return {
-            msg: getSuitableTranslations("Sorry, This User Is Not Found !!", language),
+            msg: getSuitableTranslations("Sorry, This Admin Is Not Exist !!", language),
             error: true,
             data: {},
         }
