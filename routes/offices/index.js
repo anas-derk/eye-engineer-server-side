@@ -53,6 +53,7 @@ officesRouter.get("/office-details/:officeId",
             { fieldName: "Office Id", fieldValue: req.params.officeId, dataTypes: ["ObjectId"], isRequiredValue: true },
         ], res, next);
     },
+    (req, res, next) => validateUserType(req.query.userType, res, next),
     officesController.getOfficeDetails
 );
 
@@ -127,10 +128,12 @@ officesRouter.post("/approve-office/:officeId",
 officesRouter.put("/update-office-info/:officeId",
     validateJWT,
     (req, res, next) => {
-        const { name, email } = req.body;
+        const { name, ownerFullName, email, description } = req.body;
         validateIsExistValueForFieldsAndDataTypes([
             { fieldName: "New Office Name", fieldValue: name, dataTypes: ["object"], isRequiredValue: false },
+            { fieldName: "New Office Owner Full Name", fieldValue: ownerFullName, dataTypes: ["string"], isRequiredValue: false },
             { fieldName: "New Office Email", fieldValue: email, dataTypes: ["string"], isRequiredValue: false },
+            { fieldName: "New Office Description", fieldValue: description, dataTypes: ["object"], isRequiredValue: false },
         ], res, next);
     },
     (req, res, next) => {
@@ -138,6 +141,29 @@ officesRouter.put("/update-office-info/:officeId",
         if (name) {
             return validateIsExistValueForFieldsAndDataTypes(["ar", "en", "de", "tr"].map((language) => (
                 { fieldName: `New Office Name In ${language.toUpperCase()}`, fieldValue: name[language], dataTypes: ["string"], isRequiredValue: true }
+            )), res, next);
+        }
+        next();
+    },
+    (req, res, next) => {
+        const { ownerFullName } = req.body;
+        if (ownerFullName) {
+            return validateName(req.body.ownerFullName, res, next);
+        }
+        next();
+    },
+    (req, res, next) => {
+        const { email } = req.body;
+        if (email) {
+            return validateEmail(req.body.email, res, next);
+        }
+        next();
+    },
+    (req, res, next) => {
+        const { description } = req.body;
+        if (description) {
+            return validateIsExistValueForFieldsAndDataTypes(["ar", "en", "de", "tr"].map((language) => (
+                { fieldName: `New Office Description In ${language.toUpperCase()}`, fieldValue: description[language], dataTypes: ["string"], isRequiredValue: true }
             )), res, next);
         }
         next();

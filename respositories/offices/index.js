@@ -65,7 +65,7 @@ async function getAllOfficesInsideThePage(authorizationId, pageNumber, pageSize,
     }
 }
 
-async function getOfficeDetails(authorizationId, officeId, language) {
+async function getOfficeDetails(authorizationId, officeId, userType, language) {
     try {
         const user = userType === "user" ? await userModel.findById(authorizationId) : await adminModel.findById(authorizationId);
         if (user) {
@@ -352,19 +352,19 @@ async function cancelBlockingOffice(authorizationId, officeId, language) {
     }
 }
 
-async function changeOfficeImage(authorizationId, officeId, newStoreImagePath, language) {
+async function changeOfficeImage(authorizationId, officeId, newOfficeImagePath, language) {
     try {
         const admin = await adminModel.findById(authorizationId);
         if (admin) {
             if (admin.isWebsiteOwner) {
                 const office = await officeModel.findOneAndUpdate({ _id: officeId }, {
-                    imagePath: newStoreImagePath,
+                    imagePath: newOfficeImagePath,
                 });
                 if (office) {
                     return {
                         msg: getSuitableTranslations("Updating Office Image Process Has Been Successfully !!", language),
                         error: false,
-                        data: { deletedStoreImagePath: office.imagePath }
+                        data: { deletedOfficeImagePath: office.imagePath }
                     };
                 }
                 return {

@@ -62,7 +62,7 @@ async function getAllOfficesInsideThePage(req, res) {
 
 async function getOfficeDetails(req, res) {
     try {
-        res.json(await officesOPerationsManagmentFunctions.getOfficeDetails(req.data._id, req.params.officeId, req.query.language));
+        res.json(await officesOPerationsManagmentFunctions.getOfficeDetails(req.data._id, req.params.officeId, req.query.userType, req.query.language));
     }
     catch (err) {
         res.status(500).json(getResponseObject(getSuitableTranslations("Internal Server Error !!", req.query.language), true, {}));
@@ -241,15 +241,15 @@ async function putCancelBlockingOffice(req, res) {
 
 async function putOfficeImage(req, res) {
     try {
-        const outputImageFilePath = `assets/images/stores/${Math.random()}_${Date.now()}__${req.file.originalname.replaceAll(" ", "_").replace(/\.[^/.]+$/, ".webp")}`;
+        const outputImageFilePath = `assets/images/offices/${Math.random()}_${Date.now()}__${req.file.originalname.replaceAll(" ", "_").replace(/\.[^/.]+$/, ".webp")}`;
         await handleResizeImagesAndConvertFormatToWebp([req.file.buffer], [outputImageFilePath]);
         const result = await officesOPerationsManagmentFunctions.changeOfficeImage(req.data._id, req.params.officeId, outputImageFilePath, req.query.language);
         if (!result.error) {
-            unlinkSync(result.data.deletedStoreImagePath);
+            unlinkSync(result.data.deletedOfficeImagePath);
             res.json({
                 ...result,
                 data: {
-                    newStoreImagePath: outputImageFilePath,
+                    newOfficeImagePath: outputImageFilePath,
                 }
             });
         } else {
