@@ -4,8 +4,22 @@ const mongoose = require("../../database");
 
 const geometrySchema = new mongoose.Schema({
     name: {
-        type: String,
-        required: true,
+        ar: {
+            type: String,
+            required: true,
+        },
+        en: {
+            type: String,
+            required: true,
+        },
+        tr: {
+            type: String,
+            required: true,
+        },
+        de: {
+            type: String,
+            required: true,
+        },
     },
     officeId: {
         type: mongoose.Types.ObjectId,
