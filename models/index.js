@@ -1,5 +1,6 @@
 const verificationCodeModel = require("./verification_code");
 const categoryModel = require("./category");
+const geometryModel = require("./geometry");
 const adminModel = require("./admin");
 const appearedSectionModel = require("./appeared_section");
 const globalPasswordModel = require("./global_password");
@@ -10,6 +11,7 @@ const userModel = require("./user");
 module.exports = {
     verificationCodeModel,
     categoryModel,
+    geometryModel,
     adminModel,
     appearedSectionModel,
     globalPasswordModel,
