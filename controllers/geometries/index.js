@@ -92,7 +92,7 @@ async function getAllGeometriesInsideThePage(req, res) {
 
 async function putGeometry(req, res) {
     try {
-        const result = await geometriesManagmentFunctions.updateGeometry(req.data._id, req.params.geometryId, { name, color, parent } = req.body, req.query.language);
+        const result = await geometriesManagmentFunctions.updateGeometry(req.data._id, req.params.geometryId, { name, parent } = req.body, req.query.language);
         if (result.error) {
             if (result.msg !== "Sorry, This Geometry Is Not Exist !!" || result.msg !== "Sorry, This Parent Geometry Is Not Exist !!") {
                 return res.status(401).json(result);

@@ -102,9 +102,12 @@ geometriesRouter.put("/:geometryId",
     },
     (req, res, next) => {
         const { name } = req.body;
-        validateIsExistValueForFieldsAndDataTypes(LANGUAGES.map((language) => (
-            { fieldName: `New Geometry Name In ${language.toUpperCase()}`, fieldValue: name[language], dataTypes: ["string"], isRequiredValue: true }
-        )), res, next);
+        if (name) {
+            return validateIsExistValueForFieldsAndDataTypes(LANGUAGES.map((language) => (
+                { fieldName: `New Geometry Name In ${language.toUpperCase()}`, fieldValue: name[language], dataTypes: ["string"], isRequiredValue: true }
+            )), res, next);
+        }
+        next();
     },
     geometriesController.putGeometry
 );
