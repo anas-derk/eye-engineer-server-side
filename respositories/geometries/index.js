@@ -159,7 +159,7 @@ async function updateGeometry(authorizationId, geometryId, newGeometryData, lang
                         };
                     }
                     return {
-                        msg: getSuitableTranslations("Sorry, Permission Denied Because This Geometry Is Not Exist At Store Managed By This Admin !!", language),
+                        msg: getSuitableTranslations("Sorry, Permission Denied Because This Geometry Is Not Exist At Office Managed By This Admin !!", language),
                         error: true,
                         data: {},
                     }
@@ -228,7 +228,7 @@ async function deleteGeometry(authorizationId, geometryId, language) {
                     _id: geometryId,
                 });
                 if (geometry) {
-                    if (geometry.officeId === admin.officeId) {
+                    if (String(geometry.officeId) === String(admin.officeId)) {
                         await geometryModel.deleteOne({
                             _id: geometryId,
                         });
@@ -241,7 +241,7 @@ async function deleteGeometry(authorizationId, geometryId, language) {
                         };
                     }
                     return {
-                        msg: getSuitableTranslations("Sorry, Permission Denied Because This Geometry Is Not Exist At Store Managed By This Admin !!", language),
+                        msg: getSuitableTranslations("Sorry, Permission Denied Because This Geometry Is Not Exist At Office Managed By This Admin !!", language),
                         error: true,
                         data: {},
                     }
