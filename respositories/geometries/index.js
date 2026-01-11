@@ -141,7 +141,7 @@ async function updateGeometry(authorizationId, geometryId, newGeometryData, lang
             if (!admin.isBlocked) {
                 const geometry = await geometryModel.findOne({ _id: geometryId });
                 if (geometry) {
-                    if (geometry.officeId === admin.officeId) {
+                    if (String(geometry.officeId) === String(admin.officeId)) {
                         if (newGeometryData.parent) {
                             if (!(await geometryModel.findById(newGeometryData.parent))) {
                                 return {

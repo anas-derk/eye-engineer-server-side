@@ -2,6 +2,8 @@ const newsRouter = require("express").Router();
 
 const newsController = require("../../controllers/news");
 
+const { LANGUAGES } = require("../../constants/languages");
+
 const { validateIsExistValueForFieldsAndDataTypes } = require("../../helpers/validate");
 
 const {
@@ -36,7 +38,7 @@ newsRouter.put("/update-content/:id",
     },
     (req, res, next) => {
         const { content } = req.body;
-        validateIsExistValueForFieldsAndDataTypes(["ar", "en", "de", "tr"].map((language) => (
+        validateIsExistValueForFieldsAndDataTypes(LANGUAGES.map((language) => (
             { fieldName: `New News Content In ${language.toUpperCase()}`, fieldValue: content[language], dataTypes: ["string"], isRequiredValue: true }
         )), res, next);
     },

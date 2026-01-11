@@ -2,6 +2,8 @@ const geometriesRouter = require("express").Router();
 
 const geometriesController = require("../../controllers/geometries");
 
+const { LANGUAGES } = require("../../constants/languages");
+
 const { validateIsExistValueForFieldsAndDataTypes } = require("../../helpers/validate");
 
 const {
@@ -94,9 +96,15 @@ geometriesRouter.put("/:geometryId",
         const { name, parent } = req.body;
         validateIsExistValueForFieldsAndDataTypes([
             { fieldName: "Geometry Id", fieldValue: req.params.geometryId, dataTypes: ["ObjectId"], isRequiredValue: true },
-            { fieldName: "New Geometry Name", fieldValue: name, dataTypes: ["string"], isRequiredValue: false },
+            { fieldName: "New Geometry Name", fieldValue: name, dataTypes: ["object"], isRequiredValue: false },
             { fieldName: "Geometry Parent Id", fieldValue: parent, dataTypes: ["ObjectId", "null"], isRequiredValue: false },
         ], res, next);
+    },
+    (req, res, next) => {
+        const { name } = req.body;
+        validateIsExistValueForFieldsAndDataTypes(LANGUAGES.map((language) => (
+            { fieldName: `New Geometry Name In ${language.toUpperCase()}`, fieldValue: name[language], dataTypes: ["string"], isRequiredValue: true }
+        )), res, next);
     },
     geometriesController.putGeometry
 );

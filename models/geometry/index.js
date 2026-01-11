@@ -1,5 +1,7 @@
 const mongoose = require("../../database");
 
+const counterModel = require("../../models/counter");
+
 // Create Geometry Schema
 
 const geometrySchema = new mongoose.Schema({
@@ -31,10 +33,27 @@ const geometrySchema = new mongoose.Schema({
         ref: "geometrie",
         default: null
     },
+    order: {
+        type: Number,
+        unique: true,
+    },
     imagePath: {
         type: String,
         required: true,
     },
+}, {
+    timestamps: true,
+});
+
+geometrySchema.pre("save", async function (next) {
+    if (!this.isNew) return next();
+    const counter = await counterModel.findOneAndUpdate(
+        { name: "geometryNumber" },
+        { $inc: { seq: 1 } },
+        { new: true, upsert: true }
+    );
+    this.order = counter.seq;
+    next();
 });
 
 // Create Geometry Model From Geometry Schema
