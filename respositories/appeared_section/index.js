@@ -18,7 +18,7 @@ async function getAllSections(language) {
 
 async function updateSectionsStatus(authorizationId, sectionsStatus, language) {
     try {
-        const admin = await userModel.findById(authorizationId);
+        const admin = await adminModel.findById(authorizationId);
         if (admin) {
             if (admin.isWebsiteOwner) {
                 for (let i = 0; i < 8; i++) {
