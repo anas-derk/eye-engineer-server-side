@@ -1,0 +1,16 @@
+{
+    "Creating Licence Request New Office Process Has Been Successfully !!": "Yeni ofis için lisans talebi oluşturma işlemi başarıyla tamamlandı!!",
+    "Sorry, This Office Is Already Approved !!": "Üzgünüz, bu ofis zaten onaylandı!!",
+    "Sorry, This Office Is Blocked !!": "Üzgünüz, bu ofis engellenmiş durumda!!",
+    "Approving On This Office And Create Engineer Account Process Has Been Successfully !!": "Bu ofisi onaylama ve mühendis hesabı oluşturma işlemi başarıyla tamamlandı!!",
+    "Updating Details Process For This Office Has Been Successfully !!": "Bu ofisin detaylarını güncelleme işlemi başarıyla tamamlandı!!",
+    "Blocking Process For This Office Has Been Successfully !!": "Bu ofis için engelleme işlemi başarıyla tamamlandı!!",
+    "Sorry, This Office Is Already Blocked !!": "Üzgünüz, bu ofis zaten engellenmiş durumda!!",
+    "Cancel Blocking Process For This Office That Has Been Successfully !!": "Bu ofisin engellemesini kaldırma işlemi başarıyla tamamlandı!!",
+    "Sorry, This Office Is Not Blocked !!": "Üzgünüz, bu ofis engellenmiş değil!!",
+    "Updating Office Image Process Has Been Successfully !!": "Ofis görselini güncelleme işlemi başarıyla tamamlandı!!",
+    "Deleting Office Process Has Been Successfully !!": "Ofis silme işlemi başarıyla tamamlandı!!",
+    "Sorry, Permission Denied Because This Office Is Main Office !!": "Üzgünüz, bu ofis ana ofis olduğu için erişim reddedildi!!",
+    "Sorry, Permission Denied Because This Office In Status: ( pending ) !!": "Üzgünüz, bu ofis (pending) durumunda olduğu için erişim reddedildi!!",
+    "Rejecting Office Process Has Been Successfully !!": "Ofisi reddetme işlemi başarıyla tamamlandı!!"
+}

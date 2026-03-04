@@ -1,0 +1,16 @@
+{
+    "Creating Licence Request New Office Process Has Been Successfully !!": "Der Vorgang zur Erstellung einer Lizenzanfrage für ein neues Büro wurde erfolgreich abgeschlossen!!",
+    "Sorry, This Office Is Already Approved !!": "Entschuldigung, dieses Büro ist bereits genehmigt!!",
+    "Sorry, This Office Is Blocked !!": "Entschuldigung, dieses Büro ist gesperrt!!",
+    "Approving On This Office And Create Engineer Account Process Has Been Successfully !!": "Der Vorgang zur Genehmigung dieses Büros und zur Erstellung eines Ingenieurkontos wurde erfolgreich abgeschlossen!!",
+    "Updating Details Process For This Office Has Been Successfully !!": "Der Vorgang zur Aktualisierung der Details dieses Büros wurde erfolgreich abgeschlossen!!",
+    "Blocking Process For This Office Has Been Successfully !!": "Der Sperrvorgang für dieses Büro wurde erfolgreich abgeschlossen!!",
+    "Sorry, This Office Is Already Blocked !!": "Entschuldigung, dieses Büro ist bereits gesperrt!!",
+    "Cancel Blocking Process For This Office That Has Been Successfully !!": "Der Vorgang zum Aufheben der Sperrung dieses Büros wurde erfolgreich abgeschlossen!!",
+    "Sorry, This Office Is Not Blocked !!": "Entschuldigung, dieses Büro ist nicht gesperrt!!",
+    "Updating Office Image Process Has Been Successfully !!": "Der Vorgang zur Aktualisierung des Bürobildes wurde erfolgreich abgeschlossen!!",
+    "Deleting Office Process Has Been Successfully !!": "Der Vorgang zum Löschen des Büros wurde erfolgreich abgeschlossen!!",
+    "Sorry, Permission Denied Because This Office Is Main Office !!": "Entschuldigung, Zugriff verweigert, da dieses Büro das Hauptbüro ist!!",
+    "Sorry, Permission Denied Because This Office In Status: ( pending ) !!": "Entschuldigung, Zugriff verweigert, da sich dieses Büro im Status (pending) befindet!!",
+    "Rejecting Office Process Has Been Successfully !!": "Der Vorgang zur Ablehnung des Büros wurde erfolgreich abgeschlossen!!"
+}
