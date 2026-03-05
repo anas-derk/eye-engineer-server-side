@@ -4,6 +4,7 @@ const geometryModel = require("./geometry");
 const adminModel = require("./admin");
 const appearedSectionModel = require("./appeared_section");
 const globalPasswordModel = require("./global_password");
+const messageModel = require("./message");
 const officeModel = require("./office");
 const newsModel = require("./news");
 const userModel = require("./user");
@@ -15,6 +16,7 @@ module.exports = {
     adminModel,
     appearedSectionModel,
     globalPasswordModel,
+    messageModel,
     officeModel,
     newsModel,
     userModel,
