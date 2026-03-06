@@ -1,7 +1,7 @@
 {
-    "Send This Message Process Has Been Successfully !!": "عملية إرسال هذه الرسالة تمت بنجاح !!",
-    "Get Messages Count Process Has Been Successfully !!": "عملية جلب عدد الرسائل تمت بنجاح !!",
-    "Get All Messages Inside The Page: {{pageNumber}} Process Has Been Successfully !!": "عملية جلب كل الرسائل بداخل الصفحة: {{pageNumber}} تمت بنجاح !!",
-    "Sorry, This Message Is Not Exist !!": "عذراً ، هذه الرسالة غير موجودة !!",
-    "Deleting Message Process Has Been Successfully !!": "عملية حذف الرسالة تمت بنجاح !!"
+    "Send This Message Process Has Been Successfully !!": "Der Vorgang zum Senden dieser Nachricht wurde erfolgreich abgeschlossen!!",
+    "Get Messages Count Process Has Been Successfully !!": "Der Vorgang zum Abrufen der Anzahl der Nachrichten wurde erfolgreich abgeschlossen!!",
+    "Get All Messages Inside The Page: {{pageNumber}} Process Has Been Successfully !!": "Der Vorgang zum Abrufen aller Nachrichten auf der Seite {{pageNumber}} wurde erfolgreich abgeschlossen!!",
+    "Sorry, This Message Is Not Exist !!": "Entschuldigung, diese Nachricht existiert nicht!!",
+    "Deleting Message Process Has Been Successfully !!": "Der Vorgang zum Löschen der Nachricht wurde erfolgreich abgeschlossen!!"
 }

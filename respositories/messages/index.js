@@ -58,7 +58,7 @@ async function getAllMessagesInsideThePage(authorizationId, pageNumber, pageSize
                     msg: getSuitableTranslations("Get All Messages Inside The Page: {{pageNumber}} Process Has Been Successfully !!", language, { pageNumber }),
                     error: false,
                     data: {
-                        messages: await messageModel.find(filters).skip((pageNumber - 1) * pageSize).limit(pageSize).sort({ dateOfCreation: -1 }),
+                        messages: await messageModel.find(filters).skip((pageNumber - 1) * pageSize).limit(pageSize).sort({ createdAt: -1 }),
                         messagesCount: await messageModel.countDocuments(filters)
                     },
                 }

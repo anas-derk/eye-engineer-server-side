@@ -44,10 +44,11 @@ messagesRouter.get("/messages-count", validateJWT, messagesController.getMessage
 messagesRouter.get("/all-messages-inside-the-page",
     validateJWT,
     (req, res, next) => {
-        const { pageNumber, pageSize, name, email } = req.query;
+        const { pageNumber, pageSize, _id, name, email } = req.query;
         validateIsExistValueForFieldsAndDataTypes([
-            { fieldName: "page Number", fieldValue: Number(pageNumber), dataTypes: ["number"], isRequiredValue: true },
-            { fieldName: "page Size", fieldValue: Number(pageSize), dataTypes: ["number"], isRequiredValue: true },
+            { fieldName: "Page Number", fieldValue: Number(pageNumber), dataTypes: ["number"], isRequiredValue: true },
+            { fieldName: "Page Size", fieldValue: Number(pageSize), dataTypes: ["number"], isRequiredValue: true },
+            { fieldName: "Id", fieldValue: _id, dataTypes: ["ObjectId"], isRequiredValue: false },
             { fieldName: "Name", fieldValue: name, dataTypes: ["string"], isRequiredValue: false },
             { fieldName: "Email", fieldValue: email, dataTypes: ["string"], isRequiredValue: false },
         ], res, next);
@@ -75,7 +76,7 @@ messagesRouter.delete("/delete-message/:messageId",
     validateJWT,
     (req, res, next) => {
         validateIsExistValueForFieldsAndDataTypes([
-            { fieldName: "Messsage Id", fieldValue: req.params.messageId, dataTypes: ["ObjectId"], isRequiredValue: userType === "admin" },
+            { fieldName: "Messsage Id", fieldValue: req.params.messageId, dataTypes: ["ObjectId"], isRequiredValue: true },
         ], res, next);
     },
     messagesController.deleteMessage

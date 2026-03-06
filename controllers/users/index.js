@@ -21,7 +21,7 @@ function getFiltersObject(filters) {
     for (let objectKey in filters) {
         if (objectKey === "_id") filtersObject[objectKey] = filters[objectKey];
         if (objectKey === "email") filtersObject[objectKey] = filters[objectKey];
-        if (objectKey === "name") filtersObject[objectKey] = filters[objectKey];
+        if (objectKey === "name") filtersObject[objectKey] = { $regex: new RegExp(`^${filters[objectKey]}`, 'i') };
         if (objectKey === "isVerified") filtersObject[objectKey] = Boolean(filters[objectKey]);
     }
     return filtersObject;

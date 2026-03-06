@@ -14,7 +14,7 @@ function getFiltersObject(filters) {
     let filtersObject = {};
     for (let objectKey in filters) {
         if (objectKey === "_id") filtersObject[objectKey] = filters[objectKey];
-        if (objectKey === "name") filtersObject[objectKey] = filters[objectKey];
+        if (objectKey === "name") filtersObject[objectKey] = { $regex: new RegExp(`^${filters[objectKey]}`, 'i') };
         if (objectKey === "email") filtersObject[objectKey] = filters[objectKey];
     }
     return filtersObject;
@@ -63,7 +63,6 @@ async function deleteMessage(req, res) {
         if (result.error) {
             if (
                 [
-                    "Sorry, This User Is Not Found !!",
                     "Sorry, This Admin Is Not Found !!",
                     "Sorry, Permission Denied Because This Admin Is Not Website Owner !!"
                 ].includes(result.msg)) {
