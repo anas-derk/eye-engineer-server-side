@@ -1,0 +1,33 @@
+<div
+    style="font-family: Helvetica,Arial,sans-serif; min-width: 1000px; overflow:auto; padding: 20px 0; direction: rtl;">
+    <section class="begin" style="text-align: center; color: <%= process.env.WEBSITE_COLOR %>; margin-bottom: 20px;">
+        <img src="https://api.eyeengineer.com/assets/images/defaultOfficeImage.jpg" alt="Eye Engineer Image"
+            style="width: 100px; height: 100px;">
+    </section>
+    <section class="content"
+        style="width: 80%; border: 1px solid <%= process.env.WEBSITE_COLOR %>; margin: auto; padding: 20px; line-height: 2;">
+        <h2 style="text-align: center;">
+            وصول رسالة للتواصل معك لدى <%= process.env.WEBSITE_NAME %>
+        </h2>
+        <h3>الاسم :</h3>
+        <p>
+            <%= name %>
+        </p>
+        <h3>البريد الالكتروني :</h3>
+        <p>
+            <%= email %>
+        </p>
+        <h3>الموضوع :</h3>
+        <p>
+            <%= subject %>
+        </p>
+        <h3>المحتوى :</h3>
+        <p>
+            <%= content %>
+        </p>
+        <p>تاريخ إرسال الرسالة : <%= createdAt %>
+        </p>
+        <p>شكرًا لمساعدتكم، وأتطلع لردكم السريع.</p>
+        <p>مع أطيب التحيات،</p>
+    </section>
+</div>

@@ -1,8 +1,12 @@
 const {
     responsesHelpers,
     translationHelpers,
-    processingHelpers,
+    emailsHelpers,
 } = require("../../helpers");
+
+const {
+    sendReceiveMessageEmail,
+} = emailsHelpers;
 
 const { getResponseObject } = responsesHelpers;
 
@@ -24,6 +28,11 @@ async function postSendMessage(req, res) {
     try {
         const result = await messagesOPerationsManagmentFunctions.addMessage(req.body, req.query.language);
         res.json(result);
+        try {
+            await sendReceiveMessageEmail(process.env.BUSSINESS_EMAIL, result.data);
+        } catch (err) {
+            console.log(err);
+        }
     }
     catch (err) {
         res.status(500).json(getResponseObject(getSuitableTranslations("Internal Server Error !!", req.query.language), true, {}));

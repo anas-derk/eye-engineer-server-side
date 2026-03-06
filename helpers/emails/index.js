@@ -215,12 +215,12 @@ async function sendDeleteOfficeEmail(email, adminId, officeId, language) {
     return result;
 }
 
-async function sendReceiveAddOfficeRequestEmail(email, storeDetails) {
+async function sendReceiveAddOfficeRequestEmail(email, officeDetails) {
     const result = await getPasswordForBussinessEmail(process.env.BUSSINESS_EMAIL);
     if (!result.error) {
         const templateContent = readFileSync(join(__dirname, "..", "..", "assets", "email_templates", "receive_add_office_request.ejs"), "utf-8");
         const compiledTemplate = compile(templateContent);
-        const htmlContentAfterCompilingEjsTemplateFile = compiledTemplate(storeDetails);
+        const htmlContentAfterCompilingEjsTemplateFile = compiledTemplate(officeDetails);
         return new Promise((resolve, reject) => {
             emailsUtils.getTransporter(result.data).sendMail({
                 from: `${process.env.WEBSITE_NAME} <${process.env.BUSSINESS_EMAIL}>`,
@@ -240,6 +240,31 @@ async function sendReceiveAddOfficeRequestEmail(email, storeDetails) {
     return result;
 }
 
+async function sendReceiveMessageEmail(email, messageDetails) {
+    const result = await getPasswordForBussinessEmail(process.env.BUSSINESS_EMAIL);
+    if (!result.error) {
+        const templateContent = readFileSync(join(__dirname, "..", "..", "assets", "email_templates", "receive_message.ejs"), "utf-8");
+        const compiledTemplate = compile(templateContent);
+        const htmlContentAfterCompilingEjsTemplateFile = compiledTemplate(messageDetails);
+        return new Promise((resolve, reject) => {
+            emailsUtils.getTransporter(result.data).sendMail({
+                from: `${process.env.WEBSITE_NAME} <${process.env.BUSSINESS_EMAIL}>`,
+                to: email,
+                subject: `استقبال رسالة للتواصل معك في ${process.env.WEBSITE_NAME}`,
+                html: htmlContentAfterCompilingEjsTemplateFile,
+            }, function (error, info) {
+                if (error) reject(error);
+                resolve({
+                    msg: "Sending Receive Message Email To Website Owner Process Has Been Successfully !!",
+                    error: false,
+                    data: {},
+                });
+            });
+        });
+    }
+    return result;
+}
+
 module.exports = {
     sendVerificationCodeToUserEmail,
     sendCongratulationsOnCreatingNewAccountEmail,
@@ -249,5 +274,6 @@ module.exports = {
     sendConfirmRequestAddOfficeArrivedEmail,
     sendBlockOfficeEmail,
     sendDeleteOfficeEmail,
-    sendReceiveAddOfficeRequestEmail
+    sendReceiveAddOfficeRequestEmail,
+    sendReceiveMessageEmail
 }
