@@ -39,7 +39,7 @@ async function createNewUser(name, email, password, language) {
 
 async function login(userType, email, password, language) {
     try {
-        const user = userType === "user" ? await userModel.findOne({ email, provider: "same-site" }) : await adminModel.findOne({ email });
+        const user = userType === "user" ? await userModel.findOne({ email }) : await adminModel.findOne({ email });
         if (user) {
             if (await compare(password, user.password)) {
                 return {
@@ -49,7 +49,7 @@ async function login(userType, email, password, language) {
                         _id: user._id,
                         userType,
                         isVerified: userType === "user" ? user.isVerified : true,
-                        provider: "same-site"
+                        provider: user.provider
                     },
                 }
             }
