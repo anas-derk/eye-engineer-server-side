@@ -1,7 +1,7 @@
 {
-    "Create Property Valuation Order Process Has Been Successfully !!": "عملية إنشاء طلب تقييم عقاري تمت بنجاح !!",
-    "Get Property Valuation Orders Count Process Has Been Successfully !!": "عملية جلب عدد طلبات التقييم العقاري تمت بنجاح !!",
-    "Get All Property Valuation Orders Inside The Page: {{pageNumber}} Process Has Been Successfully !!": "عملية جلب كل طلبات التقييم العقاري بداخل الصفحة: {{pageNumber}} تمت بنجاح !!",
-    "Sorry, This Property Valuation Order Is Not Exist !!": "عذراً ، طلب التقييم العقاري هذا غير موجود !!",
-    "Deleting Property Valuation Order Process Has Been Successfully !!": "عملية حذف طلب التقييم العقاري تمت بنجاح !!"
+    "Create Property Valuation Order Process Has Been Successfully !!": "Der Prozess zur Erstellung eines Immobilienbewertungsauftrags war erfolgreich !!",
+    "Get Property Valuation Orders Count Process Has Been Successfully !!": "Der Prozess zum Abrufen der Anzahl der Immobilienbewertungsaufträge war erfolgreich !!",
+    "Get All Property Valuation Orders Inside The Page: {{pageNumber}} Process Has Been Successfully !!": "Der Prozess zum Abrufen aller Immobilienbewertungsaufträge auf Seite: {{pageNumber}} war erfolgreich !!",
+    "Sorry, This Property Valuation Order Is Not Exist !!": "Entschuldigung, dieser Immobilienbewertungsauftrag existiert nicht !!",
+    "Deleting Property Valuation Order Process Has Been Successfully !!": "Der Prozess zum Löschen des Immobilienbewertungsauftrags war erfolgreich !!"
 }
