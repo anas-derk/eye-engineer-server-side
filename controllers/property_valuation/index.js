@@ -37,7 +37,7 @@ async function postCreateOrder(req, res) {
         res.json(result);
         try {
             await sendConfirmRequestPropertyValuationArrivedEmail(result.data.email, language);
-            await sendReceivePropertyValuationOrderEmail("anas.derk2023@gmail.com", result.data);
+            await sendReceivePropertyValuationOrderEmail(process.env.BUSSINESS_EMAIL, result.data);
         } catch (err) {
             console.log(err);
         }
