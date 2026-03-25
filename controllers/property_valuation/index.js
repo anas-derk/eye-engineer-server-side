@@ -31,11 +31,12 @@ function getFiltersObject(filters) {
 
 async function postCreateOrder(req, res) {
     try {
-        const result = await propertyValuationOPerationsManagmentFunctions.createOrder(req.body, req.query.language);
+        const language = req.query.language;
+        const result = await propertyValuationOPerationsManagmentFunctions.createOrder(req.body, language);
         res.json(result);
         try {
-            await sendConfirmRequestPropertyValuationArrivedEmail(result.data.email, result.data.language);
-            await sendReceivePropertyValuationOrderEmail(process.env.BUSSINESS_EMAIL, result.data);
+            await sendConfirmRequestPropertyValuationArrivedEmail(result.data.email, language);
+            await sendReceivePropertyValuationOrderEmail("anas.derk2023@gmail.com", result.data);
         } catch (err) {
             console.log(err);
         }

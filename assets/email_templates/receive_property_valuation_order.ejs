@@ -1,0 +1,59 @@
+<div
+    style="font-family: Helvetica,Arial,sans-serif; min-width: 1000px; overflow:auto; padding: 20px 0; direction: rtl;">
+    <section class="begin" style="text-align: center; color: <%= process.env.WEBSITE_COLOR %>; margin-bottom: 20px;">
+        <img src="https://api.eyeengineer.com/assets/images/defaultOfficeImage.jpg" alt="Eye Engineer Image"
+            style="width: 100px; height: 100px;">
+    </section>
+    <section class="content"
+        style="width: 80%; border: 1px solid <%= process.env.WEBSITE_COLOR %>; margin: auto; padding: 20px; line-height: 2;">
+        <h2 style="text-align: center;">
+            وصول طلب تقييم عقاري لدى <%= process.env.WEBSITE_NAME %>
+        </h2>
+        <h3>المالك :</h3>
+        <p>
+            <%= owner %>
+        </p>
+        <h3>الاسم الكامل :</h3>
+        <p>
+            <%= fullName %>
+        </p>
+        <% if (owner !=="individual" ) { %>
+            <h3>الاسم الكامل لممثل صاحب العلاقة :</h3>
+            <p>
+                <%= representativeFullName %>
+            </p>
+            <h3>الصفة القانونية :</h3>
+            <p>
+                <%= legalEntity %>
+            </p>
+            <% } %>
+                <h3>المدينة :</h3>
+                <p>
+                    <%= city %>
+                </p>
+                <h3>رقم الهاتف :</h3>
+                <p>
+                    <%= phoneNumber %>
+                </p>
+                <h3>رقم الواتس آب :</h3>
+                <p>
+                    <%= whatsappNumber %>
+                </p>
+                <h3>البريد الالكتروني :</h3>
+                <p>
+                    <%= email %>
+                </p>
+                <h3>موقع التقييم :</h3>
+                <p>
+                    <%= location %>
+                </p>
+                <h3>غرض التقييم :</h3>
+                <p>
+                    <%= purpose %>
+                </p>
+                <p>تاريخ إرسال الطلب : <%= createdAt %>
+                </p>
+                <p>شكرًا لمساعدتكم، وأتطلع لردكم السريع.</p>
+                <p>مع أطيب التحيات،</p>
+    </section>
+</div>

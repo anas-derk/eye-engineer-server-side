@@ -28,6 +28,7 @@ const {
 propertyValuationRouter.post("/create-order",
     (req, res, next) => {
         const bodyData = req.body;
+        console.log(bodyData);
         validateIsExistValueForFieldsAndDataTypes([
             { fieldName: "Owner", fieldValue: bodyData?.owner, dataTypes: ["string"], isRequiredValue: true },
             { fieldName: "Full Name", fieldValue: bodyData?.fullName, dataTypes: ["string"], isRequiredValue: true },
@@ -50,11 +51,11 @@ propertyValuationRouter.post("/create-order",
         next();
     },
     (req, res, next) => validateEmail(req.body.email, res, next),
-    (req, res, next) => validateMobilePhone(req.body.mobilePhone, undefined, res, next),
+    (req, res, next) => validateMobilePhone(req.body.phoneNumber, undefined, res, next),
     (req, res, next) => {
         const whatsappNumber = req.body?.whatsappNumber;
         if (whatsappNumber) {
-            return validateMobilePhone(whatsappNumber, res, next);
+            return validateMobilePhone(whatsappNumber, undefined, res, next);
         }
         next();
     },
