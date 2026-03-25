@@ -28,7 +28,6 @@ const {
 propertyValuationRouter.post("/create-order",
     (req, res, next) => {
         const bodyData = req.body;
-        console.log(bodyData);
         validateIsExistValueForFieldsAndDataTypes([
             { fieldName: "Owner", fieldValue: bodyData?.owner, dataTypes: ["string"], isRequiredValue: true },
             { fieldName: "Full Name", fieldValue: bodyData?.fullName, dataTypes: ["string"], isRequiredValue: true },
