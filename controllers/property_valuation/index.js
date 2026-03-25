@@ -5,7 +5,8 @@ const {
 } = require("../../helpers");
 
 const {
-    sendReceiveMessageEmail,
+    sendConfirmRequestPropertyValuationArrivedEmail,
+    sendReceivePropertyValuationOrderEmail
 } = emailsHelpers;
 
 const { getResponseObject } = responsesHelpers;
@@ -33,7 +34,8 @@ async function postCreateOrder(req, res) {
         const result = await propertyValuationOPerationsManagmentFunctions.createOrder(req.body, req.query.language);
         res.json(result);
         try {
-            await sendReceiveMessageEmail(process.env.BUSSINESS_EMAIL, result.data);
+            await sendConfirmRequestPropertyValuationArrivedEmail(result.data.email, result.data.language);
+            await sendReceivePropertyValuationOrderEmail(process.env.BUSSINESS_EMAIL, result.data);
         } catch (err) {
             console.log(err);
         }

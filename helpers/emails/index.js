@@ -265,6 +265,56 @@ async function sendReceiveMessageEmail(email, messageDetails) {
     return result;
 }
 
+async function sendReceivePropertyValuationOrderEmail(email, orderDetails) {
+    const result = await getPasswordForBussinessEmail(process.env.BUSSINESS_EMAIL);
+    if (!result.error) {
+        const templateContent = readFileSync(join(__dirname, "..", "..", "assets", "email_templates", "receive_message.ejs"), "utf-8");
+        const compiledTemplate = compile(templateContent);
+        const htmlContentAfterCompilingEjsTemplateFile = compiledTemplate(orderDetails);
+        return new Promise((resolve, reject) => {
+            emailsUtils.getTransporter(result.data).sendMail({
+                from: `${process.env.WEBSITE_NAME} <${process.env.BUSSINESS_EMAIL}>`,
+                to: email,
+                subject: `استقبال رسالة لطلب تقييم عقاري في ${process.env.WEBSITE_NAME}`,
+                html: htmlContentAfterCompilingEjsTemplateFile,
+            }, function (error, info) {
+                if (error) reject(error);
+                resolve({
+                    msg: "Sending Receive Property Valuation Order Email To Website Owner Process Has Been Successfully !!",
+                    error: false,
+                    data: {},
+                });
+            });
+        });
+    }
+    return result;
+}
+
+async function sendConfirmRequestPropertyValuationArrivedEmail(email, language) {
+    const result = await getPasswordForBussinessEmail(process.env.BUSSINESS_EMAIL);
+    if (!result.error) {
+        const templateContent = readFileSync(join(__dirname, "..", "..", "assets", "email_templates", "confirm_request_property_valuation_arrived.ejs"), "utf-8");
+        const compiledTemplate = compile(templateContent);
+        const htmlContentAfterCompilingEjsTemplateFile = compiledTemplate({ language });
+        return new Promise((resolve, reject) => {
+            emailsUtils.getTransporter(result.data).sendMail({
+                from: `${process.env.WEBSITE_NAME} <${process.env.BUSSINESS_EMAIL}>`,
+                to: email,
+                subject: `تأكيد وصول طلب تقييم عقاري جديد لدى ${process.env.WEBSITE_NAME}`,
+                html: htmlContentAfterCompilingEjsTemplateFile,
+            }, function (error, info) {
+                if (error) reject(error);
+                resolve({
+                    msg: "Sending Confirmation Of Property Valuation Request Email Process Has Been Successfully !!",
+                    error: false,
+                    data: {},
+                });
+            });
+        });
+    }
+    return result;
+}
+
 module.exports = {
     sendVerificationCodeToUserEmail,
     sendCongratulationsOnCreatingNewAccountEmail,
@@ -275,5 +325,7 @@ module.exports = {
     sendBlockOfficeEmail,
     sendDeleteOfficeEmail,
     sendReceiveAddOfficeRequestEmail,
-    sendReceiveMessageEmail
+    sendReceiveMessageEmail,
+    sendReceivePropertyValuationOrderEmail,
+    sendConfirmRequestPropertyValuationArrivedEmail
 }
