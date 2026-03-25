@@ -2,7 +2,7 @@ const { getResponseObject } = require("../../helpers/responses");
 
 const { verify } = require("jsonwebtoken");
 
-const { emailValidator, passwordValidator, codeValidator } = require("../../validators/auth");
+const { emailValidator, passwordValidator, codeValidator, mobilePhoneValidator } = require("../../validators/auth");
 
 const { TYPES_OF_USE_VERIFICATION_CODE } = require("../../constants/verification_code");
 
@@ -50,10 +50,19 @@ function validateTypeOfUseForCode(typeOfUse, res, nextFunc) {
     nextFunc();
 }
 
+function validateMobilePhone(mobilePhone, country, res, nextFunc, errorMsg = "Sorry, Please Send Valid Mobile Phone !!") {
+    if (!mobilePhoneValidator.isValidMobilePhone(mobilePhone, country)) {
+        res.status(400).json(getResponseObject(errorMsg, true, {}));
+        return;
+    }
+    nextFunc();
+}
+
 module.exports = {
     validateJWT,
     validateEmail,
     validatePassword,
     validateCode,
     validateTypeOfUseForCode,
+    validateMobilePhone
 }

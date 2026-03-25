@@ -6,6 +6,7 @@ const appearedSectionModel = require("./appeared_section");
 const globalPasswordModel = require("./global_password");
 const messageModel = require("./message");
 const officeModel = require("./office");
+const propertyValuationModel = require("./property-valuation-order");
 const newsModel = require("./news");
 const userModel = require("./user");
 
@@ -18,6 +19,7 @@ module.exports = {
     globalPasswordModel,
     messageModel,
     officeModel,
+    propertyValuationModel,
     newsModel,
     userModel,
 }

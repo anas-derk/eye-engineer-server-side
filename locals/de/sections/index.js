@@ -2,6 +2,7 @@ const adminsTranslations = require("./admins");
 const globalPasswordsTranslations = require("./global_passwords");
 const messagesTranslations = require("./messages");
 const officesTranslations = require("./offices");
+const propertyValuationTranslations = require("./property-valuation");
 const usersTranslations = require("./users");
 const verificationCodesTranslations = require("./verification_codes");
 
@@ -10,6 +11,7 @@ module.exports = {
     ...globalPasswordsTranslations,
     ...messagesTranslations,
     ...officesTranslations,
+    ...propertyValuationTranslations,
     ...usersTranslations,
     ...verificationCodesTranslations
 }
