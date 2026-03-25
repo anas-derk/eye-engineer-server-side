@@ -22,6 +22,7 @@ function getFiltersObject(filters) {
         if (objectKey === "owner") filtersObject[objectKey] = filters[objectKey];
         if (objectKey === "fullName") filtersObject[objectKey] = { $regex: new RegExp(`^${filters[objectKey]}`, 'i') };
         if (objectKey === "representativeFullName") filtersObject[objectKey] = { $regex: new RegExp(`^${filters[objectKey]}`, 'i') };
+        if (objectKey === "city") filtersObject[objectKey] = { $regex: new RegExp(`^${filters[objectKey]}`, 'i') };
         if (objectKey === "phoneNumber") filtersObject[objectKey] = filters[objectKey];
         if (objectKey === "whatsappNumber") filtersObject[objectKey] = filters[objectKey];
         if (objectKey === "email") filtersObject[objectKey] = filters[objectKey];
@@ -75,7 +76,7 @@ async function getAllOrdersInsideThePage(req, res) {
 
 async function deleteOrder(req, res) {
     try {
-        const result = await propertyValuationOPerationsManagmentFunctions.deleteOrder(req.data._id, req.params.messageId, req.query.language);
+        const result = await propertyValuationOPerationsManagmentFunctions.deleteOrder(req.data._id, req.params.orderId, req.query.language);
         if (result.error) {
             if (
                 [

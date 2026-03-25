@@ -64,8 +64,8 @@ async function getAllOrdersInsideThePage(authorizationId, pageNumber, pageSize, 
                     msg: getSuitableTranslations("Get All Property Valuation Orders Inside The Page: {{pageNumber}} Process Has Been Successfully !!", language, { pageNumber }),
                     error: false,
                     data: {
-                        messages: await propertyValuationModel.find(filters).skip((pageNumber - 1) * pageSize).limit(pageSize).sort({ createdAt: -1 }),
-                        messagesCount: await propertyValuationModel.countDocuments(filters)
+                        orders: await propertyValuationModel.find(filters).skip((pageNumber - 1) * pageSize).limit(pageSize).sort({ createdAt: -1 }),
+                        ordersCount: await propertyValuationModel.countDocuments(filters)
                     },
                 }
             }
@@ -102,7 +102,7 @@ async function deleteOrder(authorizationId, orderId, language) {
                     }
                 }
                 return {
-                    msg: getSuitableTranslations("Deleting Property Valuation Order Process Has Been Successfully !!", language),
+                    msg: getSuitableTranslations("Sorry, This Property Valuation Order Is Not Exist !!", language),
                     error: true,
                     data: {},
                 }

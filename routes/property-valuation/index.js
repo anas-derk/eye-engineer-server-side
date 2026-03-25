@@ -7,7 +7,8 @@ const { validateIsExistValueForFieldsAndDataTypes } = require("../../helpers/val
 const {
     authMiddlewares,
     numbersMiddlewares,
-    commonMiddlewares
+    commonMiddlewares,
+    propertyValuationMiddlewares
 } = require("../../middlewares");
 
 const {
@@ -24,6 +25,10 @@ const {
 const {
     validateName
 } = commonMiddlewares;
+
+const {
+    validatePropertyValuationOrderOwner,
+} = propertyValuationMiddlewares;
 
 propertyValuationRouter.post("/create-order",
     (req, res, next) => {
@@ -66,19 +71,52 @@ propertyValuationRouter.get("/orders-count", validateJWT, propertyValuationContr
 propertyValuationRouter.get("/all-orders-inside-the-page",
     validateJWT,
     (req, res, next) => {
-        const { pageNumber, pageSize, _id, name, email } = req.query;
+        const { pageNumber, pageSize, _id, owner, fullName, representativeFullName, city, phoneNumber, whatsappNumber, email } = req.query;
         validateIsExistValueForFieldsAndDataTypes([
             { fieldName: "Page Number", fieldValue: Number(pageNumber), dataTypes: ["number"], isRequiredValue: true },
             { fieldName: "Page Size", fieldValue: Number(pageSize), dataTypes: ["number"], isRequiredValue: true },
             { fieldName: "Id", fieldValue: _id, dataTypes: ["ObjectId"], isRequiredValue: false },
-            { fieldName: "Name", fieldValue: name, dataTypes: ["string"], isRequiredValue: false },
+            { fieldName: "Owner", fieldValue: owner, dataTypes: ["string"], isRequiredValue: false },
+            { fieldName: "Full Name", fieldValue: fullName, dataTypes: ["string"], isRequiredValue: false },
+            { fieldName: "Representative Full Name", fieldValue: representativeFullName, dataTypes: ["string"], isRequiredValue: false },
+            { fieldName: "City", fieldValue: city, dataTypes: ["string"], isRequiredValue: false },
+            { fieldName: "Phone Number", fieldValue: phoneNumber, dataTypes: ["string"], isRequiredValue: false },
+            { fieldName: "Whatsapp Number", fieldValue: whatsappNumber, dataTypes: ["string"], isRequiredValue: false },
             { fieldName: "Email", fieldValue: email, dataTypes: ["string"], isRequiredValue: false },
         ], res, next);
     },
     (req, res, next) => {
-        const { name } = req.query;
-        if (name) {
-            return validateName(name, res, next);
+        const { owner } = req.query;
+        if (owner) {
+            return validatePropertyValuationOrderOwner(owner, res, next);
+        }
+        next();
+    },
+    (req, res, next) => {
+        const { fullName } = req.query;
+        if (fullName) {
+            return validateName(fullName, res, next);
+        }
+        next();
+    },
+    (req, res, next) => {
+        const { representativeFullName } = req.query;
+        if (representativeFullName) {
+            return validateName(representativeFullName, res, next);
+        }
+        next();
+    },
+    (req, res, next) => {
+        const phoneNumber = req.query?.phoneNumber;
+        if (phoneNumber) {
+            return validateMobilePhone(phoneNumber, undefined, res, next);
+        }
+        next();
+    },
+    (req, res, next) => {
+        const whatsappNumber = req.query?.whatsappNumber;
+        if (whatsappNumber) {
+            return validateMobilePhone(whatsappNumber, undefined, res, next);
         }
         next();
     },
