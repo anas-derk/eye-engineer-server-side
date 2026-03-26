@@ -1,3 +1,4 @@
+const adModel = require("./ad");
 const verificationCodeModel = require("./verification_code");
 const categoryModel = require("./category");
 const geometryModel = require("./geometry");
@@ -11,6 +12,7 @@ const newsModel = require("./news");
 const userModel = require("./user");
 
 module.exports = {
+    adModel,
     verificationCodeModel,
     categoryModel,
     geometryModel,

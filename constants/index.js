@@ -1,5 +1,6 @@
 const contact = require("./contact");
 const counters = require("./counters");
+const files = require("./files");
 const offices = require("./offices");
 const languages = require("./languages");
 const paths = require("./paths");
@@ -12,6 +13,7 @@ const verification_code = require("./verification_code");
 module.exports = {
     contact,
     counters,
+    files,
     offices,
     languages,
     paths,
