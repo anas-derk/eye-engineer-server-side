@@ -1,3 +1,4 @@
+const adsMiddlewares = require("./ads");
 const authMiddlewares = require("./auth");
 const commonMiddlewares = require("./common");
 const filesMiddlewares = require("./files");
@@ -8,6 +9,7 @@ const sortMiddlewares = require("./sort");
 const usersMiddlewares = require("./users");
 
 module.exports = {
+    adsMiddlewares,
     authMiddlewares,
     commonMiddlewares,
     filesMiddlewares,

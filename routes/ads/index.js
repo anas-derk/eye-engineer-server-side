@@ -4,9 +4,25 @@ const adsController = require("../../controllers/ads");
 
 const multer = require("multer");
 
-const { validateJWT, validateIsExistErrorInFiles } = require("../middlewares/global.middlewares");
+const { validateIsExistValueForFieldsAndDataTypes } = require("../../helpers/validate");
 
-const { validateIsExistValueForFieldsAndDataTypes } = require("../global/functions");
+const {
+    authMiddlewares,
+    filesMiddlewares,
+    adsMiddlewares,
+} = require("../../middlewares");
+
+const {
+    validateJWT,
+} = authMiddlewares;
+
+const {
+    validateIsExistErrorInFiles,
+} = filesMiddlewares;
+
+const {
+    validateAdvertismentType,
+} = adsMiddlewares;
 
 adsRouter.post("/add-text-ad",
     validateJWT,
@@ -59,16 +75,6 @@ adsRouter.get("/all-ads",
     adsController.getAllAds
 );
 
-adsRouter.delete("/:adId",
-    validateJWT,
-    (req, res, next) => {
-        validateIsExistValueForFieldsAndDataTypes([
-            { fieldName: "Ad Id", fieldValue: req.params.adId, dataTypes: ["ObjectId"], isRequiredValue: true },
-        ], res, next);
-    },
-    adsController.deleteAd
-);
-
 adsRouter.put("/change-image/:adId",
     validateJWT,
     multer({
@@ -113,6 +119,16 @@ adsRouter.put("/update-content/:adId",
         )), res, next);
     },
     adsController.putTextAdContent
+);
+
+adsRouter.delete("/:adId",
+    validateJWT,
+    (req, res, next) => {
+        validateIsExistValueForFieldsAndDataTypes([
+            { fieldName: "Ad Id", fieldValue: req.params.adId, dataTypes: ["ObjectId"], isRequiredValue: true },
+        ], res, next);
+    },
+    adsController.deleteAd
 );
 
 module.exports = adsRouter;

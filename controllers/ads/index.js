@@ -1,4 +1,12 @@
-const { getResponseObject, handleResizeImagesAndConvertFormatToWebp, getSuitableTranslations, translateSentensesByAPI } = require("../global/functions");
+const { responsesHelpers, translationHelpers, processingHelpers } = require("../../helpers");
+
+const { getResponseObject } = responsesHelpers;
+
+const { getSuitableTranslations } = translationHelpers;
+
+const { imagesHelpers } = processingHelpers;
+
+const { handleResizeImagesAndConvertFormatToWebp } = imagesHelpers;
 
 const adsOPerationsManagmentFunctions = require("../../respositories/ads");
 
@@ -68,26 +76,6 @@ async function getAllAds(req, res) {
     }
 }
 
-async function deleteAd(req, res) {
-    try {
-        const result = await adsOPerationsManagmentFunctions.deleteAd(req.data._id, req.params.adId, req.query.language);
-        if (!result.error) {
-            if (result.data?.deletedAdImagePath) {
-                unlinkSync(result.data.deletedAdImagePath);
-            }
-        }
-        else {
-            if (result.msg !== "Sorry, This Ad Is Not Exist !!") {
-                return res.status(401).json(result);
-            }
-        }
-        res.json(result);
-    }
-    catch (err) {
-        res.status(500).json(getResponseObject(getSuitableTranslations("Internal Server Error !!", req.query.language), true, {}));
-    }
-}
-
 async function putAdImage(req, res) {
     try {
         const outputImageFilePath = `assets/images/ads/${Math.random()}_${Date.now()}__${req.file.originalname.replaceAll(" ", "_").replace(/\.[^/.]+$/, ".webp")}`;
@@ -114,6 +102,26 @@ async function putTextAdContent(req, res) {
         const result = await adsOPerationsManagmentFunctions.updateTextAdContent(req.data._id, req.params.adId, req.body.content, req.query.language);
         if (result.error) {
             if (result.msg !== "Sorry, Type Of Ad Is Not Text !!" || result.msg !== "Sorry, This Ad Is Not Exist !!") {
+                return res.status(401).json(result);
+            }
+        }
+        res.json(result);
+    }
+    catch (err) {
+        res.status(500).json(getResponseObject(getSuitableTranslations("Internal Server Error !!", req.query.language), true, {}));
+    }
+}
+
+async function deleteAd(req, res) {
+    try {
+        const result = await adsOPerationsManagmentFunctions.deleteAd(req.data._id, req.params.adId, req.query.language);
+        if (!result.error) {
+            if (result.data?.deletedAdImagePath) {
+                unlinkSync(result.data.deletedAdImagePath);
+            }
+        }
+        else {
+            if (result.msg !== "Sorry, This Ad Is Not Exist !!") {
                 return res.status(401).json(result);
             }
         }

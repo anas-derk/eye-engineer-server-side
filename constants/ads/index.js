@@ -1,0 +1,8 @@
+const ADVERTISMENT_TYPE = ["text", "image"];
+
+const DEFAULT_ADVERTISMENT_TYPE = ADVERTISMENT_TYPE[0];
+
+module.exports = {
+    ADVERTISMENT_TYPE,
+    DEFAULT_ADVERTISMENT_TYPE
+}

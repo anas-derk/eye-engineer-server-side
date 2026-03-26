@@ -1,12 +1,14 @@
 const mongoose = require("mongoose");
 
+const { ADVERTISMENT_TYPE, DEFAULT_ADVERTISMENT_TYPE } = require("../../constants/ads")
+
 // Create ad Schema
 
 const adSchema = new mongoose.Schema({
     type: {
         type: String,
-        required: true,
-        enum: ["text", "image"],
+        enum: ADVERTISMENT_TYPE,
+        default: DEFAULT_ADVERTISMENT_TYPE
     },
     content: {
         ar: {

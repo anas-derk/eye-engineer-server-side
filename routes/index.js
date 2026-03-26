@@ -1,3 +1,4 @@
+const adsRouter = require("./ads");
 const adminsRouter = require("./admins");
 const appearedSectionsRouter = require("./appeared_sections");
 const authRouter = require("./auth");
@@ -15,6 +16,8 @@ const { Router } = require("express");
 const routes = Router();
 
 routes.use("/admins", adminsRouter);
+
+routes.use("/ads", adsRouter);
 
 routes.use("/appeared-sections", appearedSectionsRouter);
 

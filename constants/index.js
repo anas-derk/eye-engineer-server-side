@@ -1,3 +1,4 @@
+const ads = require("./ads");
 const contact = require("./contact");
 const counters = require("./counters");
 const files = require("./files");
@@ -11,6 +12,7 @@ const users = require("./users");
 const verification_code = require("./verification_code");
 
 module.exports = {
+    ads,
     contact,
     counters,
     files,
