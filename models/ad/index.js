@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require("../../database");
 
 const { ADVERTISMENT_TYPE, DEFAULT_ADVERTISMENT_TYPE } = require("../../constants/ads")
 

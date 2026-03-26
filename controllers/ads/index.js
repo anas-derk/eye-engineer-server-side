@@ -2,7 +2,7 @@ const { responsesHelpers, translationHelpers, processingHelpers } = require("../
 
 const { getResponseObject } = responsesHelpers;
 
-const { getSuitableTranslations } = translationHelpers;
+const { getSuitableTranslations, translateSentensesByAPI } = translationHelpers;
 
 const { imagesHelpers } = processingHelpers;
 
@@ -15,6 +15,7 @@ const { unlinkSync } = require("fs");
 function getFiltersObject(filters) {
     let filtersObject = {};
     for (let objectKey in filters) {
+        if (objectKey === "type") filtersObject[objectKey] = filters[objectKey];
     }
     return filtersObject;
 }
@@ -81,6 +82,7 @@ async function putAdImage(req, res) {
         const outputImageFilePath = `assets/images/ads/${Math.random()}_${Date.now()}__${req.file.originalname.replaceAll(" ", "_").replace(/\.[^/.]+$/, ".webp")}`;
         await handleResizeImagesAndConvertFormatToWebp([req.file.buffer], [outputImageFilePath]);
         const result = await adsOPerationsManagmentFunctions.updateAdImage(req.data._id, req.params.adId, outputImageFilePath, req.query.language);
+        console.log(result)
         if (!result.error) {
             unlinkSync(result.data.oldAdImagePath);
         }
@@ -99,7 +101,7 @@ async function putAdImage(req, res) {
 
 async function putTextAdContent(req, res) {
     try {
-        const result = await adsOPerationsManagmentFunctions.updateTextAdContent(req.data._id, req.params.adId, req.body.content, req.query.language);
+        const result = await adsOPerationsManagmentFunctions.updateAd(req.data._id, req.params.adId, req.body.content, req.query.language);
         if (result.error) {
             if (result.msg !== "Sorry, Type Of Ad Is Not Text !!" || result.msg !== "Sorry, This Ad Is Not Exist !!") {
                 return res.status(401).json(result);

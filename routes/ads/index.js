@@ -56,12 +56,6 @@ adsRouter.post("/add-image-ad",
         }
     }).single("adImage"),
     validateIsExistErrorInFiles,
-    (req, res, next) => {
-        const { product } = Object.assign({}, req.body);
-        validateIsExistValueForFieldsAndDataTypes([
-            { fieldName: "Product", fieldValue: product, dataTypes: ["ObjectId"], isRequiredValue: true },
-        ], res, next);
-    },
     adsController.postNewImageAd,
 );
 
@@ -69,8 +63,15 @@ adsRouter.get("/all-ads",
     (req, res, next) => {
         const queryData = req.query;
         validateIsExistValueForFieldsAndDataTypes([
-            { fieldName: "Type", fieldValue: queryData?.type, dataTypes: ["ObjectId"], isRequiredValue: false },
+            { fieldName: "Type", fieldValue: queryData?.type, dataTypes: ["string"], isRequiredValue: false },
         ], res, next);
+    },
+    (req, res, next) => {
+        const { type } = req.query;
+        if (type) {
+            return validateAdvertismentType(type, res, next);
+        }
+        next();
     },
     adsController.getAllAds
 );

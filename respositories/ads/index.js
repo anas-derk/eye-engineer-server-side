@@ -16,11 +16,11 @@ async function addNewAd(authorizationId, adsInfo, language) {
                         data: {},
                     }
                 }
-                await (new adModel(adsInfo)).save();
+                const newAd = await (new adModel(adsInfo)).save();
                 return {
                     msg: getSuitableTranslations("Adding New Text Ad Process Has Been Successfully !!", language),
                     error: false,
-                    data: {},
+                    data: newAd,
                 }
             }
             return {
@@ -60,13 +60,14 @@ async function updateAdImage(authorizationId, adId, newAdImagePath, language) {
             if (admin.isWebsiteOwner) {
                 const adInfo = await adModel.findById(adId);
                 if (adInfo) {
+                    const oldImagePath = adInfo.imagePath;
                     adInfo.imagePath = newAdImagePath;
                     await adInfo.save();
                     return {
                         msg: getSuitableTranslations("Change Ad Image Process Has Been Successfully !!", language),
                         error: false,
                         data: {
-                            oldAdImagePath: adInfo.imagePath,
+                            oldAdImagePath: oldImagePath,
                             newAdImagePath
                         },
                     }
@@ -94,22 +95,18 @@ async function updateAdImage(authorizationId, adId, newAdImagePath, language) {
     }
 }
 
-async function updateAd(authorizationId, adId, newAdInfo, language) {
+async function updateAd(authorizationId, adId, content, language) {
     try {
         const admin = await adminModel.findById(authorizationId);
         if (admin) {
             if (admin.isWebsiteOwner) {
                 const adInfo = await adModel.findById(adId);
                 if (adInfo) {
-                    await adModel.updateOne({ _id: adId }, newAdInfo);
+                    adInfo.content = content;
+                    await adInfo.save();
                     return {
                         msg: getSuitableTranslations("Updating Text Ad Content Process Has Been Successfuly !!", language),
                         error: false,
-                        data: {},
-                    }
-                    return {
-                        msg: getSuitableTranslations("Sorry, Permission Denied Because This Ad Is Not Exist At Store Managed By This Admin !!", language),
-                        error: true,
                         data: {},
                     }
                 }
@@ -143,12 +140,13 @@ async function deleteAd(authorizationId, adId, language) {
             if (admin.isWebsiteOwner) {
                 const adInfo = await adModel.findById(adId);
                 if (adInfo) {
+                    const deleteImagePath = adInfo.imagePath;
                     await adInfo.deleteOne({});
                     return {
                         msg: getSuitableTranslations("Deleting Ad Process Has Been Successfuly !!", language),
                         error: false,
                         data: {
-                            deletedAdImagePath: adInfo.imagePath
+                            deletedAdImagePath: deleteImagePath
                         },
                     }
                 }
