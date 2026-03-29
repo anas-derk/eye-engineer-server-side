@@ -4,6 +4,7 @@ const appearedSectionsRouter = require("./appeared_sections");
 const authRouter = require("./auth");
 const geometriesRouter = require("./geometries");
 const globalPasswordsRouter = require("./global_passwords");
+const linksRouter = require("./links");
 const messagesRouter = require("./messages");
 const newsRouter = require("./news");
 const officesRouter = require("./offices");
@@ -26,6 +27,8 @@ routes.use("/auth", authRouter);
 routes.use("/geometries", geometriesRouter);
 
 routes.use("/global-passwords", globalPasswordsRouter);
+
+routes.use("/links", linksRouter);
 
 routes.use("/messages", messagesRouter);
 

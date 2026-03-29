@@ -25,8 +25,6 @@ const {
 
 linksRouter.post("/add-link",
     validateJWT,
-    validateIsExistErrorInFiles,
-    validateRealFilesType,
     (req, res, next) => {
         validateIsExistValueForFieldsAndDataTypes([
             { fieldName: "Link Title", fieldValue: (Object.assign({}, req.body)).title, dataTypes: ["string"], isRequiredValue: true },
@@ -44,7 +42,7 @@ linksRouter.get("/links-count",
     linksController.getLinksCount
 );
 
-linksRouter.get("/all-links-inside-the-page",
+linksRouter.get("/all-links-the-page",
     validateJWT,
     (req, res, next) => {
         const { pageNumber, pageSize, userType } = req.query;
