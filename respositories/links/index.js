@@ -73,13 +73,13 @@ async function getAllLinksInsideThePage(authorizationId, pageNumber, pageSize, u
                     data: {},
                 }
             }
-            filters.storeId = new mongoose.Types.ObjectId(admin.storeId);
+            filters.officeId = new mongoose.Types.ObjectId(admin.officeId);
         }
         return {
             msg: getSuitableTranslations("Get All Links Inside The Page: {{pageNumber}} Process Has Been Successfully !!", language, { pageNumber }),
             error: false,
             data: {
-                links: await linkModel.find(filters).skip((pageNumber - 1) * pageSize).limit(pageSize),
+                links: await linkModel.find(filters).skip((pageNumber - 1) * pageSize).limit(pageSize).populate("geometries"),
                 linksCount: await linkModel.countDocuments(filters)
             },
         };

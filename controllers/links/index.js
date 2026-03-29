@@ -2,7 +2,7 @@ const { responsesHelpers, translationHelpers } = require("../../helpers");
 
 const { getResponseObject } = responsesHelpers;
 
-const { getSuitableTranslations } = translationHelpers;
+const { getSuitableTranslations, translateSentensesByAPI } = translationHelpers;
 
 const linksOperationsManagmentFunctions = require("../../respositories/links");
 
@@ -19,11 +19,18 @@ function getFiltersObject(filters) {
 
 async function postNewLink(req, res) {
     try {
-        const body = req.body;
-        const result = await linksOperationsManagmentFunctions.addNewLink(req.data._id, {
-            title: body.title,
-            url: body.url,
-        }, req.query.language);
+        const { title, url, geometries } = req.body;
+        const linkInfo = {
+            title: {
+                ar: (await translateSentensesByAPI([title], "AR"))[0].text,
+                en: (await translateSentensesByAPI([title], "EN"))[0].text,
+                de: (await translateSentensesByAPI([title], "DE"))[0].text,
+                tr: (await translateSentensesByAPI([title], "TR"))[0].text
+            },
+            url,
+            geometries,
+        };
+        const result = await linksOperationsManagmentFunctions.addNewLink(req.data._id, linkInfo, req.query.language);
         if (result.error) {
             return res.status(401).json(result);
         }
@@ -49,6 +56,7 @@ async function getAllLinksInsideThePage(req, res) {
         res.json(await linksOperationsManagmentFunctions.getAllLinksInsideThePage(req.data._id, filters.pageNumber, filters.pageSize, filters.userType, getFiltersObject(filters), filters.language));
     }
     catch (err) {
+        console.log(err);
         res.status(500).json(getResponseObject(getSuitableTranslations("Internal Server Error !!", req.query.language), true, {}));
     }
 }

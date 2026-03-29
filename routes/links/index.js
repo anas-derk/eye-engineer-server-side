@@ -23,11 +23,15 @@ const {
     validateUserType,
 } = usersMiddlewares;
 
-linksRouter.post("/add-link",
+linksRouter.post("/add",
     validateJWT,
     (req, res, next) => {
+        const bodyData = req.body;
         validateIsExistValueForFieldsAndDataTypes([
-            { fieldName: "Link Title", fieldValue: (Object.assign({}, req.body)).title, dataTypes: ["string"], isRequiredValue: true },
+            { fieldName: "Link Title", fieldValue: bodyData?.title, dataTypes: ["string"], isRequiredValue: true },
+            { fieldName: "Link URL", fieldValue: bodyData?.url, dataTypes: ["string"], isRequiredValue: true },
+            { fieldName: "Geometries Ids Array", fieldValue: bodyData?.geometries, dataTypes: ["array"], isRequiredValue: true },
+            bodyData?.geometries.map((geometryId, index) => ({ fieldName: `Geometry Id At Index ${index} Inside Geometries Ids Array`, fieldValue: geometryId, dataTypes: ["ObjectId"], isRequiredValue: true })),
         ], res, next);
     },
     linksController.postNewLink
@@ -71,9 +75,12 @@ linksRouter.delete("/:linkId",
 linksRouter.put("/:linkId",
     validateJWT,
     (req, res, next) => {
+        const bodyData = req.body;
         validateIsExistValueForFieldsAndDataTypes([
             { fieldName: "Link Id", fieldValue: req.params.linkId, dataTypes: ["ObjectId"], isRequiredValue: true },
-            { fieldName: "New Link Title", fieldValue: req.body.title, dataTypes: ["string"], isRequiredValue: true },
+            { fieldName: "New Link Title", fieldValue: bodyData?.title, dataTypes: ["string"], isRequiredValue: true },
+            { fieldName: "Geometries Ids Array", fieldValue: bodyData?.geometries, dataTypes: ["array"], isRequiredValue: false },
+            bodyData?.geometries?.map((geometryId, index) => ({ fieldName: `Geometry Id At Index ${index} Inside Geometries Ids Array`, fieldValue: geometryId, dataTypes: ["ObjectId"], isRequiredValue: true })),
         ], res, next);
     },
     linksController.putLinkInfo
