@@ -98,6 +98,15 @@ async function getAllLinksInsideThePage(authorizationId, pageNumber, pageSize, u
             filters.geometries = { $in: geometryIds };
             delete filters.geometry;
         }
+        if (filters.title) {
+            filters["$or"] = [
+                { "title.ar": { $regex: new RegExp(`^${filters.title}`, 'i') } },
+                { "title.en": { $regex: new RegExp(`^${filters.title}`, 'i') } },
+                { "title.de": { $regex: new RegExp(`^${filters.title}`, 'i') } },
+                { "title.tr": { $regex: new RegExp(`^${filters.title}`, 'i') } },
+            ]
+            delete filters.title;
+        }
         return {
             msg: getSuitableTranslations("Get All Links Inside The Page: {{pageNumber}} Process Has Been Successfully !!", language, { pageNumber }),
             error: false,
@@ -131,7 +140,7 @@ async function updateLinkInfo(authorizationId, linkId, newLinkInfo, language) {
                         };
                     }
                     return {
-                        msg: getSuitableTranslations("Sorry, Permission Denied Because This Link Is Not Exist At Office Managed By This Admin !!", language),
+                        msg: getSuitableTranslations("Sorry, Permission Denied !!", language),
                         error: true,
                         data: {},
                     }

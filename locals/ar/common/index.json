@@ -5,5 +5,6 @@
     "Sorry, Permission Denied Because This Admin Is Not Website Owner !!": "عذراً ، رفض الإذن بسبب أن هذا المسؤول ليس مالك الموقع !!",
     "Sorry, Permission Denied Because This Admin Is Not Office Owner !!": "عذراً ، رفض الإذن بسبب أن هذا المسؤول ليس مالك مكتب !!",
     "Unauthorized Error !!": "خطأ عدم التصريح !!",
-    "Sorry, Email Or Password Incorrect !!": "عذراً ، البريد الالكتروني أو كلمة السر غير صحيح / صحيحة !!"
+    "Sorry, Email Or Password Incorrect !!": "عذراً ، البريد الالكتروني أو كلمة السر غير صحيح / صحيحة !!",
+    "Sorry, Permission Denied !!": "عذراً ، رفض الإذن !!"
 }

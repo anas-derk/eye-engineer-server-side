@@ -10,7 +10,7 @@ function getFiltersObject(filters) {
     let filtersObject = {};
     for (let objectKey in filters) {
         if (objectKey === "officeId") filtersObject[objectKey] = filters[objectKey];
-        if (objectKey === "title") filtersObject[objectKey] = { $regex: new RegExp(`^${filters[objectKey]}`, 'i') };
+        if (objectKey === "title") filtersObject[objectKey] = filters[objectKey];
         if (objectKey === "geometry") filtersObject[objectKey] = filters[objectKey];
     }
     return filtersObject;
@@ -63,9 +63,9 @@ async function putLinkInfo(req, res) {
     try {
         const result = await linksOperationsManagmentFunctions.updateLinkInfo(req.data._id, req.params.linkId, req.body, req.query.language);
         if (result.error) {
-            // if (result.msg !== "Sorry, This Link Is Not Exist !!") {
-            //     return res.status(401).json(getResponseObject(result, true, {}));
-            // }
+            if (result.msg !== "Sorry, This Link Is Not Exist !!") {
+                return res.status(401).json(getResponseObject(result, true, {}));
+            }
         }
         res.json(result);
     }

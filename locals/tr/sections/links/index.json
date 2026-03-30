@@ -1,0 +1,8 @@
+{
+    "Adding New Link Process Has Been Successfuly !!": "Yeni link ekleme işlemi başarıyla tamamlandı!!",
+    "Get Links Count Process Has Been Successfully !!": "Link sayısını alma işlemi başarıyla tamamlandı!!",
+    "Get All Links Inside The Page: {{pageNumber}} Process Has Been Successfully !!": "Sayfa içindeki tüm linkleri alma işlemi: {{pageNumber}} başarıyla tamamlandı!!",
+    "Deleting Link Process Has Been Successfuly !!": "Link silme işlemi başarıyla tamamlandı!!",
+    "Updating Link Info Process Has Been Successfuly !!": "Link bilgilerini güncelleme işlemi başarıyla tamamlandı!!",
+    "Sorry, This Link Is Not Exist !!": "Üzgünüz, bu link mevcut değil!!"
+}
