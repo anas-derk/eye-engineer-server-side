@@ -1,6 +1,6 @@
 // Import Required Models
 
-const { linkModel, userModel, adminModel } = require("../../models");
+const { linkModel, userModel, adminModel, geometryModel } = require("../../models");
 
 const mongoose = require("../../database");
 
@@ -75,6 +75,29 @@ async function getAllLinksInsideThePage(authorizationId, pageNumber, pageSize, u
             }
             filters.officeId = new mongoose.Types.ObjectId(admin.officeId);
         }
+        if (filters.geometry) {
+            const geometries = await geometryModel.find({
+                "$or": [
+                    { "name.ar": { $regex: new RegExp(`^${filters.geometry}`, 'i') } },
+                    { "name.en": { $regex: new RegExp(`^${filters.geometry}`, 'i') } },
+                    { "name.de": { $regex: new RegExp(`^${filters.geometry}`, 'i') } },
+                    { "name.tr": { $regex: new RegExp(`^${filters.geometry}`, 'i') } },
+                ]
+            });
+            if (!geometries.length) {
+                return {
+                    msg: getSuitableTranslations("Get All Links Inside The Page: {{pageNumber}} Process Has Been Successfully !!", language, { pageNumber }),
+                    error: false,
+                    data: {
+                        links: [],
+                        linksCount: 0
+                    },
+                };
+            }
+            const geometryIds = geometries.map(geometry => geometry._id);
+            filters.geometries = { $in: geometryIds };
+            delete filters.geometry;
+        }
         return {
             msg: getSuitableTranslations("Get All Links Inside The Page: {{pageNumber}} Process Has Been Successfully !!", language, { pageNumber }),
             error: false,
@@ -96,9 +119,10 @@ async function updateLinkInfo(authorizationId, linkId, newLinkInfo, language) {
             if (!admin.isBlocked) {
                 const linkInfo = await linkModel.findOne({ _id: linkId });
                 if (linkInfo) {
-                    if (linkInfo.officeId === admin.officeId) {
+                    if (linkInfo.officeId.toString() === admin.officeId.toString()) {
                         if (newLinkInfo.title) linkInfo.title = newLinkInfo.title;
                         if (newLinkInfo.url) linkInfo.url = newLinkInfo.url;
+                        if (newLinkInfo.geometries) linkInfo.geometries = newLinkInfo.geometries;
                         await linkInfo.save();
                         return {
                             msg: getSuitableTranslations("Updating Link Info Process Has Been Successfuly !!", language),
@@ -107,7 +131,7 @@ async function updateLinkInfo(authorizationId, linkId, newLinkInfo, language) {
                         };
                     }
                     return {
-                        msg: getSuitableTranslations("Sorry, Permission Denied Because This Link Is Not Exist At Store Managed By This Admin !!", language),
+                        msg: getSuitableTranslations("Sorry, Permission Denied Because This Link Is Not Exist At Office Managed By This Admin !!", language),
                         error: true,
                         data: {},
                     }
@@ -147,7 +171,7 @@ async function deleteLink(authorizationId, linkId, language) {
                     _id: linkId,
                 });
                 if (linkInfo) {
-                    if (linkInfo.officeId === admin.officeId) {
+                    if (linkInfo.officeId.toString() === admin.officeId.toString()) {
                         await linkInfo.deleteOne();
                         return {
                             error: false,

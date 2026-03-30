@@ -62,6 +62,39 @@ linksRouter.get("/all-links-the-page",
     linksController.getAllLinksInsideThePage
 );
 
+linksRouter.put("/:linkId",
+    validateJWT,
+    (req, res, next) => {
+        const bodyData = req.body;
+        validateIsExistValueForFieldsAndDataTypes([
+            { fieldName: "Link Id", fieldValue: req.params.linkId, dataTypes: ["ObjectId"], isRequiredValue: true },
+            { fieldName: "New Link Title", fieldValue: bodyData?.title, dataTypes: ["object"], isRequiredValue: false },
+            { fieldName: "Geometries Ids Array", fieldValue: bodyData?.geometries, dataTypes: ["array"], isRequiredValue: false },
+        ], res, next);
+    },
+    (req, res, next) => {
+        const { title } = Object.assign({}, req.body);
+        if (title) {
+            return validateIsExistValueForFieldsAndDataTypes(["ar", "en", "de", "tr"].map((language) => (
+                { fieldName: `New Link Title In ${language.toUpperCase()}`, fieldValue: title[language], dataTypes: ["string"], isRequiredValue: true }
+            )), res, next);
+        }
+        next();
+    },
+    (req, res, next) => {
+        const { geometries } = req.body;
+        if (geometries) {
+            return validateIsExistValueForFieldsAndDataTypes(
+                geometries.map((geometryId, index) => (
+                    { fieldName: `Geometry Id At Index ${index}`, fieldValue: geometryId, dataTypes: ["ObjectId"], isRequiredValue: true }
+                ))
+                , res, next);
+        }
+        next();
+    },
+    linksController.putLinkInfo
+);
+
 linksRouter.delete("/:linkId",
     validateJWT,
     (req, res, next) => {
@@ -70,20 +103,6 @@ linksRouter.delete("/:linkId",
         ], res, next);
     },
     linksController.deleteLink
-);
-
-linksRouter.put("/:linkId",
-    validateJWT,
-    (req, res, next) => {
-        const bodyData = req.body;
-        validateIsExistValueForFieldsAndDataTypes([
-            { fieldName: "Link Id", fieldValue: req.params.linkId, dataTypes: ["ObjectId"], isRequiredValue: true },
-            { fieldName: "New Link Title", fieldValue: bodyData?.title, dataTypes: ["string"], isRequiredValue: true },
-            { fieldName: "Geometries Ids Array", fieldValue: bodyData?.geometries, dataTypes: ["array"], isRequiredValue: false },
-            bodyData?.geometries?.map((geometryId, index) => ({ fieldName: `Geometry Id At Index ${index} Inside Geometries Ids Array`, fieldValue: geometryId, dataTypes: ["ObjectId"], isRequiredValue: true })),
-        ], res, next);
-    },
-    linksController.putLinkInfo
 );
 
 module.exports = linksRouter;

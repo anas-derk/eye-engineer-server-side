@@ -11,9 +11,8 @@ function getFiltersObject(filters) {
     for (let objectKey in filters) {
         if (objectKey === "officeId") filtersObject[objectKey] = filters[objectKey];
         if (objectKey === "title") filtersObject[objectKey] = { $regex: new RegExp(`^${filters[objectKey]}`, 'i') };
-        if (objectKey === "geometry") filtersObject[objectKey] = { $regex: new RegExp(`^${filters[objectKey]}`, 'i') };
+        if (objectKey === "geometry") filtersObject[objectKey] = filters[objectKey];
     }
-    if (!filtersObject["officeId"]) filtersObject["isMainStore"] = true;
     return filtersObject;
 }
 
@@ -56,7 +55,6 @@ async function getAllLinksInsideThePage(req, res) {
         res.json(await linksOperationsManagmentFunctions.getAllLinksInsideThePage(req.data._id, filters.pageNumber, filters.pageSize, filters.userType, getFiltersObject(filters), filters.language));
     }
     catch (err) {
-        console.log(err);
         res.status(500).json(getResponseObject(getSuitableTranslations("Internal Server Error !!", req.query.language), true, {}));
     }
 }
@@ -65,9 +63,9 @@ async function putLinkInfo(req, res) {
     try {
         const result = await linksOperationsManagmentFunctions.updateLinkInfo(req.data._id, req.params.linkId, req.body, req.query.language);
         if (result.error) {
-            if (result.msg !== "Sorry, This Link Is Not Exist !!") {
-                return res.status(401).json(getResponseObject(result, true, {}));
-            }
+            // if (result.msg !== "Sorry, This Link Is Not Exist !!") {
+            //     return res.status(401).json(getResponseObject(result, true, {}));
+            // }
         }
         res.json(result);
     }
